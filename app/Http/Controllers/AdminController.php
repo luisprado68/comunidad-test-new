@@ -111,7 +111,7 @@ class AdminController extends Controller
         if (!empty($exist['user']) && $exist['user'] != false) {
             // dd($exist);
             Log::debug('exist-----');
-            return redirect('admin/list');
+            return redirect('dashboard');
         } else {
             return redirect('admin')->with(['message' => $exist['message']]);
         }
@@ -205,7 +205,7 @@ class AdminController extends Controller
             $user->save();
             Log::debug('user updated' . json_encode($user));
       
-            return redirect('admin/list');
+            return redirect('dashboard');
         }
     }
     public function schedulers()
@@ -334,7 +334,7 @@ class AdminController extends Controller
             // }
             
         }
-        return redirect('admin/list');
+        return redirect('dashboard');
     }
     public function edit($id)
     {
@@ -455,7 +455,7 @@ class AdminController extends Controller
             Log::debug('user updated' . json_encode($user));
             // $users = $this->userService->getUsersModel();
             // return view('admin.list', ['users' => $users]);
-            return redirect('admin/list');
+            return redirect('dashboard');
         }
         //  else {
         //     return redirect('admin');
@@ -476,7 +476,7 @@ class AdminController extends Controller
         $users = $this->userService->getUsersModel();
         // dd($users);
         // return view('admin.list', ['users' => $users, 'user_model' => $this->user_model]);
-        return redirect('admin/list');
+        return redirect('dashboard');
     }
     public function logoutAdmin()
     {
