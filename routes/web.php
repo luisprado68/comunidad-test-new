@@ -15,6 +15,7 @@ use App\Http\Controllers\SupportController;
 use App\Http\Controllers\TwichController;
 use App\Livewire\Chat\ChatCreate;
 use App\Livewire\Chat\Main;
+use App\Livewire\Show;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -76,8 +77,8 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
 
-   
-    Route::get('chat/users', [ChatCreate::class,'render'])->name('users');
+    Route::get('test', Show::class)->name('posts');
+    Route::get('chat/users', ChatCreate::class)->name('users');
     Route::get('/chat{key?}', [Main::class])->name('chat');
 
 

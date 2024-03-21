@@ -27,6 +27,20 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password',
+        'twich_id',
+        'channel',
+        'status',
+        'active',
+        'area',
+        'phone',
+        'points_support',
+        'time_zone',
+        'status',
+        'hours_buyed',
+        'img_profile',
+        'deleted',
+        'token',
+        'refresh_token',
     ];
 
     /**
