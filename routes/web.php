@@ -13,6 +13,8 @@ use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\TwichController;
+use App\Livewire\Chat\ChatCreate;
+use App\Livewire\Chat\Main;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -75,6 +77,11 @@ Route::middleware([
     Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
 
    
+    Route::get('chat/users', [ChatCreate::class,'render'])->name('users');
+    Route::get('/chat{key?}', [Main::class])->name('chat');
+
+
+
 
     Route::get('admin/rankings-points', function () {return view('rankings/user-top-score');})->name('rankings-points');
     Route::get('admin/rankings-schedulers', function () {return view('rankings/user-top-scheduler');})->name('rankings-schedulers');
@@ -90,5 +97,5 @@ Route::middleware([
     Route::get('admin/logout', [AdminController::class, 'logoutAdmin'])->name('logout-admin');
     
 
-    Route::get('users', [AdminController::class, 'users'])->name('admin-users');
+  
 });
