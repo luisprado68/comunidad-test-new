@@ -79,7 +79,7 @@ Route::middleware([
 
     Route::get('test', Show::class)->name('posts');
     Route::get('chat/users', ChatCreate::class)->name('users');
-    Route::get('/chat{key?}', [Main::class])->name('chat');
+    Route::get('/chat{key?}', Main::class)->name('chat');
 
 
 
