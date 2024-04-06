@@ -54,7 +54,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
     Route::get('referrer/{user_name}', [ScoreController::class, 'getPointSupport'])->name('referrer');
     
    
-     Route::get('login_twich', [LoginController::class, 'loginTwich'])->name('loginTwich');
+    Route::get('login_twich', [LoginController::class, 'loginTwich'])->name('loginTwich');
     Route::get('login_token', [LoginController::class, 'getToken'])->name('getToken');
     Route::get('logout_twich', [LoginController::class, 'logoutTwich'])->name('logout_twich');
 
