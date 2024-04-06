@@ -32,6 +32,13 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
     //     return view('welcome');
     // });
 
+    Route::get('login_twich', [LoginController::class, 'loginTwich'])->name('loginTwich');
+    Route::get('login_token', [LoginController::class, 'getToken'])->name('getToken');
+    Route::get('logout_twich', [LoginController::class, 'logoutTwich'])->name('logout_twich');
+
+    Route::get('login_test', [LoginController::class, 'login_test'])->name('login-test');
+    Route::post('login-test-login', [LoginController::class, 'login_post'])->name('login-post');
+    
    
     Route::get('/admin', [AuthenticatedSessionController::class, 'create'])->name('admin');
 
@@ -54,12 +61,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
     Route::get('referrer/{user_name}', [ScoreController::class, 'getPointSupport'])->name('referrer');
     
    
-    Route::get('login_twich', [LoginController::class, 'loginTwich'])->name('loginTwich');
-    Route::get('login_token', [LoginController::class, 'getToken'])->name('getToken');
-    Route::get('logout_twich', [LoginController::class, 'logoutTwich'])->name('logout_twich');
-
-    Route::get('login_test', [LoginController::class, 'login_test'])->name('login-test');
-    Route::post('login-test-login', [LoginController::class, 'login_post'])->name('login-post');
+   
 
 
     // Route::get('admin', [AdminController::class, 'index'])->name('admin');
