@@ -410,7 +410,7 @@ final class ScheduleService
         //     $minute = env('WATCH_SUPPORT_MINUTE');
         // }
         // else{
-            $back_minute = 59;
+            $back_minute = 58;
             $minute = env('WATCH_SUPPORT_MINUTE');
             $hour = $date_before->format('H');
             // $backHour = $hour-1;
@@ -527,6 +527,10 @@ final class ScheduleService
         if($time_zone == 'Europe/Berlin'){
             $hourDifference = $hourDifference  * -1;
         }
+        if($time_zone == 'Atlantic/Canary'){
+            $hourDifference = $hourDifference  * -1;
+        }
+        
         // Log::debug('hourDifference------------------------***' . json_encode($hourDifference));
         return $hourDifference;
     }
