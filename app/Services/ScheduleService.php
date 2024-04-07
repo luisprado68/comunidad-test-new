@@ -492,6 +492,7 @@ final class ScheduleService
     }
 
     public function parseHoursToCountry($end,$time_zone = null){
+        $hourDifference = 0;
         // dump('parseHoursToCountry-----------------------------------------');
         // dump($time_zone);
         // dd($end);
@@ -506,30 +507,35 @@ final class ScheduleService
        
         // $diff = $start_utc_country->diffInHours($utc,false);   
         // dd($diff);
-        $timezone1 = new DateTimeZone($time_zone);
-        $timezone2 = new DateTimeZone('UTC');
-        
-        // Get the offsets in seconds for each timezone
-        $offset1 = $timezone1->getOffset(new DateTime());
-        $offset2 = $timezone2->getOffset(new DateTime());
-        
-        // Convert offsets to hours
-        $hourDifference = abs(($offset1 - $offset2) / 3600);
-        if($time_zone == 'Europe/Rome'){
-            $hourDifference = $hourDifference  * -1;
+        Log::debug('time_zone : ------------ ' . json_encode($time_zone));
+        if(isset($time_zone)){
+            
+            $timezone1 = new DateTimeZone($time_zone);
+            $timezone2 = new DateTimeZone('UTC');
+            
+            // Get the offsets in seconds for each timezone
+            $offset1 = $timezone1->getOffset(new DateTime());
+            $offset2 = $timezone2->getOffset(new DateTime());
+            
+            // Convert offsets to hours
+            $hourDifference = abs(($offset1 - $offset2) / 3600);
+            if($time_zone == 'Europe/Rome'){
+                $hourDifference = $hourDifference  * -1;
+            }
+            if($time_zone == 'Europe/Madrid'){
+                $hourDifference = $hourDifference  * -1;
+            }
+            if($time_zone == 'Europe/Brussels'){
+                $hourDifference = $hourDifference  * -1;
+            }
+            if($time_zone == 'Europe/Berlin'){
+                $hourDifference = $hourDifference  * -1;
+            }
+            if($time_zone == 'Atlantic/Canary'){
+                $hourDifference = $hourDifference  * -1;
+            }
         }
-        if($time_zone == 'Europe/Madrid'){
-            $hourDifference = $hourDifference  * -1;
-        }
-        if($time_zone == 'Europe/Brussels'){
-            $hourDifference = $hourDifference  * -1;
-        }
-        if($time_zone == 'Europe/Berlin'){
-            $hourDifference = $hourDifference  * -1;
-        }
-        if($time_zone == 'Atlantic/Canary'){
-            $hourDifference = $hourDifference  * -1;
-        }
+       
         
         // Log::debug('hourDifference------------------------***' . json_encode($hourDifference));
         return $hourDifference;

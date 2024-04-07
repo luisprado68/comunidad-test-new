@@ -49,6 +49,7 @@ final class RoleService
     }
 
     public function getRoles($role_id){
+        $roles = [];
         $this->setModel();
         
         if($role_id == 1){

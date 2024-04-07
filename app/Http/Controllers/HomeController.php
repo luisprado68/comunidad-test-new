@@ -51,7 +51,25 @@ class HomeController extends Controller
 
             
         }
-        return view('home',['times' => json_encode($times)]);
+        $users = $this->userService->getUsersTop();
+        $users = $users->toArray();
+        
+        $twoElements1 = array_slice($users, 0, 3);
+        
+        // Get two elements starting from index 3
+        $twoElements2 = array_slice($users, 3,3);
+         // Get two elements starting from index 3
+         $twoElements3 = array_slice($users, 6, 3);
+          // Get two elements starting from index 3
+        $twoElements4 = array_slice($users, 9,1);
+        $top = 1;
+        $top_two = 4;
+        $top_three = 7;
+        $top_four = 10;
+
+        return view('home',['users' => $users,'twoElements1' => $twoElements1,'twoElements2' => $twoElements2,
+        'twoElements3' => $twoElements3,'twoElements4' => $twoElements4,'top' => $top,'top_two' => $top_two,'top_three' => $top_three,'top_four' => $top_four]);
+        
         
     }
 

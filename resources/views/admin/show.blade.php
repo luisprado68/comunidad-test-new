@@ -32,7 +32,7 @@
 
                 <div class="container mt-5 ">
                     <div class="row">
-                        <a href="{{ route('dashboard') }}"><button type="button"
+                        <a href="{{ route('admin-list') }}"><button type="button"
                                 class="btn btn-dark">Volver</button></a>
                         <div class="col-lg-12">
                             <div class="row">
@@ -83,6 +83,7 @@
                                                         disabled>
 
                                                     @foreach ($days as $time)
+                                                    {{-- @dump($time) --}}
                                                     <div class="row">
                                                         <div class="col-10">
                                                             <input class="text-center form-control form-control-lg bg-light"
@@ -91,12 +92,12 @@
                                                         <div class="p-1 col-2">
                                                             
                                                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                                                    data-bs-target="{{'#deleteCalendar' . $user->id}}">
+                                                                    data-bs-target="{{'#deleteCalendar' . $time['id']}}">
                                                                     <i class="bi bi-trash-fill"></i>
                                                                 </button>
 
                                                                 
-                                                                <div class="modal fade" id="{{'deleteCalendar' . $user->id}}" tabindex="-1"
+                                                                <div class="modal fade" id="{{'deleteCalendar' . $time['id']}}" tabindex="-1"
                                                                     aria-labelledby="calendarLabel" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
@@ -135,13 +136,44 @@
                         </div>
                         <div class="col-lg-12">
                             <h4 class="text-center">Puntaje</h4>
-                            <h6>Punteje Semanal</h6>
-                            @if (isset($user->score->points_week))
-                                {{ $user->score->points_week }}
-                            @else
-                                0
-                            @endif
-
+                          
+                            {{-- <form action="{{ route('admin-post') }}" method="POST">
+                                @csrf
+                            </form> --}}
+                            <div class="row">
+                               
+                                    <form action="{{ route('admin-update-point') }}" method="POST">
+                                        <input type="number" class="form-control" aria-label="Default" name="user_id" 
+                                                aria-describedby="inputGroup-sizing-default" value="{{ $user->id }}" style="display: none">
+                                        <div class="mt-3 mb-3 col-8">
+                                            <input class="form-check-input check-calendar" type="checkbox"  type="checkbox" name="calendar_enabled"  value="1" @if (isset($user)) @if ($user->calendar_enabled==1) checked @endif @endif id="0">
+                                            <label class="form-check-label" for="flexCheckChecked">
+                                                Agenda Activa
+                                            </label>
+                                        </div>
+                                        <h6>Punteje Semanal</h6>
+                                        @csrf
+                                        @if (isset($user->score->points_week))
+                                            <div class="mt-3 mb-3 col-3">
+                                                {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
+                                                <input type="number" class="form-control" aria-label="Default" name="points"  min="0" max="60"
+                                                    aria-describedby="inputGroup-sizing-default" value="{{ $user->score->points_week }}">
+                                            </div>
+                                        @else
+                                            <div class="mt-3 mb-3 col-3">
+                                                {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
+                                                <input type="number" class="form-control" aria-label="Default" name="points"  min="0" max="60"
+                                                    aria-describedby="inputGroup-sizing-default" value="0">
+                                                
+                                            </div>
+                                        @endif
+                                            <div class="mt-3 mb-3 col">
+                                                <button type="submit" class="btn btn-success">Guardar</button>
+                                            </div>
+                                        
+                                    </form>
+                            </div>
+                        </div>
                             <h6>Punteje Dia</h6>
                             @if (isset($user->score->points_day))
                                 {{ $user->score->points_day }}

@@ -91,6 +91,7 @@ Route::middleware([
     Route::post('admin/post', [AdminController::class, 'post'])->name('admin-post');
     Route::get('admin/logout', [AdminController::class, 'logoutAdmin'])->name('logout-admin');
     
+    Route::post('admin/update-points', [AdminController::class, 'updatePoints'])->name('admin-update-point');
 
     Route::get('users', [AdminController::class, 'users'])->name('admin-users');
 });

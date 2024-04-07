@@ -89,7 +89,7 @@
                                            
                                             <div class="mt-2 mb-4 col-6" style="display: block;margin-right:105px">
                                                 <button type="submit" class="btn btn-success">Guardar</button>
-                                                <a href="{{ route('admin-list') }}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                                                <a href="{{ route('dashboard') }}"><button type="button" class="btn btn-danger">Cancel</button></a>
                                             </div>
                                             
                                         </div>

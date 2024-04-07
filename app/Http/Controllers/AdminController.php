@@ -338,9 +338,10 @@ class AdminController extends Controller
     }
     public function edit($id)
     {
-        if (Auth::user()) {
+        Log::debug('id **** ---------------------------------- ' . json_encode($id));
+        if (Auth::user() && intval($id) != 0) {
             $this->user_model = Auth::user();
-            Log::debug('--------------------------------------------- ' . json_encode($this->user_model));
+            Log::debug('user **** ---------------------------------- ' . json_encode($this->user_model));
             $ranges = $this->rangeService->all();
             $roles = $this->rolesService->getRoles($this->user_model->role_id);
             $user = $this->userService->getById($id);
@@ -480,8 +481,10 @@ class AdminController extends Controller
     }
     public function logoutAdmin()
     {
-        session()->forget('user-log');
-        return redirect('/');
+        dd(Auth::user());
+        Log::debug('user ********************* : ');
+        // session()->forget('user-log');
+        // return redirect('/admin');
     }
     public function getToken(Request $request)
     {
@@ -493,6 +496,64 @@ class AdminController extends Controller
         }
 
         return redirect('/');
+    }
+    public function updatePoints(Request $request){
+        $new_date = null;
+        $streamers_supported = [];
+        if (Auth::user()) {
+            $this->route = FacadesRoute::current();
+            $data = $request->all();
+            // dump($data);
+            $this->user_model = Auth::user();
+            $user = $this->userService->getById(intval($data['user_id']));
+            if(isset($user)){
+                if(array_key_exists('calendar_enabled',$data)){
+                    $status = true;
+                }else{
+                    $status = false;
+                }
+                $user->calendar_enabled = $status;
+                    $user->save();
+
+                $score = $user->score;
+                if(isset($score)){
+                    $score->points_week = intval($data['points']);
+                    $score->save();
+                }else{
+                    $score_new['user_id'] = $user->id;
+                    $score_new['points_day'] = 0;
+                    $score_new['points_week'] = intval($data['points']);
+                    $score_new['neo_coins'] = 0;
+                    $created = $this->scoreService->create($score_new);
+                }
+               
+            }
+           
+
+            // dump($score);
+            if (isset($user->score)) {
+                $date = new Carbon($user->score->updated_at);
+                $date->tz = $user->time_zone;
+                $new_date = $date->format('d-m-Y H:i:s');
+            }
+
+            if (isset($user->streamSupport)) {
+                // dd($user->streamSupport);
+                foreach ($user->streamSupport as $streamer) {
+                    $supported = json_decode($streamer->supported);
+                    // dd($supported->name);
+                    array_push($streamers_supported, ['name' => $supported->name, 'time' => $streamer->updated_at]);
+                }
+            }
+
+            $groupedArray = $this->scheduleService->getSchedulerByUser($user);
+            
+            
+            return view('admin.show', ['user' => $user, 'week' => $groupedArray, 'date' => $new_date, 'streamers_supported' => $streamers_supported]);
+      
+        } else {
+            return redirect('admin');
+        }
     }
     public function logout()
     {
