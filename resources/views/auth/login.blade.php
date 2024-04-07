@@ -8,11 +8,11 @@
 
         <x-validation-errors class="mb-4" />
 
-        @if (session('status'))
+        {{-- @if (session('status'))
             <div class="mb-4 text-sm font-medium text-green-600">
                 {{ session('status') }}
             </div>
-        @endif
+        @endif --}}
         <div class="flex items-center mr-4 w-25">
             <img src="{{asset('/img/logo_co.png')}}" alt="tag"
         class="" style="width: 40%">
