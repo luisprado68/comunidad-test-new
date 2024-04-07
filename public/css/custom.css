@@ -120,11 +120,26 @@
     color:white;
   }
 
+  button.trovo-button{
+    background-color: #76d86c;
+    color:white;
+    /* width: 20%; */
+  }
+  button.trovo-button:hover  {
+   padding-left: 5px;
+   padding-right: 5px;
+   background-color: #76d86c;
+   color:white;
+  }
+  
   .banner{
     background-color: #a544ff;
   }
   .banner_kick{
     background-color: #3ebb10;
+  }
+  .banner_trovo{
+    background-color: #76d86c;
   }
   .footer{
     background-color: #2d3338;
@@ -271,4 +286,26 @@ div.avaibleInput{
   
     font-size: 0.95rem;
   
+}
+
+
+tr.top {
+  border-color:#031633;
+  border-style: solid;
+  border-width: 0;
+}
+.fa-discord:hover{
+  color: #53609e !important;
+  font-size: 31px !important;
+  cursor: pointer;
+}
+
+.animate__animated.animate__bounce:hover{
+  --animate-duration: 2s;
+}
+
+
+.check-calendar:checked {
+  background-color: #239714 !important;
+  border-color: #239714 !important;
 }
