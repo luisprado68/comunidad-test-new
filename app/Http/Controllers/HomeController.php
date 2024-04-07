@@ -24,6 +24,10 @@ class HomeController extends Controller
     }
     public function index()
     {
+        $twoElements1 = [];
+        $twoElements2 = [];
+        $twoElements3 = [];
+        $twoElements4 = [];
         $active = false;
         $times = [];
         // if(session()->exists('support_to_user')){
@@ -52,16 +56,19 @@ class HomeController extends Controller
             
         }
         $users = $this->userService->getUsersTop();
-        $users = $users->toArray();
+        if($users){
+            $users = $users->toArray();
         
-        $twoElements1 = array_slice($users, 0, 3);
-        
-        // Get two elements starting from index 3
-        $twoElements2 = array_slice($users, 3,3);
-         // Get two elements starting from index 3
-         $twoElements3 = array_slice($users, 6, 3);
-          // Get two elements starting from index 3
-        $twoElements4 = array_slice($users, 9,1);
+            $twoElements1 = array_slice($users, 0, 3);
+            
+            // Get two elements starting from index 3
+            $twoElements2 = array_slice($users, 3,3);
+             // Get two elements starting from index 3
+             $twoElements3 = array_slice($users, 6, 3);
+              // Get two elements starting from index 3
+            $twoElements4 = array_slice($users, 9,1);
+        }
+       
         $top = 1;
         $top_two = 4;
         $top_three = 7;
