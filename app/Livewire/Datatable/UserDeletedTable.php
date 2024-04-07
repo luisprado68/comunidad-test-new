@@ -7,9 +7,9 @@ use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Database\Eloquent\Builder;
-use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
+use Illuminate\Support\Facades\Log;
 
-class UserTable extends DataTableComponent
+class UserDeletedTable extends DataTableComponent
 {
     protected $model = User::class;
     private $userService;
@@ -17,39 +17,17 @@ class UserTable extends DataTableComponent
     public function builder(): Builder
     {
         $this->userService = new UserService();
-        $query = $this->userService->TableQuery(session('usersFilter'));
+        $query = $this->userService->getUsersSchedulersQuery();
         return $query;
     }
-    
     public function configure(): void
     {
-        //$this->setFiltersStatus(true);
-        $this->setPaginationEnabled();
-        $this->setFiltersEnabled();
         $this->setPrimaryKey('id');
-        $this->setFiltersVisibilityStatus(true);
     }
-    public function filters(): array
-    {
-        return [
-            SelectFilter::make('status')
-            ->options([
-               
-                '1' => 'Yes',
-                '0' => 'No',
-            ])
-            ->filter(function(Builder $builder, string $value) {
-                if ($value === '1') {
 
-                    $builder->where('status', true);
-                } elseif ($value === '0') {
-                    $builder->where('status', false);
-                }
-            }),
-        ];
-    }
     public function columns(): array
     {
+       
         return [
             Column::make("Id", "id")
                 ->sortable(),
@@ -143,5 +121,5 @@ class UserTable extends DataTableComponent
             //     ->sortable(),
             
                 ];
-            }
+    }
 }

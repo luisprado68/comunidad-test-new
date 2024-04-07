@@ -32,6 +32,26 @@ class UserTopSchedulersTable extends DataTableComponent
                 ->sortable(),
             Column::make("Name", "name")
                 ->sortable(),
+                Column::make('Rol','role_id')
+                ->format(
+                    function ($value,$row) {
+                        
+                        return '<strong>' . $row->role->name . '</strong>';
+                       
+                       
+                    }
+                )
+                ->html(),
+                Column::make('Rango','range_id')
+                ->format(
+                    function ($value,$row) {
+                        
+                        return '<strong>' . $row->range->name . '</strong>';
+                       
+                       
+                    }
+                )
+                ->html(),
             Column::make("Email", "email")
                 ->sortable(),
             Column::make("Canal", "channel")

@@ -182,6 +182,7 @@ class AdminController extends Controller
     }
 
     public function usersDeleted(){
+      
         if (Auth::user()) {
             $this->route = FacadesRoute::current();
             $this->user_model = Auth::user();

@@ -263,6 +263,19 @@ final class UserService
         return $query;
     }
 
+    public function getUsersDeleted()
+    {
+        $this->setModel();
+
+        $users = $this->model::where('deleted',true)->get();
+
+        if (count($users) > 0) {
+            return $users;
+        } else {
+            return [];
+        }
+    }
+
     public function getUsersTopQuery()
     {
         $this->setModel();
@@ -321,11 +334,8 @@ final class UserService
     {
         $this->setModel();
 
-        $query = $this->model::query()->select('*')->join('schedule', 'users.id', '=', 'schedule.user_id')
-        ->select('users.id as id','users.name as name', DB::raw('COUNT(schedule.user_id) as top','users.channel as channel','users.status as status'))
-        ->where('users.deleted',false)
-        ->groupBy('schedule.user_id')
-        ->orderByDesc('top')
+        $query = $this->model::query()->select('*')->where('deleted',true)
+        
         ->limit(10);
       
         $list = $query->get();
