@@ -32,7 +32,7 @@
 
                 <div class="container mt-5 ">
                     <div class="row">
-                        <a href="{{ route('admin-list') }}"><button type="button"
+                        <a href="{{ route('dashboard') }}"><button type="button"
                                 class="btn btn-dark">Volver</button></a>
                         <div class="col-lg-12">
                             <div class="row">
