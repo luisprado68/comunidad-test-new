@@ -24,6 +24,7 @@ class UserTable extends DataTableComponent
     public function configure(): void
     {
         //$this->setFiltersStatus(true);
+        $this->setPaginationEnabled();
         $this->setFiltersEnabled();
         $this->setPrimaryKey('id');
         $this->setFiltersVisibilityStatus(true);
