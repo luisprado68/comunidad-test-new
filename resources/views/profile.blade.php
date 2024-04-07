@@ -46,7 +46,7 @@
                                     <div class="mb-3 col-8">
                                         <label class="block mb-2 text-sm font-medium text-white" for="country">País</label>
                                         <select class="form-select" aria-label="Default select example" name="country">
-                                            @if ($user->country->name)
+                                            @if ($user->country)
                                                 <option selected value="{{ $user->country->id }}">{{ $user->country->name }}
                                                 </option>
                                             @else
