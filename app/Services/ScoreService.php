@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Enums\RangeType;
+use App\Enums\RoleType;
+use App\Models\Log as ModelsLog;
 use App\Models\Score;
 use App\Models\User;
 use Broobe\Services\Service;
@@ -134,51 +137,55 @@ final class ScoreService
 
     public function evaluatePoint($user)
     {
-        // Log::debug('user*********');
-        // Log::debug(json_encode($user));
-        // Log::debug('score*********');
-        // Log::debug(json_encode($user->score));
-        $current_time = Carbon::now();
-        $current_time->tz = $user->time_zone;
-        if (strtolower($current_time->format('l')) == 'sunday') {
-            if ($user->score) {
-                $score = $user->score;
-                Log::debug(json_encode($score));
-                if ($user->score->points_week == 60) {
-                    if ($user->range->id <= 4) {
-                        $user->range_id = $user->range_id + 1;
-                        // Log::debug('1*********');
+                if ($user->score) {
+                    $score = $user->score;
+                    if(isset($score)){
+                        if ($user->score->points_week == 60) {
+                            ModelsLog::create([
+                                'action' => '60 puntos',
+                                'message' => 'Usuario: '.$user->id . ' Channel: '.$user->channel.' Subio de rango puntaje semanal: '.$user->score->points_week,
+                            ]);
+                                if ($user->range_id < 4) {
+                                    $range_id = $user->range_id;
+                                    $range_id = $range_id + 1;
+                                    $user->range_id = $range_id;
+                                    $user->save();
+                                    Log::debug('Subio de rango*********');
+                                }
+                        }
+                        elseif (($user->score->points_week < 50 && ($user->range_id == RangeType::oro || $user->range_id == RangeType::platino)) || 
+                        ($user->score->points_week < 45 &&  $user->range_id == RangeType::plata)) {
+                             
+                            if($user->range_id > RangeType::bronce && $user->role->id == RoleType::streamer ){
+                                ModelsLog::create([
+                                    'action' => 'Bajo de rango ',
+                                    'message' => 'Usuario: '.$user->id . ' Channel: '.$user->channel.' bajo de rango puntaje semanal: '.$user->score->points_week,
+                                ]);
+                                Log::debug('Bajo de rango*********');
+                                Log::debug($user->score->points_week);
+                                Log::debug($user->channel);
+                                    $range_before =  $user->range_id;
+                                    $user->range_id = $range_before - 1;
+                                    $user->save();
+                            }
+                            
+                        } elseif ($user->points_support == 25) {
+
+                                if($user->range_id != 4){
+                                    $user->range_id = 4;
+                                    $user->save();
+                                }
+                                
+                            
+                             
+                        }
+                       
                     }
-                } elseif ($user->score->points_week == 60 && $user->range_id == 1) {
-                    // Log::debug('2*********');
-                    $user->range_id = 2;
-                    
-                } elseif ($user->score->points_week >= 45 && $user->score->points_week < 60  && $user->range_id == 2) {
-                    // Log::debug('3*********');
-                    $user->range_id = 2;
                    
-                } elseif ($user->score->points_week >= 50 && $user->score->points_week < 60  && $user->range_id == 3) {
-                    $user->range_id = 3;
-                   
-                } elseif ($user->score->points_week >= 50 && $user->score->points_week < 60  && $user->range_id == 4) {
-                    // Log::debug('4*********');
-                    $user->range_id = 4;
-                    
-                } elseif ($user->score->points_week <= 50 || $user->score->points_week < 45) {
-                    // Log::debug('5*********');
-                    if($user->range_id > 1 && $user->role->id != 1){
-                        $range_before =  $user->range_id;
-                        $user->range_id = $range_before - 1;
-                    }
-                    
-                    
-                } elseif ($user->points_support == 25) {
-                    // Log::debug('6*********');
-                    $user->range_id = 4;
-                    
                 }
-                $user->update();
-            }
-        }
+                
+        
+            
+    
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Log as ModelsLog;
 use App\Models\User;
 use Broobe\Services\Service;
 use Broobe\Services\Traits\{CreateModel, DestroyModel, ReadModel, UpdateModel};
@@ -307,7 +308,7 @@ final class TwichService
                         $current = Carbon::now();
                         $minute = $current->format('i');
 
-                        if ($minute >= env('CHATTERS_MAX_MINUTE') && $minute <= env('CHATTERS_MAX_MINUTE_2')) {
+                        if ($minute >= 57 && $minute <= 59 ) {
                             $score = $user_chat->score;
                             Log::debug('score---------------------');
                             Log::debug($score);
@@ -332,7 +333,11 @@ final class TwichService
 
                                     $score->neo_coins = $score->neo_coins + 1;
                                     $score->streamer_supported = json_encode($user_support);
-                                    $score->update();
+                                    $score->save();
+                                    ModelsLog::create([
+                                        'action' => 'Se actualiza suma puntos',
+                                        'message' => 'Usuario:' . $score->user_id . ' Channel: ' .$user_chat->channel
+                                    ]);
                                 
                             } else {
                                 Log::debug('new score---------------------');
@@ -349,7 +354,10 @@ final class TwichService
 
                                 $created = $this->scoreService->create($score_new);
                                 Log::debug($created);
-
+                                ModelsLog::create([
+                                    'action' => 'Se crea suma de puntos',
+                                    'message' => 'Usuario:' . $user_chat->id . ' Channel: ' .$user_chat->channel
+                                ]);
                                 // dump($score);
                             }
                         }
