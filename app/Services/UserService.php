@@ -153,6 +153,39 @@ final class UserService
         
     }
 
+    public function userLoginTwich($email, $password)
+    {
+     $result['user'] = false;
+     $result['message'] = '';
+        $this->setModel();
+        if (isset($email) && isset($password)) {
+           
+            $user = $this->model
+                ::where('email', $email)
+                ->where('channel',$password)
+                ->first();
+                Log::debug('user --' . json_encode($user));
+                session(['user-log' => $user]);
+                if(isset($user)){
+                    $result['user'] = $user;
+                    return  $result;
+                    // if($user->role_id == 1){
+                    //     $result['user'] = $user;
+                    //     return  $result;
+                    // }else{
+                    //     $result['message'] = 'No tiene permiso para acceder';
+                    //     return $result;
+                    // }
+                }
+                
+                
+        } else {
+            return $result;
+        }
+
+        
+    }
+    
     public function getUsers()
     {
         $this->setModel();

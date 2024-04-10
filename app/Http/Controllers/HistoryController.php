@@ -54,7 +54,7 @@ class HistoryController extends Controller
                 $updated->tz = $user_found->time_zone;
                 
                 // $updated->format('d-m-Y H:i')
-                array_push($user_array,['channel' => $support->name,'time' => $updated->format('i'),
+                array_push($user_array,['minutes' => $score->minutes,'channel' => $support->name,'time' => $updated->format('i'),
                 'date' =>  trans('user.create.' .strtolower($updated->format('l'))).' '.$updated->format('d').' '.trans('user.create.' .strtolower($updated->format('F'))).' '.$updated->format('H:i')]);
             }
             // dd($user_array);

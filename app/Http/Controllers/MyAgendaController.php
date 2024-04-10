@@ -8,6 +8,8 @@ use App\Services\TwichService;
 use App\Services\UserService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class MyAgendaController extends Controller
 {
@@ -39,6 +41,8 @@ class MyAgendaController extends Controller
     {
         $active = false;
         $week = [];
+        $new_schedulers = [];
+        $groupedArray = [];
         // if (env('APP_ENV') == 'local') {
         //     $this->user_model = $this->userService->getById(env('USER_TEST'));
         // }
@@ -55,14 +59,86 @@ class MyAgendaController extends Controller
           
            
             
-            $schedulers = $this->scheduleService->getByUserIdDay($this->user_model->id);
-            if(isset($schedulers)){
-                if(count($schedulers) > 0){
-                    $week = $this->getFormatDays($schedulers);
+            $groupedArray['sunday']=[
+                0 =>  [
+                  "day" => "sunday",
+                  "time" => "15:00"
+                ]];
+                $groupedArray['monday'] = [];
+                $groupedArray['tuesday'] = [];
+                $groupedArray['wednesday'] = [];
+                $groupedArray['thursday'] = [];
+                $groupedArray['friday'] = [];
+                $groupedArray['saturday'] = [];
+    
+                $groupedArray_two = $this->scheduleService->getSchedulerByUser($this->user_model);
+                // dd($groupedArray_two);
+                if(count($groupedArray_two) > 0){
+                    //valido que tenga una agenda para agregar el punto al referido
+                    $supportScore = $this->supportScoreService->getByUserSupportId($this->user_model->id);
+                    if($supportScore){
+                        $supportScore->point = 1;
+                        $supportScore->save();
+                    }
+                   
                 }
-            }
-           
-            
+                $groupedArray = array_merge($groupedArray, $groupedArray_two);
+               
+                // $test = new Carbon('2024-02-11 06:10:00');
+                // dump($test->format('H'));
+                // dump($test->format('l'));
+                $today = Carbon::now();
+                $today->tz = $this->user_model->time_zone;
+                
+    
+                $day_int = 0;
+                        switch ($today->format('l')) {
+                            case 'Sunday':
+                                $day_int = 0;
+                                break;
+                            case 'Monday':
+                                $day_int = 1;
+                                break;
+                            case 'Tuesday':
+                                $day_int = 2;
+                                break;
+                            case 'Wednesday':
+                                $day_int = 3;
+                                break;
+                            case 'Thursday':
+                                $day_int = 4;
+                                break;
+                            case 'Friday':
+                                $day_int = 5;
+                                break;
+                            case 'Saturday':
+                                $day_int = 6;
+                                break;
+                        }
+               
+                        $i = 0;
+                foreach ($groupedArray as $key => $value) {
+                    
+                    $groupedArray[$key]['status'] = false;
+                    if ($day_int <= $i) {
+                        if(isset($groupedArray[$key][0])){
+                            // dump($groupedArray[$key][0]['day']);
+                            if($groupedArray[$key][0]['day'] != 'sunday'){
+                                $groupedArray[$key]['status'] = true;
+                            }
+                            
+    
+                        }
+                        
+                      
+                       
+                    }
+                    $i++;
+                   
+                }
+    
+              
+                
             return view('my_agendas', ['showAgendas' => $this->showAgendas, 'week' => $week, 'user' => $this->user_model]);
         }
         else{
