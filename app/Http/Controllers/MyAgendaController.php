@@ -139,7 +139,7 @@ class MyAgendaController extends Controller
     
               
                 
-            return view('my_agendas', ['showAgendas' => $this->showAgendas, 'week' => $week, 'user' => $this->user_model]);
+                return view('my_agendas', ['showAgendas' => $this->showAgendas, 'week' => $groupedArray, 'user' => $this->user_model]);
         }
         else{
             return redirect('/');
@@ -154,7 +154,7 @@ class MyAgendaController extends Controller
                
             $date = new Carbon($scheduler->day);
            
-            $dates =$this->scheduleService->getByUserIdAndDate($this->user_model,$scheduler->day);
+            $dates =$this->scheduleService->getByUserIdAndDate($this->user_model,$scheduler->start);
             foreach ($dates as $key => $value) {
                 
                 $time = new Carbon($value->start);
