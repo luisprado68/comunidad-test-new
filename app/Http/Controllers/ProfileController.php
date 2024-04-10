@@ -39,12 +39,12 @@ class ProfileController extends Controller
             $this->user = session('user');
           
             $user_model = $this->userService->userExistsActive($this->user['display_name'].'@gmail.com',$this->user['id']);
-            $currentStreams = $this->scheduleService->getStreamByUser($user_model);
+            // $currentStreams = $this->scheduleService->getStreamByUser($user_model);
             
-            if(count($currentStreams) > 0){
-                $times = $this->scheduleService->getTimes($currentStreams,$user_model);
-            }
-            // @dd($active);
+            // if(count($currentStreams) > 0){
+            //     $times = $this->scheduleService->getTimes($currentStreams,$user_model);
+            // }
+            // // @dd($active);
             if($user_model->status){
                
                 session(['status' => $user_model->status]);
@@ -78,15 +78,14 @@ class ProfileController extends Controller
         $update_user = $request->all();
 
         // dd($this->update_user);
-        Log::debug('area: ---' . json_encode($update_user['area'] ));
-        if($update_user['area'] == '54'){
-            $limit = 'digits_between:1,10';
-            Log::debug('limit: ---' . json_encode($limit ));
-        }elseif($update_user['area'] == '51'){
-            $limit = 'digits_between:1,9';
+       
+        if($update_user['area'] == '+54'){
+            $limit = '|digits_between:1,10';
+        }elseif($update_user['area'] == '+51'){
+            $limit = '|digits_between:1,9';
         }
-        elseif($update_user['area'] == '57'){
-            $limit = 'digits_between:1,10';
+        elseif($update_user['area'] == '+57'){
+            $limit = '|digits_between:1,10';
         }
      
         $validated = $request->validate([
@@ -94,7 +93,7 @@ class ProfileController extends Controller
             'channel' => 'required',
             'country' => 'required',
             'area' => 'required',
-            'phone' => 'required|numeric|'.$limit,
+            'phone' => 'required|numeric'.$limit,
             'timezone' => 'required',
         ]);
 

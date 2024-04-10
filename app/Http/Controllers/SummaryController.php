@@ -29,12 +29,7 @@ class SummaryController extends Controller
             
             $userModel = $this->userService->userExistsActive($user['display_name'].'@gmail.com',$user['id']);
             
-            
-            $currentStreams = $this->scheduleService->getStreamByUser($userModel);
-            
-            if(count($currentStreams) > 0){
-                $times = $this->scheduleService->getTimes($currentStreams,$userModel);
-            }
+         
             foreach ($userModel->supportScores as $key => $supportScore) {
                 $stream = json_decode($supportScore->user);
                 array_push($ref,$stream->channel);
@@ -48,7 +43,7 @@ class SummaryController extends Controller
                 session(['status' => 0]);
             }
 
-            return view('summary',["user"=>$userModel,'times' => json_encode($times),'ref' => $ref]);
+            return view('summary',["user"=>$userModel,'ref' => $ref]);
         }else{
             return redirect('/');
         }
