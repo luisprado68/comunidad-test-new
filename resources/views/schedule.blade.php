@@ -31,41 +31,38 @@
                                             <div class="col-12">
                                                 <div class="mx-2 text-lg font-bold">{{'Bronce: '.$bronce . ':00'}}</div>
                                             </div>
-
                                         </div>
                                     </div>
 
                                     @if (!$schedule_avaible)
-                                        <div class="mt-2 card bg-dark text-light">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    @if (!$active_time_zone)
-                                                    <div class="mx-2 mt-2 mb-2 text-lg font-bold text-left text-danger">
-                                                       Debes actualizar tu perfil y agregar tu zona horaria</div>
-                                                </div>  
-                                                    @endif
-                                                    <div class="mx-2 mt-2 mb-2 text-lg font-bold text-left">No están
-                                                        habilitadas las reservas</div>
-                                                </div>
-
-
+                                    <div class="mt-2 card bg-dark text-light">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                @if (!$active_time_zone)
+                                                <div class="mx-2 mt-2 mb-2 text-lg font-bold text-left text-danger">
+                                                   Debes actualizar tu perfil y agregar tu zona horaria</div>
+                                            </div>  
+                                                @endif
+                                                <div class="mx-2 mt-2 mb-2 text-lg font-bold text-left">No están
+                                                    habilitadas las reservas</div>
                                             </div>
                                         </div>
-                                    @else
-                                        <div class="py-2  col-12">
-                                            <div class="card-body banner">
-                                                <h3 class="text-center text-light">Seleccione Día y Hora</h3>
-                                            </div>
+                                    </div>
+                                @else
+                                    <div class="py-2 col-12">
+                                        <div class="card-body banner">
+                                            <h3 class="text-center text-light">Seleccione Día y Hora</h3>
                                         </div>
-                                        <div class="mt-2 card bg-dark text-light">
+                                    </div>
+                                    <div class="mt-2 card bg-dark text-light">
                                             <div class="row">
 
                                                 {{-- @dump($days_with_time) --}}
                                                 @foreach ($days_with_time as $key_day => $day_with_time)
                                                     @if ($day_with_time['status'])
-                                                        <div class="px-4 my-3 col-lg-4 col-md-4 col-sm-4">
+                                                    <div class="px-4 my-3 col-lg-4 col-md-4 col-sm-4">
                                                             <input
-                                                                class="text-center form-control form-control-lg bg-warning"
+                                                            class="text-center form-control form-control-lg bg-warning"
                                                                 type="text" placeholder="{{ $key_day }}" disabled>
                                                             <div class="col">
                                                                 <div mbsc-page class="demo-multiple-select">

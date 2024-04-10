@@ -28,7 +28,7 @@
                                                 <div class="col">
                                                     <div class="pt-3 text-lg font-bold">{{$score['channel']}}</div>
                                                 </div>
-                                                @if ($score['time'] >= 50 && $score['time'] <= 55)
+                                                @if ($score['time'] >= 50 && $score['time'] <= 59)
                                                 <div class="col">
                                                     <div class="m-1 text-center bg-success text-light">Apoyo Completo</div>
                                                 </div>
