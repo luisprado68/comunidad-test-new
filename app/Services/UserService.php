@@ -131,7 +131,8 @@ final class UserService
 
     public function userLogin($email, $password)
     {
-     Log::debug('kkkkkkkkkk');
+        $result['user'] = false;
+        $result['message'] = '';
      
         $this->setModel();
         if (isset($email) && isset($password)) {
@@ -185,7 +186,7 @@ final class UserService
 
         
     }
-    
+
     public function getUsers()
     {
         $this->setModel();
@@ -226,7 +227,11 @@ final class UserService
                 $user->twich_id = Str::random(9);
             }
             $user->name = isset($userArray['name']) ? $userArray['name'] : $userArray['display_name'];
-            $user->email = $userArray['email'] ?? $userArray['email'];
+            if(array_key_exists('email',$userArray)){
+                $user->email = $userArray['email'] ?? $userArray['email'];
+            }else{
+                $user->email = $userArray['display_name'].'@gmail.com';
+            }
             $user->range_id = 1;
             $user->role_id = 2;
             $user->channel = $userArray['display_name'];
@@ -234,6 +239,7 @@ final class UserService
             $user->status = $userArray['status'] ?? 0;
             $user->country_id = $userArray['country_id'] ?? 1;
             $user->img_profile = $userArray['profile_image_url'] ?? null;
+            $user->deleted = 0;
             $user->save();
 
             $user->token = session('access_token') ?? '';
@@ -256,6 +262,7 @@ final class UserService
             $user->name = $userArray['name'];
             $user->email = $userArray['email'];
             $user->range_id = intval($userArray['range']);
+            $user->role_id = intval($userArray['role']);
             // $user->active = $userArray['active'];
             if(array_key_exists('status',$userArray)){
                 $user->status = $userArray['status'];
