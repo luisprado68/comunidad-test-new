@@ -37,6 +37,11 @@ class Kernel extends ConsoleKernel
 
             if ($minute == 15  || $minute == 57) {
                 
+                ModelsLog::create([
+                    'action' => 'Validacion de chat en stream',
+                    'message' => 'Se actualiza historial y puntaje'
+                ]);
+                
                 Log::debug('-------------------------------------------------minute: ' . $minute);
                 Log::debug('---------------[START]  Chatters ------------');
                
