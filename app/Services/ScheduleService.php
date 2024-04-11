@@ -507,7 +507,7 @@ final class ScheduleService
        
         // $diff = $start_utc_country->diffInHours($utc,false);   
         // dd($diff);
-        Log::debug('time_zone : ------------ ' . json_encode($time_zone));
+        // Log::debug('time_zone : ------------ ' . json_encode($time_zone));
         if(isset($time_zone)){
             
             $timezone1 = new DateTimeZone($time_zone);
