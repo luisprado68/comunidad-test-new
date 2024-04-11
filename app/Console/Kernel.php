@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
             $now =  Carbon::now();
             $minute = $now->format('i');
 
-            if ($minute == 10  || $minute == 58) {
+            if ($minute == 15  || $minute == 57) {
                 
                 Log::debug('-------------------------------------------------minute: ' . $minute);
                 Log::debug('---------------[START]  Chatters ------------');
@@ -139,10 +139,10 @@ class Kernel extends ConsoleKernel
                                 $user->save();
                             }
 
-                            // ModelsLog::create([
-                            //     'action' => 'Reset de puntaje diario',
-                            //     'message' => 'Se reseta los puntos a 0'
-                            // ]);
+                            ModelsLog::create([
+                                'action' => 'Reset de puntaje diario',
+                                'message' => 'Se reseta los puntos a 0'
+                            ]);
                         }
                     }
                    
