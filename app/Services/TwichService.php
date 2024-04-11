@@ -319,14 +319,15 @@ final class TwichService
                                 $user_support['name'] = $user_streaming->channel;
                                 //minuto minute == 10
                               
-                                    if ($score->points_day == 10) {
-                                        $score->points_day = 0;
-                                    } else {
+                                    if ($score->points_day < 10) {
+                                        // $score->points_day = 0;
                                         $score->points_day =  $score->points_day + 1;
+                                    } else {
+                                       
                                     }
 
                                     if ($score->points_week == 60) {
-                                        $score->points_week = 0;
+                                        // $score->points_week = 0;
                                     } else {
                                         $score->points_week = $score->points_week + 1;
                                     }
