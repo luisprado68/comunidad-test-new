@@ -135,10 +135,10 @@
     
                               
     
-                                {{-- <div class="border-t border-gray-200"></div>
-                                <x-dropdown-link href="{{ route('rankings-schedulers') }}">
-                                    {{ __('Top de Calendario') }}
-                                </x-dropdown-link> --}}
+                                <div class="border-t border-gray-200"></div>
+                                <x-dropdown-link href="{{ route('admin-schedulers') }}">
+                                    {{ __('Calendarios') }}
+                                </x-dropdown-link>
                                 
                             </x-slot>
                         </x-dropdown>

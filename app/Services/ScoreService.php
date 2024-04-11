@@ -121,9 +121,10 @@ final class ScoreService
             if(!empty($score)){
                 $score->points_day = isset($userArray['points_day']) ? $userArray['points_day'] : null;
                 $score->points_week = isset($userArray['points_week']) ? $userArray['points_week'] : null;
-                $score->neo_coins = isset($userArray['neo_coins']) ? $userArray['neo_coins'] : null;
-                // $score->points_support = isset($userArray['points_support']) ? $userArray['points_support'] : null;
-                $score->update();
+                if(isset($userArray['neo_coins'])){
+                    $score->neo_coins =  $userArray['neo_coins'];
+                }
+                $score->save();
                 return $score->id;
             }else{
                 return false;
@@ -187,5 +188,19 @@ final class ScoreService
         
             
     
+    }
+
+    public function getUsersSixty(){
+        $users_upload_range = User::select('users.name as name', 'users.channel as channel', 'ranges.id as range_id', 'scores.points_day as points_day', 'scores.points_week as points_week', 'scores.updated_at as updated_at')
+        ->join('scores', 'users.id', '=', 'scores.user_id')
+        ->join('ranges', 'users.range_id', '=', 'ranges.id')
+        ->orderBy('scores.points_week', 'desc')
+        // ->where('scores.points_week',60)
+        ->get();
+        if(count($users_upload_range)){
+            return $users_upload_range;
+        }else{
+            return false;
+        }
     }
 }

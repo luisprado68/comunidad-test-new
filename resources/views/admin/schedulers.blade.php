@@ -32,7 +32,7 @@
                     <div class="row">
                         <h4 class="text-center">Agenda Semanal</h4>
                         <div class="mb-4">
-                            <a href="{{ route('admin-list') }}"><button type="button"
+                            <a href="{{ route('dashboard') }}"><button type="button"
                                 class="btn btn-dark">Volver</button></a>
                         </div>
                     
@@ -40,7 +40,7 @@
                         <div class="col-lg-12">
                             <div class="row">
                                 @foreach ($week as $key => $days)
-                                <div class="col-lg-4 mb-4 bg-dark">
+                                <div class="mb-4 col-lg-4 bg-dark">
                                     <h4 class="text-light bg-warning">{{ $key }}</h4>
 
                                     @foreach ($days as $day)
@@ -56,7 +56,7 @@
                         </div>
 
 
-                        <div class="col-lg-12 mb-4">
+                        <div class="mb-4 col-lg-12">
                             <h4 class="text-center">Puntaje</h4>
                             <div class="row">
                                 <div class="col-lg-4">
