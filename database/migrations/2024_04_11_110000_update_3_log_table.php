@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedule', function (Blueprint $table) {
-            $table->id();
+        Schema::table('logs', function (Blueprint $table) {
+      
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->timestamp('start')->nullable();
+            $table->json('user')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->timestamps();
+            $table->timestamp('date_action')->nullable();
+           
         });
     }
 
@@ -25,6 +26,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schedule');
+        Schema::table('logs', function (Blueprint $table) {
+
+            $table->dropColumn('message');
+        });
     }
 };

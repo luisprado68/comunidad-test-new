@@ -20,6 +20,9 @@ class Log extends Authenticatable
     protected $fillable = [
         'id',
         'action',
+        'user_id',
+        'user',
+        'date_action',
         'message',
     ];
 

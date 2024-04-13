@@ -146,6 +146,8 @@ class Kernel extends ConsoleKernel
 
                             ModelsLog::create([
                                 'action' => 'Reset de puntaje diario',
+                                'user_id' => $user->id,
+                                'date_action' => $score->updated_at,
                                 'message' => 'Se reseta los puntos a 0'
                             ]);
                         }

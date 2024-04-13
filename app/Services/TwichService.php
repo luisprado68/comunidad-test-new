@@ -333,6 +333,8 @@ final class TwichService
                                     $score->save();
                                     ModelsLog::create([
                                         'action' => 'Se actualiza suma puntos',
+                                        'user_id' => $score->user_id,
+                                        'date_action' => $score->updated_at,
                                         'message' => 'Usuario:' . $score->user_id . ' Channel: ' .$user_chat->channel
                                     ]);
                                 
@@ -353,6 +355,8 @@ final class TwichService
                                 Log::debug($created);
                                 ModelsLog::create([
                                     'action' => 'Se crea suma de puntos',
+                                    'user_id' => $created->user_id,
+                                    'date_action' => $created->updated_at,
                                     'message' => 'Usuario:' . $user_chat->id . ' Channel: ' .$user_chat->channel
                                 ]);
                                 // dump($score);

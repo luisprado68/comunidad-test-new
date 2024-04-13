@@ -142,15 +142,19 @@ final class ScoreService
                     $score = $user->score;
                     if(isset($score)){
                         if ($user->score->points_week == 60) {
-                            ModelsLog::create([
-                                'action' => '60 puntos',
-                                'message' => 'Usuario: '.$user->id . ' Channel: '.$user->channel.' Subio de rango puntaje semanal: '.$user->score->points_week,
-                            ]);
+                          
+                          
                                 if ($user->range_id < 4) {
                                     $range_id = $user->range_id;
                                     $range_id = $range_id + 1;
                                     $user->range_id = $range_id;
                                     $user->save();
+                                    ModelsLog::create([
+                                        'action' => '60 puntos',
+                                        'user_id' => $user->id,
+                                        'date_action' => $user->updated_at,
+                                        'message' => 'Usuario: '.$user->id . ' Channel: '.$user->channel.' Subio de rango puntaje semanal: '.$user->score->points_week,
+                                    ]);
                                     Log::debug('Subio de rango*********');
                                 }
                         }
@@ -158,16 +162,16 @@ final class ScoreService
                         ($user->score->points_week < 45 &&  $user->range_id == RangeType::plata)) {
                              
                             if($user->range_id > RangeType::bronce && $user->role->id == RoleType::streamer ){
+                               
+                                $range_before =  $user->range_id;
+                                $user->range_id = $range_before - 1;
+                                $user->save();
                                 ModelsLog::create([
                                     'action' => 'Bajo de rango ',
+                                    'user_id' => $user->id,
+                                    'date_action' => $user->updated_at,
                                     'message' => 'Usuario: '.$user->id . ' Channel: '.$user->channel.' bajo de rango puntaje semanal: '.$user->score->points_week,
                                 ]);
-                                Log::debug('Bajo de rango*********');
-                                Log::debug($user->score->points_week);
-                                Log::debug($user->channel);
-                                    $range_before =  $user->range_id;
-                                    $user->range_id = $range_before - 1;
-                                    $user->save();
                             }
                             
                         } elseif ($user->points_support == 25) {
