@@ -84,23 +84,27 @@ class ScheduleController extends Controller
                     $current_t = Carbon::now();
                     $current_t->tz = $user_model->time_zone;
                     $day = $current_t->format('l');
-
+                    // dump($day);
                     if ($day == 'Sunday' || $user_model->range_id == 1 ||  $user_model->role_id != 2 || $user_model->calendar_enabled) {
 
-
+                        // dump($day);
                         if ($day == 'Sunday') {
 
                             $hour = intval($current_t->format('H'));
                             // dump($hour);
+                            // dump($this->bronce);
+                            // dump($this->plata);
+                            // dump($this->oro);
+                            // dump($this->platino);
                             ////validar los horarios segun rango
 
                             if (
-                                $hour >= $this->bronce_time && $user_model->range_id == 1 ||
-                                $hour >= $this->plata_time && $user_model->range_id == 2 ||
-                                $hour >= $this->oro_time && $user_model->range_id == 3 ||
-                                $hour >= $this->platino_time && $user_model->range_id == 4
+                                $hour >= $this->bronce && $user_model->range_id == 1 ||
+                                $hour >= $this->plata && $user_model->range_id == 2 ||
+                                $hour >= $this->oro && $user_model->range_id == 3 ||
+                                $hour >= $this->platino && $user_model->range_id == 4
                             ) {
-                                // dump('paasaa');
+                                dump('paasaa');
                                 if (!isset($schedules_by_user)) {
                                     $this->schedule_avaible = true;
                                 } elseif ($user_model->range->hours_for_week > count($schedules_by_user)) {
