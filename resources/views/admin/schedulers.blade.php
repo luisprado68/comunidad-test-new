@@ -68,12 +68,12 @@
                                 
                                 @if (count($all) > 0)
                                     @foreach ($all as $user)
-                                        <div class="col-lg-4 bg-secondary text-light"> {{ $user['name'] }}</div>
+                                        <div class="mb-2 col-lg-4 bg-secondary text-light"><b>{{ $user['name'] }}</b></div>
                         
-                                        <div class="col-lg-6 bg-secondary">
+                                        <div class="mb-2 col-lg-8 bg-secondary">
                                             <div class="row">
                                             @foreach ($user['supported'] as $supported)
-                                                <div class="col">{{ $supported->name }}</div>
+                                                <div class="col-4"><b>{{ $supported->name }}</b>{{ ' '.$supported->day .' ('.$supported->minutes.'\')' }}</div>
                                             @endforeach
                                             </div>
                                         </div>

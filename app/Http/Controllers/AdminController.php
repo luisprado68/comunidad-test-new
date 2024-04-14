@@ -217,6 +217,7 @@ class AdminController extends Controller
         $all = [];
         if (Auth::user()) {
             $this->user_model = Auth::user();
+            // dump($this->user_model);
             $users = $this->userService->getUsersModel();
             $week = $this->scheduleService->getSchedulerWeek($this->user_model);
 
@@ -233,10 +234,13 @@ class AdminController extends Controller
                         foreach ($supports as $key => $support_found) {
     
                             $sup = json_decode($support_found->supported);
-    
+                            $date = new Carbon($support_found->updated_at);
+                            $date->tz = $this->user_model->time_zone;
                             $collection->push((object)[
                                 'id' => $sup->id,
-                                'name' => $sup->name
+                                'name' => $sup->name,
+                                'day' => $date->format('d-m-Y'),
+                                'minutes' => $date->format('i')
                             ]);
                             // array_push($new_streams,$sup->name);
                         }
@@ -248,6 +252,7 @@ class AdminController extends Controller
                     }
                 }
             }
+            // dump($all);
             // dump($supports_ids);
             // dump('ssss');
             // dump($all);
