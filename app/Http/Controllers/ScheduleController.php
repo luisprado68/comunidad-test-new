@@ -104,7 +104,7 @@ class ScheduleController extends Controller
                                 $hour >= $this->oro && $user_model->range_id == 3 ||
                                 $hour >= $this->platino && $user_model->range_id == 4
                             ) {
-                                dump('paasaa');
+                                // dump('paasaa');
                                 if (!isset($schedules_by_user)) {
                                     $this->schedule_avaible = true;
                                 } elseif ($user_model->range->hours_for_week > count($schedules_by_user)) {
