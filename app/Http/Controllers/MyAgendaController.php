@@ -79,7 +79,7 @@ class MyAgendaController extends Controller
                     $supportScore = $this->supportScoreService->getByUserSupportId($this->user_model->id);
 
                     Log::debug('supportScore ------------------------ ' . json_encode($supportScore));
-                    if($supportScore){
+                    if(isset($supportScore)){
                         $supportScore->point = 1;
                         $supportScore->save();
                     }

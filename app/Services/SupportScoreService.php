@@ -64,7 +64,7 @@ final class SupportScoreService
     public function getByUserSupportId($user_id)
     {
         $this->setModel();
-        $userSupport = $this->model::whereJsonContains('user->user_id',$user_id)->get();
+        $userSupport = $this->model::whereJsonContains('user->user_id',$user_id)->first();
         if (count($userSupport) > 0) {
             return $userSupport;
         } else {
