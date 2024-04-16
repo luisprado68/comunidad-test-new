@@ -65,10 +65,10 @@ final class SupportScoreService
     {
         $this->setModel();
         $userSupport = $this->model::whereJsonContains('user->user_id',$user_id)->first();
-        if (count($userSupport) > 0) {
+        if (isset($userSupport)) {
             return $userSupport;
         } else {
-            return [];
+            return null;
         }
     }
 
