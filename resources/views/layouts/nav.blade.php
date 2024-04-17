@@ -1,8 +1,9 @@
 <nav class="p-0 m-0 navbar navbar-expand-lg navbar-dark bg-dark">
     @if (session()->has('user'))
         {{-- @if (env('APP_ENV') == 'local') --}}
-            <img src="{{asset('/img/logo_co.png')}}" alt="tag"
-            class="logo rounded-circle">
+            
+            <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
+                class="logo rounded-circle"></a>
         {{-- @else
             <img src="{{'./public/img/logo_co.png'}}" alt="tag"
             class="logo rounded-circle">
@@ -10,8 +11,8 @@
         
     @else
         {{-- @if (env('APP_ENV') == 'local') --}}
-            <img src="{{asset('/img/logo_co.png')}}" alt="tag"
-        class="logo rounded-circle">
+        <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
+            class="logo rounded-circle"></a>
         
         {{-- @else
             <img src="{{'./public/img/logo_co.png'}}" alt="tag"
