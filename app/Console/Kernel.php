@@ -141,7 +141,7 @@ class Kernel extends ConsoleKernel
                             $score = $user->score;
                             if(isset($score)){
                                 $score->points_day = 0;
-                                $user->save();
+                                $score->save();
                             }
 
                             ModelsLog::create([
