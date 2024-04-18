@@ -161,18 +161,19 @@ final class ScoreService
                         elseif (($user->score->points_week < 50 && ($user->range_id == RangeType::oro || $user->range_id == RangeType::platino)) || 
                         ($user->score->points_week < 45 &&  $user->range_id == RangeType::plata)) {
                              
-                            if($user->range_id > RangeType::bronce && $user->role->id == RoleType::streamer ){
+                            //comento que bajen de rango
+                            // if($user->range_id > RangeType::bronce && $user->role->id == RoleType::streamer ){
                                
-                                $range_before =  $user->range_id;
-                                $user->range_id = $range_before - 1;
-                                $user->save();
-                                ModelsLog::create([
-                                    'action' => 'Bajo de rango ',
-                                    'user_id' => $user->id,
-                                    'date_action' => $user->updated_at,
-                                    'message' => 'Usuario: '.$user->id . ' Channel: '.$user->channel.' bajo de rango puntaje semanal: '.$user->score->points_week,
-                                ]);
-                            }
+                            //     $range_before =  $user->range_id;
+                            //     $user->range_id = $range_before - 1;
+                            //     $user->save();
+                            //     ModelsLog::create([
+                            //         'action' => 'Bajo de rango ',
+                            //         'user_id' => $user->id,
+                            //         'date_action' => $user->updated_at,
+                            //         'message' => 'Usuario: '.$user->id . ' Channel: '.$user->channel.' bajo de rango puntaje semanal: '.$user->score->points_week,
+                            //     ]);
+                            // }
                             
                         } elseif ($user->points_support == 25) {
 

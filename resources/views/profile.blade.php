@@ -7,7 +7,7 @@
                 @include('link')
             @else
                 <div class="d-flex justify-content-center">
-                    <div class="card bg-secondary profile">
+                    <div class="mb-4 card bg-secondary profile">
 
                         <div class="p-0 m-0 card-body bg-secondary">
                             <div class="bg-black card ">
@@ -363,6 +363,40 @@
                                         @enderror
 
                                     </div>
+                                    <div class="p-0 col-11" style="padding: 0">
+                                        <h5 class="mt-2 text-center card-title text-light">Redes Sociales</h5>
+                                    </div>
+                                    <div class="mt-3 mb-3 col-8">
+                                        <label class="block mb-2 text-sm font-medium text-white"
+                                            for="channel"><i class="bi bi-instagram" style="font-size: 1.4em"></i></label>
+                                        <input type="url" class="form-control" aria-label="Default" name="instagram" placeholder="https://example.com"
+                                            aria-describedby="inputGroup-sizing-default" value="{{ $user->instagram }}">
+                                        @error('channel')
+                                            <span
+                                                class="text-danger position-absolute">{{ trans('user.create.fields.channel') }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="mt-3 mb-3 col-8">
+                                        <label class="block mb-2 text-sm font-medium text-white"
+                                            for="channel"><i class="bi bi-facebook" style="font-size: 1.4em"></i></label>
+                                        <input type="url" class="form-control" aria-label="Default" name="facebook" placeholder="https://example.com"
+                                            aria-describedby="inputGroup-sizing-default" value="{{ $user->facebook }}">
+                                        @error('channel')
+                                            <span
+                                                class="text-danger position-absolute">{{ trans('user.create.fields.channel') }}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="mt-3 mb-3 col-8">
+                                        <label class="block mb-2 text-sm font-medium text-white"
+                                            for="channel"><i class="bi bi-youtube" style="font-size: 1.4em"></i></label>
+                                        <input type="url" class="form-control" aria-label="Default" name="youtube" placeholder="https://example.com"
+                                            aria-describedby="inputGroup-sizing-default" value="{{ $user->youtube }}">
+                                        @error('channel')
+                                            <span
+                                                class="text-danger position-absolute">{{ trans('user.create.fields.channel') }}</span>
+                                        @enderror
+                                    </div>
+                                    
 
                                     <div class="mt-2 mb-4 col-6" style="display: block;margin-right:105px">
                                         <button type="submit" class="btn btn-primary">Guardar</button>

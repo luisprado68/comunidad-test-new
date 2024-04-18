@@ -167,6 +167,21 @@
                                                 
                                             </div>
                                         @endif
+                                        <h6>Neo coins</h6>
+                                        @if (isset($user->score->neo_coins))
+                                        <div class="mt-3 mb-3 col-3">
+                                            {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
+                                            <input type="number" class="form-control" aria-label="Default" name="neo_coins"  min="0" max="500"
+                                                aria-describedby="inputGroup-sizing-default" value="{{ $user->score->neo_coins }}">
+                                        </div>
+                                        @else
+                                            <div class="mt-3 mb-3 col-3">
+                                                {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
+                                                <input type="number" class="form-control" aria-label="Default" name="neo_coins"  min="0" max="500"
+                                                    aria-describedby="inputGroup-sizing-default" value="0">
+                                                
+                                            </div>
+                                        @endif
                                             <div class="mt-3 mb-3 col">
                                                 <button type="submit" class="btn btn-success">Guardar</button>
                                             </div>
@@ -177,14 +192,6 @@
                             <h6>Punteje Dia</h6>
                             @if (isset($user->score->points_day))
                                 {{ $user->score->points_day }}
-                            @else
-                                0
-                            @endif
-
-                            <h6>Neo coins</h6>
-
-                            @if (isset($user->score->neo_coins))
-                                {{ $user->score->neo_coins }}
                             @else
                                 0
                             @endif

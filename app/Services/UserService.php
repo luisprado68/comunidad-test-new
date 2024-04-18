@@ -287,6 +287,9 @@ final class UserService
             $user->area = $userArray['area'];
             $user->phone = $userArray['phone'];
             $user->time_zone = $userArray['timezone'];
+            $user->instagram = $userArray['instagram'];
+            $user->facebook = $userArray['facebook'];
+            $user->youtube = $userArray['youtube'];
             $user->update();
             return $user->id;
         } catch (Error $e) {

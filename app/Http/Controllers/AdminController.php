@@ -524,12 +524,13 @@ class AdminController extends Controller
                 $score = $user->score;
                 if(isset($score)){
                     $score->points_week = intval($data['points']);
+                    $score->neo_coins = intval($data['neo_coins']);
                     $score->save();
                 }else{
                     $score_new['user_id'] = $user->id;
                     $score_new['points_day'] = 0;
                     $score_new['points_week'] = intval($data['points']);
-                    $score_new['neo_coins'] = 0;
+                    $score_new['neo_coins'] = intval($data['neo_coins']);
                     $created = $this->scoreService->create($score_new);
                 }
                
