@@ -41,13 +41,19 @@
 
         <!-- Page Content -->
         @if (session()->has('user'))
-            @include('layouts.nav', ['user' => session('user')])
+            {{-- @include('layouts.initial-nav', ['user' => session('user')]) --}}
+            @livewire('layouts.nav')
         @else
-            @include('layouts.nav')
+            @livewire('layouts.nav')
         @endif
 
         <main>
-            @yield('content')
+           
+            @if ($action == 'index')
+            
+                @livewire('home')
+            @endif
+           
         </main>
     </div>
 

@@ -49,4 +49,38 @@ class SummaryController extends Controller
         }
         
     }
+
+    public function summaryByUserId($id){
+
+        $active = false;
+        $times = [];
+        $ref = [];
+        // dd(session('user'));
+        if(session()->exists('user')){
+            $user = session('user');
+            
+            $userModel = $this->userService->getById($id);
+            
+            if(count($userModel->supportScores)){
+                foreach ($userModel->supportScores as $key => $supportScore) {
+                    $stream = json_decode($supportScore->user);
+                    array_push($ref,$stream->channel);
+                }
+            }
+         
+            
+            if($userModel->status){
+               
+                session(['status' =>$userModel->status]);
+            }
+            else{
+                session(['status' => 0]);
+            }
+
+            return view('summary',["user"=>$userModel,'ref' => $ref,'user_watched' => true]);
+        }else{
+            return redirect('/');
+        }
+        
+    }
 }

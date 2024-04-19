@@ -1,4 +1,4 @@
-<div class="col-md-12 pt-5 w-100">
+<div class="col-md-12 w-100">
     <div class="card bg-dark">
 
         <div class="card-body bg-dark">
@@ -11,15 +11,15 @@
                     @endif
                     <label class="text-light" for="">Score Día</label>
                 </div> --}}
-                <div class="col-lg-4 col-md-4  col-sm-10 offset-lg-2">
+                <div class="col-lg-4 col-md-4 col-sm-10 offset-lg-2">
                     <div class="row">
-                        <div class="col mb-3 ">
+                        <div class="mb-3 col ">
                             <label class="text-light" for="">Puntaje Día</label>
                             @if ($user->score)
-                            <input class="form-control form-control-lg bg-warning text-center" type="text"
+                            <input class="text-center form-control form-control-lg bg-warning" type="text"
                             placeholder="{{$user->score->points_day . '/10'}}" disabled>
                             @else
-                            <input class="form-control form-control-lg bg-warning text-center" type="text"
+                            <input class="text-center form-control form-control-lg bg-warning" type="text"
                             placeholder="{{ 0 . '/10'}}" disabled>
                             @endif
                             
@@ -27,10 +27,10 @@
                         <div class="col">
                             <label class="text-light" for="">Puntaje Semanal</label>
                             @if ($user->score)
-                                <input class="form-control form-control-lg bg-warning text-center" type="text"
+                                <input class="text-center form-control form-control-lg bg-warning" type="text"
                                 placeholder="{{$user->score->points_week  . '/60'}}" disabled>
                             @else
-                                <input class="form-control form-control-lg bg-warning text-center" type="text"
+                                <input class="text-center form-control form-control-lg bg-warning" type="text"
                                 placeholder="{{ 0 . '/60'}}" disabled>
                             @endif
                            
@@ -39,15 +39,15 @@
                     </div>
 
                 </div>
-                <div class="col-lg-2 col-md-4  col-sm-2 offset-lg-2">
-                    <div class="input-group mb-3 ">
+                <div class="col-lg-2 col-md-4 col-sm-2 offset-lg-2">
+                    <div class="mb-3 input-group ">
                         <div class="input-group-prepend bg-dark">
                             <span class="input-group-text bg-primary text-light" id="basic-addon1">NeoCoins</span>
                         </div>
                         <input type="text" class="form-control" placeholder="{{isset($user->score->neo_coins) ? $user->score->neo_coins . '/500':'0/500'}}" aria-label="0"
                             aria-describedby="basic-addon1">
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="mb-3 input-group">
                         <div class="input-group-prepend bg-dark">
                             <span class="input-group-text bg-primary text-light" id="basic-addon1" style="font-size: 1rem;">Referidos</span>
                         </div>

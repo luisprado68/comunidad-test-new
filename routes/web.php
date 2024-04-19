@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\InitialController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyAgendaController;
 use App\Http\Controllers\PrivacyController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\SupportController;
 use App\Http\Controllers\TwichController;
+use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
 
@@ -46,7 +48,10 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
     //Route::get('send/', [LoginController::class, 'getToken'])->name('getToken');
 
     Route::get('summary', [SummaryController::class, 'index'])->name('summary');
+    Route::get('summary/{id}', [SummaryController::class, 'summaryByUserId'])->name('summary-user');
     Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/home', [InitialController::class, 'index'])->name('home');
+   
     //Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('support', [SupportController::class, 'index'])->name('support');
     Route::get('my_agendas', [MyAgendaController::class, 'index'])->name('my_agendas');

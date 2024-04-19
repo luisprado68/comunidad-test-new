@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Livewire\Home;
 use App\Services\ScheduleService;
 use App\Services\TwichService;
 use App\Services\UserService;
@@ -9,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request as Psr7Request;
+use Livewire\Livewire;
+
 class HomeController extends Controller
 {
     public $profile_image_url;
@@ -24,6 +27,7 @@ class HomeController extends Controller
     }
     public function index()
     {
+        
         $twoElements1 = [];
         $twoElements2 = [];
         $twoElements3 = [];
@@ -73,7 +77,7 @@ class HomeController extends Controller
         return view('home',['users' => $users,'twoElements1' => $twoElements1,'twoElements2' => $twoElements2,
         'twoElements3' => $twoElements3,'twoElements4' => $twoElements4,'top' => $top,'top_two' => $top_two,'top_three' => $top_three,'top_four' => $top_four]);
         
-        
+    
     }
 
   

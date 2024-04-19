@@ -1,4 +1,4 @@
-<nav class="p-0 mb-5 navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="p-0 m-0 navbar navbar-expand-lg navbar-dark bg-dark">
     @if (session()->has('user'))
         {{-- @if (env('APP_ENV') == 'local') --}}
             
@@ -20,6 +20,8 @@
         @endif --}}
       
     @endif
+
+    
         {{-- @if (env('APP_ENV') == 'local')
             <img src="{{asset('/img/banner.png')}}" alt="tag"
             class="mr-4 banner-fondo">

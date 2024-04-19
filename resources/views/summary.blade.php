@@ -6,6 +6,10 @@
             @if (session()->has('user') && session('status') == 0)
                 @include('link')
             @else
+                
+                @if (isset($user_watched))
+                    @include('status-user', ['user' => $user])
+                @endif
                 @include('status', ['user' => $user])
                 <div class="pt-1 col-md-12 w-100">
                     <div class="card bg-secondary">
