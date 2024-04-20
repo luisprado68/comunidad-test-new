@@ -141,8 +141,8 @@ class Kernel extends ConsoleKernel
                             $score = $user->score;
                             if(isset($score)){
                                 //se suma el punto del dia al semanal y despues resetea
-                                // $score_day = $score->points_day;
-                                // $score->points_week = $score_day;
+                                $score_day = $score->points_day;
+                                $score->points_week = $score_day;
                                 $score->points_day = 0;
                                 $score->save();
                             }

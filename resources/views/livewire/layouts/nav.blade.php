@@ -12,7 +12,7 @@
                         class="logo rounded-circle"></a>
                 @endif
             </div>
-            <div class="mt-4 col-8">
+            {{-- <div class="mt-4 col-8">
                 <div class="dropdown">
                     <div class="row">
                         <div class="ml-3 col">
@@ -35,14 +35,10 @@
                                     
                                 </ul>
                             @endif
-                           
                         </div>
                     </div>
-                    
-            
-            
-          </div>
-            </div>
+                </div>
+            </div> --}}
         </div>
         
         

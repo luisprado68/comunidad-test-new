@@ -324,9 +324,9 @@ final class TwichService
                                         $score->points_day =  $score->points_day + 1;
                                     }
                                     //no se suman de una
-                                    if ($score->points_week < 60) {
-                                        $score->points_week = $score->points_week + 1;
-                                    } 
+                                    // if ($score->points_week < 60) {
+                                    //     $score->points_week = $score->points_week + 1;
+                                    // } 
 
                                     $score->neo_coins = $score->neo_coins + 1;
                                     $score->streamer_supported = json_encode($user_support);
