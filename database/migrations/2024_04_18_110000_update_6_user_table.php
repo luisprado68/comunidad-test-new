@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('instagram')->nullable();
             $table->string('facebook')->nullable();
             $table->string('youtube')->nullable();
+            $table->text('description')->nullable();
            
         });
     }
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->dropColumn('instagram');
             $table->dropColumn('facebook');
             $table->dropColumn('youtube');
+            $table->dropColumn('description');
         });
     }
 };

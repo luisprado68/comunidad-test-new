@@ -41,7 +41,12 @@
 
         <!-- Page Content -->
         @if (session()->has('user'))
-            @include('layouts.nav', ['user' => session('user')])
+           
+            @if (Illuminate\Support\Facades\Route::current()->uri == 'summary')
+                @livewire('layouts.nav',['user' => session('user')])
+                @else
+                @include('layouts.nav',['user' => session('user')])
+            @endif
         @else
             @include('layouts.nav')
         @endif

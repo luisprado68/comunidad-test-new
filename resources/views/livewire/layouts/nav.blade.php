@@ -1,5 +1,5 @@
 <div>
-    <nav class="p-0 mb-5 navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="p-0 mb-5 navbar navbar-expand-lg navbar-dark banner-dark">
      
         <div class="row">
             <div class="col-4">
@@ -7,16 +7,16 @@
                 <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
                     class="logo rounded-circle"></a>
                 
-            @else
-                <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
-                    class="logo rounded-circle"></a>
-            @endif
+                @else
+                    <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
+                        class="logo rounded-circle"></a>
+                @endif
             </div>
             <div class="mt-4 col-8">
                 <div class="dropdown">
                     <div class="row">
                         <div class="ml-3 col">
-                            <input class="form-control mr-sm-2 "  type="search" placeholder="Search" aria-label="Search" wire:model="search">
+                            <input class="form-control mr-sm-2 "  type="search" placeholder="Buscar Streamer" aria-label="Search" wire:model="search">
                         </div>
                        
                  
@@ -27,9 +27,9 @@
                             @if ($show_result)
                                 <ul class="dropdown-menu show" data-bs-popper="static">
                                     @if (count($list))
+                                        
                                         @foreach($list as $user_found)
                                         <li><a href="{{route('summary-user',['id' => $user_found->id ])}}" class="dropdown-item">{{ $user_found->channel }}</a></li>
-                                            {{-- <a  class="list-group-item list-group-item-action" wire:click='closeResult'></a> --}}
                                         @endforeach
                                     @endif
                                     

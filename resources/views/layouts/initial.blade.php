@@ -42,7 +42,12 @@
         <!-- Page Content -->
         @if (session()->has('user'))
             {{-- @include('layouts.initial-nav', ['user' => session('user')]) --}}
-            @livewire('layouts.nav')
+           
+            @if (Illuminate\Support\Facades\Route::current() == 'summary')
+                @livewire('layouts.nav',['user' => session('user')])
+            @endif
+            
+           
         @else
             @livewire('layouts.nav')
         @endif

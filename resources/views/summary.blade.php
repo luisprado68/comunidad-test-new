@@ -11,12 +11,12 @@
                     @include('status-user', ['user' => $user])
                 @endif
                 @include('status', ['user' => $user])
-                <div class="pt-1 col-md-12 w-100">
+                <div class="pt-1 mb-4 col-md-12 w-100">
                     <div class="card bg-secondary">
                         <div class="card-body ">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="card banner">
+                                    <div class="card banner-border">
                                         <div class="card-body banner">
                                             <h3 class="text-center text-light">Rango</h3>
                                         </div>
@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    <div class="mb-3 card banner">
+                                    <div class="mb-3 card banner-border">
                                         <div class="card-body banner">
                                             <h3 class="text-center text-light">Referidos</h3>
                                         </div>
@@ -69,9 +69,10 @@
                         </div>
                     </div>
                 </div>
-                {{-- <input type="text" class="form-control" aria-label="Default" name="times" id="times"
-                    aria-describedby="inputGroup-sizing-default" value="{{ $times }}" style="display: none"> --}}
-                @include('share')
+                @if (!isset($user_watched))
+                    @include('share')
+                @endif
+               
             @endif
 
 

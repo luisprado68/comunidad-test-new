@@ -1,7 +1,7 @@
 <div class="col-md-12 w-100">
-    <div class="card bg-dark">
+    <div class="card banner-border">
 
-        <div class="card-body bg-dark">
+        <div class="card-body banner-dark">
             <div class="row">
                 {{-- <div class="col-2">
                     @if (env('APP_ENV') == 'local')

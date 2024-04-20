@@ -1,4 +1,4 @@
-<nav class="p-0 mb-5 navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="p-0 mb-5 navbar navbar-expand-lg navbar-dark banner-dark">
     @if (session()->has('user'))
         {{-- @if (env('APP_ENV') == 'local') --}}
             

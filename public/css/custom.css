@@ -309,3 +309,50 @@ tr.top {
   background-color: #239714 !important;
   border-color: #239714 !important;
 }
+
+.color-instagram{
+  background: #ccc;
+  background: linear-gradient(purple,yellow);
+  font-family: system-ui;
+  font-size: 2em;
+  line-height: 115%;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.color-facebook{
+  background: #ccc;
+  background: linear-gradient(rgb(0, 45, 128),rgb(22, 22, 238));
+  font-family: system-ui;
+  font-size: 2em;
+  line-height: 115%;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.color-youtube{
+  background: #ccc;
+  background: linear-gradient(red,rgb(248, 32, 32));
+  font-family: system-ui;
+  font-size: 2em;
+  line-height: 115%;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+.banner-user{
+  background: linear-gradient(to bottom right, #a544ff, black);
+  box-sizing: border-box;
+}
+.banner-border{
+  background: none;
+}
+
+.banner-dark{
+  background: linear-gradient(to bottom right, black, rgb(2, 35, 85));
+  box-sizing: border-box;
+}
+.banner-nav{
+  background: linear-gradient(to bottom right, black, rgb(1, 29, 71));
+  box-sizing: border-box;
+}

@@ -234,6 +234,7 @@ final class UserService
             }
             $user->range_id = 1;
             $user->role_id = 2;
+            $user->description = $userArray['description'] ?? null;
             $user->channel = $userArray['display_name'];
             $user->password = $userArray['display_name']; //TODO
             $user->status = $userArray['status'] ?? 0;
@@ -283,6 +284,7 @@ final class UserService
             $user = User::find($userArray['id']);
             $user->name = $userArray['name'];
             $user->channel = $userArray['channel'];
+            $user->description = $userArray['description'];
             $user->country_id = intval($userArray['country']);
             $user->area = $userArray['area'];
             $user->phone = $userArray['phone'];
@@ -290,7 +292,7 @@ final class UserService
             $user->instagram = $userArray['instagram'];
             $user->facebook = $userArray['facebook'];
             $user->youtube = $userArray['youtube'];
-            $user->update();
+            $user->save();
             return $user->id;
         } catch (Error $e) {
             return false;

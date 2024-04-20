@@ -363,6 +363,15 @@
                                         @enderror
 
                                     </div>
+                                    <div class="mt-3 mb-3 col-8">
+                                        <label class="block mb-2 text-sm font-medium text-white"
+                                            for="description">Descripción</label>
+                                        <textarea class="form-control" name="description" placeholder="..." value="{{ $user->description }}" id="floatingTextarea">{{ $user->description }}</textarea>
+                                        @error('description')
+                                            <span
+                                                class="text-danger position-absolute">{{ trans('user.create.fields.description') }}</span>
+                                        @enderror
+                                    </div>
                                     <div class="p-0 col-11" style="padding: 0">
                                         <h5 class="mt-2 text-center card-title text-light">Redes Sociales</h5>
                                     </div>
@@ -371,7 +380,7 @@
                                             for="channel"><i class="bi bi-instagram" style="font-size: 1.4em"></i></label>
                                         <input type="url" class="form-control" aria-label="Default" name="instagram" placeholder="https://example.com"
                                             aria-describedby="inputGroup-sizing-default" value="{{ $user->instagram }}">
-                                        @error('channel')
+                                        @error('instagram')
                                             <span
                                                 class="text-danger position-absolute">{{ trans('user.create.fields.channel') }}</span>
                                         @enderror
@@ -381,7 +390,7 @@
                                             for="channel"><i class="bi bi-facebook" style="font-size: 1.4em"></i></label>
                                         <input type="url" class="form-control" aria-label="Default" name="facebook" placeholder="https://example.com"
                                             aria-describedby="inputGroup-sizing-default" value="{{ $user->facebook }}">
-                                        @error('channel')
+                                        @error('facebook')
                                             <span
                                                 class="text-danger position-absolute">{{ trans('user.create.fields.channel') }}</span>
                                         @enderror
@@ -391,7 +400,7 @@
                                             for="channel"><i class="bi bi-youtube" style="font-size: 1.4em"></i></label>
                                         <input type="url" class="form-control" aria-label="Default" name="youtube" placeholder="https://example.com"
                                             aria-describedby="inputGroup-sizing-default" value="{{ $user->youtube }}">
-                                        @error('channel')
+                                        @error('youtube')
                                             <span
                                                 class="text-danger position-absolute">{{ trans('user.create.fields.channel') }}</span>
                                         @enderror

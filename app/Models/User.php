@@ -31,6 +31,7 @@ class User extends Authenticatable
         'channel',
         'status',
         'active',
+        'description',
         'email',
         'area',
         'phone',
