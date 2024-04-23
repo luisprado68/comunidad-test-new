@@ -175,7 +175,7 @@ class Kernel extends ConsoleKernel
 
                 }
                 Log::debug('---------------[FINISH] END  Update score user ---------------');
-        })->everyMinute();
+        })->hourly();
 
 
         $schedule->call(function () {
