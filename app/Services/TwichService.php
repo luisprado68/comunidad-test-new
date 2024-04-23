@@ -9,6 +9,7 @@ use Broobe\Services\Traits\{CreateModel, DestroyModel, ReadModel, UpdateModel};
 use Carbon\Carbon;
 use DateTimeZone;
 use Error;
+use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -95,6 +96,8 @@ final class TwichService
 
     public function getRefreshToken($user)
     {
+        try {
+
         Log::debug("getRefreshToken user-------------------------------------------");
         Log::debug(json_encode($user->channel));
 
@@ -125,6 +128,10 @@ final class TwichService
         }else{
             Log::debug("No existe el refresh_token " . $user->channel);
         }
+        } catch (Exception $e) {
+            Log::debug("Error refresh_token " . $e->getMessage());
+        }
+        
     }
 
     public function getUser()

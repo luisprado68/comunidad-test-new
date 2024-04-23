@@ -132,30 +132,44 @@ class Kernel extends ConsoleKernel
                 $allUsers = $this->userService->all();
                 foreach ($allUsers as $key => $user) {
 
-                    $this->twichService->getRefreshToken($user);
+                    
                     if(isset($user->time_zone) && $user->time_zone != ""){
                         $now =  Carbon::now($user->time_zone);
                         $hour = $now->format('H');
+                        $score_day = 0;
+                        $score_week = 0;
                         if($hour == '00'){
                             
                             $score = $user->score;
                             if(isset($score)){
                                 //se suma el punto del dia al semanal y despues resetea
                                 $score_day = $score->points_day;
-                                $score->points_week = $score_day;
+                                $score_week = $score->points_week;
+                                $score_week = $$score_week + $score_day;
+                                $score->points_week = $score_week;
                                 $score->points_day = 0;
                                 $score->save();
+                                ModelsLog::create([
+                                    'action' => 'Reset de puntaje diario',
+                                    'user_id' => $user->id,
+                                    'date_action' => $score->updated_at,
+                                    'message' => 'Se reseta los puntos a 0'
+                                ]);
+
+                            }
+                            else{
+                                ModelsLog::create([
+                                    'action' => 'Error Reset de puntaje diario',
+                                    'user_id' => $user->id,
+                                    'date_action' => $score->updated_at,
+                                    'message' => 'No tiene puntaje creado'
+                                ]);
                             }
 
-                            ModelsLog::create([
-                                'action' => 'Reset de puntaje diario',
-                                'user_id' => $user->id,
-                                'date_action' => $score->updated_at,
-                                'message' => 'Se reseta los puntos a 0'
-                            ]);
+                            
                         }
                     }
-                   
+                    $this->twichService->getRefreshToken($user);
 
                 }
 
