@@ -145,7 +145,7 @@ class Kernel extends ConsoleKernel
                                 //se suma el punto del dia al semanal y despues resetea
                                 $score_day = $score->points_day;
                                 $score_week = $score->points_week;
-                                $score_week = $$score_week + $score_day;
+                                $score_week = $score_week + $score_day;
                                 $score->points_week = $score_week;
                                 $score->points_day = 0;
                                 $score->save();
