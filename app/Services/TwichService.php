@@ -98,8 +98,8 @@ final class TwichService
     {
         try {
 
-        Log::debug("getRefreshToken user-------------------------------------------");
-        Log::debug(json_encode($user->channel));
+        // Log::debug("getRefreshToken user-------------------------------------------");
+        // Log::debug(json_encode($user->channel));
 
         if (isset($user->refresh_token)){
             $refresh_token = $user->refresh_token;
@@ -119,17 +119,25 @@ final class TwichService
             $request = new Psr7Request('POST', 'https://id.twitch.tv/oauth2/token', $headers);
             $res = $client->sendAsync($request, $options)->wait();
             $result = json_decode($res->getBody(), true);
-            Log::debug("getRefreshToken result-------------------------------------------");
-            Log::debug(json_encode($result));
+            // Log::debug("getRefreshToken result-------------------------------------------");
+            // Log::debug(json_encode($result));
             // session(['access_token' => $result['access_token']]);
             $user->token = $result['access_token'];
             $user->refresh_token = $result['refresh_token'];
             $user->update();
         }else{
-            Log::debug("No existe el refresh_token " . $user->channel);
+            
+            ModelsLog::create([
+                'action' => 'No existe el refresh_token ',
+                'user_id' => $user->id,
+                'date_action' => now(),
+                'message' => 'refresh_token:  '.$user->channel
+            ]);
         }
+        
         } catch (Exception $e) {
             Log::debug("Error refresh_token " . $e->getMessage());
+           
         }
         
     }

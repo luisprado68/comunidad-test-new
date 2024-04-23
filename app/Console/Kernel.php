@@ -124,22 +124,22 @@ class Kernel extends ConsoleKernel
 
 
         $schedule->call(function () {
-            Log::debug('---------------[START]  Refresh Tokens--------');
+           
             $this->userService = new UserService();
             $this->twichService = new TwichService();
             
-            
+            Log::debug('---------------[START]  Update score user --------');
                 $allUsers = $this->userService->getUsersModel();
                 foreach ($allUsers as $key => $user) {
 
                     
                     if(isset($user->time_zone) && $user->time_zone != ""){
-                        Log::debug('---------------user timezone ---------------' . $user->channel);
+                        // Log::debug('---------------user timezone ---------------' . $user->channel);
                         $now =  Carbon::now($user->time_zone);
                         $hour = $now->format('H');
                         $score_day = 0;
                         $score_week = 0;
-                        Log::debug('---------------user hour ---------------' . $hour);
+                        // Log::debug('---------------user hour ---------------' . $hour);
                         if($hour == '00'){
                             
                             $score = $user->score;
@@ -155,7 +155,7 @@ class Kernel extends ConsoleKernel
                                     'action' => 'Reset de puntaje diario',
                                     'user_id' => $user->id,
                                     'date_action' => $score->updated_at,
-                                    'message' => 'Se reseta los puntos a 0'
+                                    'message' => 'Se reseta los puntos a 0' . $user->channel
                                 ]);
 
                             }
@@ -171,12 +171,23 @@ class Kernel extends ConsoleKernel
                             
                         }
                     }
-                    $this->twichService->getRefreshToken($user);
+                   
 
                 }
+                Log::debug('---------------[FINISH] END  Update score user ---------------');
+        })->everyMinute();
 
-            Log::debug('---------------[FINISH] END Update Refresh Tokens---------------');
-        })->hourly();
+
+        $schedule->call(function () {
+            Log::debug('---------------[START]  Refresh Tokens--------');
+            $allUsers = $this->userService->getUsersModel();
+            
+            foreach ($allUsers as $key => $user) {
+                $this->twichService->getRefreshToken($user);
+            }
+
+        Log::debug('---------------[FINISH] END Update Refresh Tokens---------------');
+        })->everyTwoHours();
     }
 
     /**
