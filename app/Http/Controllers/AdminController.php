@@ -359,27 +359,32 @@ class AdminController extends Controller
     public function show($id)
     {
         $date_array = [];
+        $groupedArray = [];
         $streamers_supported = [];
         $test = null;
         if (Auth::user()) {
             $user = $this->userService->getById($id);
+            Log::debug('show user : -------------------' . json_encode($user));
+            if($user){
 
-            if (isset($user->score)) {
-                $date = new Carbon($user->score->updated_at);
-                $date->tz = $user->time_zone;
-                $test = $date->format('d-m-Y H:i:s');
-            }
-
-            if (isset($user->streamSupport)) {
-                // dd($user->streamSupport);
-                foreach ($user->streamSupport as $streamer) {
-                    $supported = json_decode($streamer->supported);
-                    // dd($supported->name);
-                    array_push($streamers_supported, ['name' => $supported->name, 'time' => $streamer->updated_at]);
+                if (isset($user->score)) {
+                    $date = new Carbon($user->score->updated_at);
+                    $date->tz = $user->time_zone;
+                    $test = $date->format('d-m-Y H:i:s');
                 }
+
+                if (isset($user->streamSupport)) {
+                    // dd($user->streamSupport);
+                    foreach ($user->streamSupport as $streamer) {
+                        $supported = json_decode($streamer->supported);
+                        // dd($supported->name);
+                        array_push($streamers_supported, ['name' => $supported->name, 'time' => $streamer->updated_at]);
+                    }
+                }
+
+                $groupedArray = $this->scheduleService->getSchedulerByUser($user);
             }
 
-            $groupedArray = $this->scheduleService->getSchedulerByUser($user);
 
             // $date_array = $this->getDays($user);
             //  dump($groupedArray);
