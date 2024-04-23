@@ -134,10 +134,12 @@ class Kernel extends ConsoleKernel
 
                     
                     if(isset($user->time_zone) && $user->time_zone != ""){
+                        Log::debug('---------------user timezone ---------------' . $user->channel);
                         $now =  Carbon::now($user->time_zone);
                         $hour = $now->format('H');
                         $score_day = 0;
                         $score_week = 0;
+                        Log::debug('---------------user hour ---------------' . $hour);
                         if($hour == '00'){
                             
                             $score = $user->score;
@@ -161,7 +163,7 @@ class Kernel extends ConsoleKernel
                                 ModelsLog::create([
                                     'action' => 'Error Reset de puntaje diario',
                                     'user_id' => $user->id,
-                                    'date_action' => $score->updated_at,
+                                    'date_action' => now(),
                                     'message' => 'No tiene puntaje creado'
                                 ]);
                             }
