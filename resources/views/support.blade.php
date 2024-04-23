@@ -9,6 +9,8 @@
                 @include('link')
             @else
                 @include('status', ['user' => $user])
+
+                @if (isset($user->time_zone) && $user->time_zone != '')
                 <div class="pt-1 col-md-12 w-100">
                     <div class="mb-4 card bg-secondary">
                         <div class="card-body ">
@@ -92,6 +94,22 @@
                 </div>
                 {{-- <input type="text" class="form-control" aria-label="Default" name="times" id="times"
                     aria-describedby="inputGroup-sizing-default" value="{{ $times }}" style="display: none"> --}}
+
+                    @else
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-10 offset-lg-1">
+                                <div class="card ">
+                                    <div class="mt-2 mb-2 text-lg font-bold text-center text-danger ">
+                                        <h5>Debes actualizar tu perfil y agregar tu zona horaria para apoyar</h5></div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                @endif
+                
             @endif
 
             @include('layouts.footer')
