@@ -129,7 +129,7 @@ class Kernel extends ConsoleKernel
             $this->twichService = new TwichService();
             
             
-                $allUsers = $this->userService->all();
+                $allUsers = $this->userService->getUsersModel();
                 foreach ($allUsers as $key => $user) {
 
                     
