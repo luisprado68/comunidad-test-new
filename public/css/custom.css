@@ -311,7 +311,6 @@ tr.top {
 }
 
 .color-instagram{
-  background: #ccc;
   background: linear-gradient(purple,yellow);
   font-family: system-ui;
   font-size: 2em;
@@ -321,8 +320,7 @@ tr.top {
 }
 
 .color-facebook{
-  background: #ccc;
-  background: linear-gradient(rgb(0, 45, 128),rgb(22, 22, 238));
+  background: linear-gradient(rgb(252, 252, 252),rgb(236, 236, 240));
   font-family: system-ui;
   font-size: 2em;
   line-height: 115%;
@@ -331,7 +329,6 @@ tr.top {
 }
 
 .color-youtube{
-  background: #ccc;
   background: linear-gradient(red,rgb(248, 32, 32));
   font-family: system-ui;
   font-size: 2em;
@@ -355,4 +352,31 @@ tr.top {
 .banner-nav{
   background: linear-gradient(to bottom right, black, rgb(1, 29, 71));
   box-sizing: border-box;
+}
+
+.dropdown-toggle::after {
+  display: inline-block;
+  margin-left: .255em;
+  vertical-align: .255em;
+  content: "";
+  border-top: none !important;
+  border-right: .3em solid transparent;
+  border-bottom: 0;
+  border-left: .3em solid transparent;
+}
+
+.dropdown-menu[data-bs-popper] {
+  top: 100%;
+  left: 0;
+  margin-top: var(--bs-dropdown-spacer);
+  width: 10% !important;
+}
+
+.dropdown-item:focus, .dropdown-item:hover {
+  color: white;
+  background-color: #a544ff;
+}
+
+a:hover {
+  --bs-link-color-rgb: var(--bs-link-hover-color-rgb);
 }

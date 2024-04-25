@@ -28,13 +28,14 @@ class Nav extends Component
             $this->show_result = true;
             $this->list = User::
             where('channel', 'like', '%'.$this->search.'%')
+            ->where('status',1)
             ->where('deleted',0)->take(5)->get();
 
             // $this->list = User::where('twich_id','!=',$this->user['id'])
             // ->where('channel', 'like', '%'.$this->search.'%')
             // ->where('deleted',0)->take(5)->get();
         }
-        Log::debug("list " . $this->list);
+        // Log::debug("list " . $this->list);
         if(count($this->list) == 0){
             $this->show_result = false;
         }

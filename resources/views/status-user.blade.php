@@ -18,7 +18,7 @@
                             
                         </div>
                         <div class="col">
-                            <h3>{{$user->channel}}</h3>
+                            <h3 class="text-light">{{$user->channel}}</h3>
                             <p>{{$user->description}}</p>
                            
                         </div>
@@ -39,7 +39,7 @@
                         @if(isset($user->facebook) && $user->facebook != '')
                         <a href="{{$user->facebook}}" target="_blank"><i class="bi bi-tiktok color-facebook"></i></a>
                         @else
-                        <i class="bi bi-facebook color-facebook"></i>
+                        <i class="bi bi-tiktok color-facebook"></i>
                         @endif
                     </div>
                     <div class="col ">

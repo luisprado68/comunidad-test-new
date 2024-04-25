@@ -42,7 +42,7 @@
         <!-- Page Content -->
         @if (session()->has('user'))
            
-            @if (Illuminate\Support\Facades\Route::current()->uri == 'summary')
+            @if (Illuminate\Support\Facades\Route::current()->uri == 'summary' || Illuminate\Support\Facades\Route::current()->uri == 'summary/{id}'  )
                 @livewire('layouts.nav',['user' => session('user')])
                 @else
                 @include('layouts.nav',['user' => session('user')])
