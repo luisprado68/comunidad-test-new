@@ -387,7 +387,7 @@
                                     </div>
                                     <div class="mt-3 mb-3 col-8">
                                         <label class="block mb-2 text-sm font-medium text-white"
-                                            for="channel"><i class="bi bi-facebook" style="font-size: 1.4em"></i></label>
+                                            for="channel"><i class="bi bi-tiktok" style="font-size: 1.4em"></i></label>
                                         <input type="url" class="form-control" aria-label="Default" name="facebook" placeholder="https://example.com"
                                             aria-describedby="inputGroup-sizing-default" value="{{ $user->facebook }}">
                                         @error('facebook')

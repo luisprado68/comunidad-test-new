@@ -37,7 +37,7 @@
                     </div>
                     <div class="col ">
                         @if(isset($user->facebook) && $user->facebook != '')
-                        <a href="{{$user->facebook}}" target="_blank"><i class="bi bi-facebook color-facebook"></i></a>
+                        <a href="{{$user->facebook}}" target="_blank"><i class="bi bi-tiktok color-facebook"></i></a>
                         @else
                         <i class="bi bi-facebook color-facebook"></i>
                         @endif
