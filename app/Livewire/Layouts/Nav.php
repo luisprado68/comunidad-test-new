@@ -10,13 +10,14 @@ use Livewire\Component;
 
 class Nav extends Component
 {
-    public $search = '';
+    public $search;
     public $list = [];
     public $show_result = false;
     public $user;
 
     public function render()
     {
+        Log::debug('text ' . $this->search);
         // dump($this->show_result);
         return view('livewire.layouts.nav');
     }
