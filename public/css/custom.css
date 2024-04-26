@@ -393,7 +393,7 @@ tr.top {
   width: 10% !important;
 }
 
-.dropdown-item:focus, .dropdown-item:hover {
+.dropdown-item:focus, .dropdown-item.item-list:hover {
   color: white;
   background-color: #a544ff;
 }

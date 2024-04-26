@@ -17,7 +17,7 @@ class Nav extends Component
 
     public function render()
     {
-        Log::debug('text ' . $this->search);
+        // Log::debug('text ' . $this->search);
         // dump($this->show_result);
         return view('livewire.layouts.nav');
     }
@@ -28,7 +28,8 @@ class Nav extends Component
         if(isset($this->search) && $this->search != ''){
             $this->show_result = true;
             $this->list = User::
-            where('channel', 'like', '%'.$this->search.'%')
+            where('twich_id','!=',$this->user['id'])
+            ->where('channel', 'like', '%'.$this->search.'%')
             ->where('status',1)
             ->where('deleted',0)->take(5)->get();
 
