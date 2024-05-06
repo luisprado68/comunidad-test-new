@@ -6,6 +6,7 @@ use App\Services\BillingService;
 use App\Services\ScheduleService;
 use App\Services\ScoreService;
 use App\Services\SupportScoreService;
+use App\Services\TeamService;
 use App\Services\TwichService;
 use App\Services\UserService;
 use GuzzleHttp\Client;
@@ -33,6 +34,7 @@ class LoginController extends Controller
     private $scheduleService;
     private $supportScoreService;
     private $scoreService;
+    private $teamService;
 
 
     public function __construct(
@@ -40,12 +42,14 @@ class LoginController extends Controller
         UserService $userService,
         ScheduleService $scheduleService,
         SupportScoreService $supportScoreService,
-        ScoreService $scoreService
+        ScoreService $scoreService,
+        TeamService $teamService
     ) {
         $this->twichService = $twichService;
         $this->userService = $userService;
         $this->supportScoreService = $supportScoreService;
         $this->scoreService = $scoreService;
+        $this->teamService = $teamService;
     }
 
     public function loginTwich()
@@ -76,7 +80,9 @@ class LoginController extends Controller
         // dump($user_model);
 
         if ($user_model == false) {
-            $user_model_created = $this->userService->create($user);
+            // TODO validar y traer el primer equipo que tenga menos de 100 usuarios para asignar 
+            $team = $this->teamService->getFirstTeamAviable();
+            $user_model_created = $this->userService->create($user,$team->id);
             if (session()->exists('support_to_user_id')) {
                
                 $support_user['user_id'] = $user_model_created->id;

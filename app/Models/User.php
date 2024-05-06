@@ -81,6 +81,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function team()
+    {
+        return $this->belongsTo(Team::class);
+    }
+
     public function country()
     {
         return $this->belongsTo(Country::class);

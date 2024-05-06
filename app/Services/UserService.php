@@ -217,7 +217,7 @@ final class UserService
      * @param $userArray
      * @return false|mixed
      */
-    public function create($userArray)
+    public function create($userArray,$teamId = null)
     {
         try {
             $user = new User();
@@ -232,6 +232,10 @@ final class UserService
             }else{
                 $user->email = $userArray['display_name'].'@gmail.com';
             }
+            if(isset($teamId)){
+                $user->current_team_id = $teamId;
+            }
+            
             $user->range_id = 1;
             $user->role_id = 2;
             $user->description = $userArray['description'] ?? null;

@@ -2,11 +2,13 @@
 
 namespace App\Livewire\Datatable;
 
+use App\Models\Team;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 
 class UserTable extends DataTableComponent

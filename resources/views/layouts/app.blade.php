@@ -12,7 +12,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <!-- Option 1: Include in HTML -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-       
+        <link rel="icon" href="{{ asset('/img/logo_co.ico') }}">
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
          {{-- bootrap --}}
