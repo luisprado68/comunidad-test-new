@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleType;
 use App\Models\Schedule;
 use App\Services\ScheduleService;
 use App\Services\UserService;
@@ -85,7 +86,7 @@ class ScheduleController extends Controller
                     $current_t->tz = $user_model->time_zone;
                     $day = $current_t->format('l');
                     // dump($day);
-                    if ($day == 'Sunday' || $user_model->range_id == 1 ||  $user_model->role_id != 2 || $user_model->calendar_enabled) {
+                    if ($day == 'Sunday' || $user_model->range_id == 1 ||  $user_model->role_id != 2 || $user_model->calendar_enabled ) {
 
                         // dump($day);
                         if ($day == 'Sunday') {

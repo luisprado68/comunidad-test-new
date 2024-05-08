@@ -13,6 +13,7 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\ScoreController;
 use App\Http\Controllers\SummaryController;
 use App\Http\Controllers\SupportController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TwichController;
 use App\Livewire\Home;
 use Illuminate\Support\Facades\Route;
@@ -86,6 +87,7 @@ Route::middleware([
     Route::get('admin/rankings-points', function () {return view('rankings/user-top-score');})->name('rankings-points');
     Route::get('admin/rankings-schedulers', function () {return view('rankings/user-top-scheduler');})->name('rankings-schedulers');
     Route::get('admin/delete/schedulers/{id}', [AdminController::class, 'deleteSchedulerUser'])->name('admin-delete-schedule');
+    Route::get('admin/teams/list', function () {return view('actions/teams');})->name('actions-teams');
     
     Route::get('admin/users/upload/{id}', [AdminController::class, 'uploadUser'])->name('admin-user-add'); 
     // Route::get('admin/deleted-users', [AdminController::class, 'usersDeleted'])->name('admin-users-deleted');
@@ -94,6 +96,11 @@ Route::middleware([
     Route::get('admin/list', [AdminController::class, 'list'])->name('admin-list');
     Route::get('admin/schedulers', [AdminController::class, 'schedulers'])->name('admin-schedulers');
     Route::get('admin/{id}', [AdminController::class, 'edit'])->name('admin-edit');
+
+    Route::get('admin/team/{id}', [TeamController::class, 'edit'])->name('team-edit');
+    Route::post('admin/team/post', [TeamController::class, 'post'])->name('team-post');
+    Route::get('admin/team/delete/{id}', [TeamController::class, 'delete'])->name('team-delete');
+
     Route::get('admin/show/{id}', [AdminController::class, 'show'])->name('admin-show');
     Route::get('admin/show/{id}/edit', [AdminController::class, 'editScheduler'])->name('admin-show-scheduler');
     Route::get('admin/delete/{id}', [AdminController::class, 'delete'])->name('admin-delete');

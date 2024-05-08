@@ -268,6 +268,7 @@ final class UserService
             $user->email = $userArray['email'];
             $user->range_id = intval($userArray['range']);
             $user->role_id = intval($userArray['role']);
+            $user->current_team_id = intval($userArray['team']);
             // $user->active = $userArray['active'];
             if(array_key_exists('status',$userArray)){
                 $user->status = $userArray['status'];

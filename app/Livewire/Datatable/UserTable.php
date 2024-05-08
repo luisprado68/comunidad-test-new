@@ -37,8 +37,8 @@ class UserTable extends DataTableComponent
             SelectFilter::make('status')
             ->options([
                
-                '1' => 'Yes',
-                '0' => 'No',
+                '1' => 'Activo',
+                '0' => 'Inactivo',
             ])
             ->filter(function(Builder $builder, string $value) {
                 if ($value === '1') {

@@ -121,8 +121,9 @@ final class TeamService
     {
         // dd($userArray['checkbox']);
         try {
+            Log::debug('id  -- ' . json_encode($teamArray['id']));
             $team = Team::find($teamArray['id']);
-            $team->user_id = $teamArray['user_id'];
+            Log::debug('team -- ' . json_encode($team));
             $team->name = $teamArray['name'] ?? null;
             $team->personal_team = 1;
             $team->save();

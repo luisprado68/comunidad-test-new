@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route as FacadesRoute;
 use Illuminate\Support\Facades\Session;
 use Stevebauman\Location\Facades\Location;
 
-class AdminController extends Controller
+class TeamController extends Controller
 {
     public $code;
     public $code_test;
@@ -39,6 +39,7 @@ class AdminController extends Controller
     public $test_url;
     public $user;
     public $user_model;
+    public $team;
     public $route;
     private $twichService;
     private $userService;
@@ -350,13 +351,12 @@ class AdminController extends Controller
     {
         Log::debug('id **** ---------------------------------- ' . json_encode($id));
         if (Auth::user() && intval($id) != 0) {
-            $this->user_model = Auth::user();
-            Log::debug('user **** ---------------------------------- ' . json_encode($this->user_model));
-            $ranges = $this->rangeService->all();
-            $teams = $this->teamService->all();
-            $roles = $this->rolesService->getRoles($this->user_model->role_id);
-            $user = $this->userService->getById($id);
-            return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams]);
+            $this->team = $this->teamService->getById($id);
+            Log::debug('teeeam **** ---------------------------------- ' . json_encode($this->team));
+        
+           
+          
+            return view('admin.team-edit', ['team' => $this->team]);
         } else {
             return redirect('admin');
         }
@@ -463,16 +463,14 @@ class AdminController extends Controller
     {
         if (Auth::user()) {
             $this->user_model = Auth::user();
-            $user = $this->userService->getById($id);
-            Log::debug('user to delete' . json_encode($user));
-            $user->deleted = true;
-            $user->status = false;
-            $user->user_action = $this->user_model->channel;
-            $user->save();
-            Log::debug('user updated' . json_encode($user));
+            $team = $this->teamService->getById($id);
+            Log::debug('user to delete' . json_encode($team));
+            $team->delete();
+            
+            
             // $users = $this->userService->getUsersModel();
             // return view('admin.list', ['users' => $users]);
-            return redirect('dashboard');
+            return view('actions/teams');
         }
         //  else {
         //     return redirect('admin');
@@ -480,20 +478,19 @@ class AdminController extends Controller
     }
     public function post(Request $request)
     {
-        $user = $request->all();
-        Log::debug('user---------------' . json_encode($user));
+        $team = $request->all();
+        Log::debug('team ---------------' . json_encode($team));
         $this->user_model = Auth::user();
         $validated = $request->validate([
             'name' => 'required',
-            'email' => 'required',
-            'range' => 'required'
+           
         ]);
-        $user = $this->userService->update($user);
+        $team = $this->teamService->update($team);
 
         $users = $this->userService->getUsersModel();
         // dd($users);
         // return view('admin.list', ['users' => $users, 'user_model' => $this->user_model]);
-        return redirect('dashboard');
+        return view('actions/teams');
     }
     public function logoutAdmin()
     {
