@@ -2,9 +2,9 @@
     <button type="submit" class="btn btn-primary"><a class="dropdown-item"
         href="{{ route('team-edit', $team->id) }}"><i class="bi bi-pencil-square"></i></a></button>
           
-        <button type="submit" class="btn btn-success"><a class="dropdown-item"
+        {{-- <button type="submit" class="btn btn-success"><a class="dropdown-item"
         href="{{ route('admin-show', $team->id) }}"><i class="bi bi-eye-fill"></i></a></button>
-    
+     --}}
    
         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
             data-bs-target="{{ '#exampleModal' . $team->id }}">

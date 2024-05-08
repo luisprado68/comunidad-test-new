@@ -19,8 +19,8 @@
             </div>
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <!-- Teams Dropdown -->
-                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+                <!-- Teams Dropdown  oculto el boton equipo-->
+                {{-- @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
                     <div class="relative ms-3">
                         <x-dropdown align="right" width="60">
                             <x-slot name="trigger">
@@ -69,7 +69,7 @@
                             </x-slot>
                         </x-dropdown>
                     </div>
-                @endif
+                @endif --}}
                     <div class="relative ms-3">
                         <x-dropdown align="right" width="48">
                             <x-slot name="trigger">
