@@ -83,7 +83,7 @@ class User extends Authenticatable
 
     public function team()
     {
-        return $this->belongsTo(Team::class);
+        return $this->belongsTo(Team::class,'current_team_id','id');
     }
 
     public function country()

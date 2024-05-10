@@ -1,15 +1,16 @@
 <div>
     <button type="submit" class="btn btn-primary"><a class="dropdown-item"
         href="{{ route('team-edit', $team->id) }}"><i class="bi bi-pencil-square"></i></a></button>
-          
-        {{-- <button type="submit" class="btn btn-success"><a class="dropdown-item"
-        href="{{ route('admin-show', $team->id) }}"><i class="bi bi-eye-fill"></i></a></button>
-     --}}
-   
+
+        <button type="submit" class="btn btn-success"><a class="dropdown-item"
+        href="{{ route('team-show', $team->id) }}"><i class="bi bi-people-fill"></i></a></button>
+
         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-            data-bs-target="{{ '#exampleModal' . $team->id }}">
+                data-bs-target="{{ '#exampleModal' . $team->id }}">
             <i class="bi bi-trash-fill"></i>
         </button>
+
+
 
         <!-- Modal -->
         <div class="modal fade" id="{{ 'exampleModal' . $team->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
@@ -23,12 +24,24 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body text-dark">
-                        <p> Desea eliminar el equipo {{ $team->name }}?</p>
+                        @if(count($team->users))
+                            <p> No se puede  eliminar el equipo {{ $team->name }} por que tiene usuarios</p>
+                        @else
+                            <p> Desea eliminar el equipo {{ $team->name }}?</p>
+                        @endif
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <button type="button" class="btn btn-danger"><a class="dropdown-item"
-                                href="{{ route('team-delete', $team->id) }}">Eliminar</a></button>
+                        @if(count($team->users))
+                            <button type="button" class="btn btn-danger" disabled><a class="dropdown-item"
+                                                                            href="{{ route('team-delete', $team->id) }}">Eliminar</a></button>
+                        @else
+                            <button type="button" class="btn btn-danger"><a class="dropdown-item"
+                                                                            href="{{ route('team-delete', $team->id) }}">Eliminar</a></button>
+                        @endif
+
+
                     </div>
                 </div>
             </div>

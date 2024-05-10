@@ -30,7 +30,7 @@
 
                 <div class="container mt-5 ">
                     <div class="row">
-                      
+
                         <form action="{{ route('admin-post') }}" method="POST">
                             @csrf
                             <div class="d-flex justify-content-center">
@@ -44,7 +44,7 @@
                                         <div class="row justify-content-center">
 
                                             <div class="mt-3 mb-3 col-8">
-                                    
+
                                                 <input type="text" class="form-control" aria-label="Default" name="id"
                                                     aria-describedby="inputGroup-sizing-default" value="{{ $user->id }}" style="display: none">
                                             </div>
@@ -75,7 +75,7 @@
                                                 <select class="mb-3 form-select" aria-label=".form-select example" name="role" id="role">
                                                     {{-- <option value="{{''}} selected>Seleccione una opción</option> --}}
                                                     @foreach ($roles as $role)
-                                                    
+
                                                     <option value="{{ $role->id }}" {{ ( $role->id == $user->role_id) ? 'selected' : '' }}> {{ $role->name }} </option>
                                                     @endforeach
                                                   </select>
@@ -86,7 +86,7 @@
                                                 <select class="mb-3 form-select" aria-label=".form-select example" name="team" id="team">
                                                     {{-- <option value="{{''}} selected>Seleccione una opción</option> --}}
                                                     @foreach ($teams as $team)
-                                                    
+
                                                     <option value="{{ $team->id }}" {{ ( $team->id == $user->current_team_id) ? 'selected' : '' }}> {{ $team->name }} </option>
                                                     @endforeach
                                                   </select>
@@ -97,19 +97,24 @@
                                                     Active
                                                 </label>
                                             </div>
-                                           
+
                                             <div class="mt-2 mb-4 col-6" style="display: block;margin-right:105px">
                                                 <button type="submit" class="btn btn-success">Guardar</button>
-                                                <a href="{{ route('dashboard') }}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                                                @if(!isset($user->current_team_id))
+                                                    <a href="{{ route('actions-teams')  }}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                                                @else
+                                                    <a href="{{ route('team-show', $user->current_team_id) }}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                                                @endif
+
                                             </div>
-                                            
+
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
                         </form>
-                      
+
                     </div>
                 </div>
 

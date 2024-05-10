@@ -42,7 +42,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
     Route::get('login_test', [LoginController::class, 'login_test'])->name('login-test');
     Route::post('login-test-login', [LoginController::class, 'login_post'])->name('login-post');
 
-   
+
     Route::get('/admin', [AuthenticatedSessionController::class, 'create'])->name('admin');
 
     Route::get('chatters', [TwichController::class, 'getChatters'])->name('get-chatters');
@@ -52,7 +52,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
     Route::get('summary/{id}', [SummaryController::class, 'summaryByUserId'])->name('summary-user');
     Route::get('/', [HomeController::class, 'index'])->name('home');
     // Route::get('/home', [InitialController::class, 'index'])->name('home');
-   
+
     //Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('support', [SupportController::class, 'index'])->name('support');
     Route::get('my_agendas', [MyAgendaController::class, 'index'])->name('my_agendas');
@@ -65,9 +65,9 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
     // Route::get('test', [ScheduleController::class, 'test'])->name('test');
     Route::get('privacy', [PrivacyController::class, 'index'])->name('privacy');
     Route::get('referrer/{user_name}', [ScoreController::class, 'getPointSupport'])->name('referrer');
-    
-   
-   
+
+
+
 
 
     // Route::get('admin', [AdminController::class, 'index'])->name('admin');
@@ -82,31 +82,35 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {return view('dashboard');})->name('dashboard');
 
-   
+
 
     Route::get('admin/rankings-points', function () {return view('rankings/user-top-score');})->name('rankings-points');
     Route::get('admin/rankings-schedulers', function () {return view('rankings/user-top-scheduler');})->name('rankings-schedulers');
     Route::get('admin/delete/schedulers/{id}', [AdminController::class, 'deleteSchedulerUser'])->name('admin-delete-schedule');
-    Route::get('admin/teams/list', function () {return view('actions/teams');})->name('actions-teams');
-    
-    Route::get('admin/users/upload/{id}', [AdminController::class, 'uploadUser'])->name('admin-user-add'); 
+
+
+    Route::get('admin/users/upload/{id}', [AdminController::class, 'uploadUser'])->name('admin-user-add');
     // Route::get('admin/deleted-users', [AdminController::class, 'usersDeleted'])->name('admin-users-deleted');
     Route::get('admin/deleted-users', function () {return view('actions/users-deleted');})->name('admin-users-deleted');
+    Route::get('admin/new-users', function () {return view('actions/users-new');})->name('admin-users-new');
 
-    Route::get('admin/list', [AdminController::class, 'list'])->name('admin-list');
     Route::get('admin/schedulers', [AdminController::class, 'schedulers'])->name('admin-schedulers');
-    Route::get('admin/{id}', [AdminController::class, 'edit'])->name('admin-edit');
 
+
+    Route::get('admin/teams/list', function () {return view('actions/teams');})->name('actions-teams');
     Route::get('admin/team/{id}', [TeamController::class, 'edit'])->name('team-edit');
     Route::post('admin/team/post', [TeamController::class, 'post'])->name('team-post');
     Route::get('admin/team/delete/{id}', [TeamController::class, 'delete'])->name('team-delete');
+    Route::get('admin/team/show/{id}', [TeamController::class, 'show'])->name('team-show');
 
+    Route::get('admin/list', [AdminController::class, 'list'])->name('admin-list');
+    Route::get('admin/{id}', [AdminController::class, 'edit'])->name('admin-edit');
     Route::get('admin/show/{id}', [AdminController::class, 'show'])->name('admin-show');
     Route::get('admin/show/{id}/edit', [AdminController::class, 'editScheduler'])->name('admin-show-scheduler');
     Route::get('admin/delete/{id}', [AdminController::class, 'delete'])->name('admin-delete');
     Route::post('admin/post', [AdminController::class, 'post'])->name('admin-post');
     Route::get('admin/logout', [AdminController::class, 'logoutAdmin'])->name('logout-admin');
-    
+
     Route::post('admin/update-points', [AdminController::class, 'updatePoints'])->name('admin-update-point');
 
     Route::get('users', [AdminController::class, 'users'])->name('admin-users');

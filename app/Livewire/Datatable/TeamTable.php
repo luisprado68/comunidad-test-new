@@ -20,22 +20,18 @@ class TeamTable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable(),
-            Column::make("Name", "name")
+            Column::make("Nombre", "name")
                 ->sortable(),
-            Column::make("Personal team", "personal_team")
+//            Column::make("Personal team", "personal_team")
+//                ->sortable(),
+            Column::make("Creado", "created_at")
                 ->sortable(),
-            Column::make("Created at", "created_at")
-                ->sortable(),
-            Column::make("Updated at", "updated_at")
+            Column::make("Actualizado", "updated_at")
                 ->sortable(),
                 Column::make('Accion','name')
                 ->format(
                     function ($value,$row) {
-    
-                        
                             return view('livewire.admin.buttons-modal',['team' => $row]);
-                    
-                       
                     }
                 )
                 ->html(),

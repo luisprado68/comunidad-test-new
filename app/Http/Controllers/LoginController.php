@@ -75,16 +75,16 @@ class LoginController extends Controller
             }else{
                 $user_model = $this->userService->userExists($user['id']);
             }
-        
+
 
         // dump($user_model);
 
         if ($user_model == false) {
-            // TODO validar y traer el primer equipo que tenga menos de 100 usuarios para asignar 
-            $team = $this->teamService->getFirstTeamAviable();
+            // TODO validar y traer el primer equipo que tenga menos de 100 usuarios para asignar
+//            $team = $this->teamService->getFirstTeamAviable();
             $user_model_created = $this->userService->create($user,$team->id);
             if (session()->exists('support_to_user_id')) {
-               
+
                 $support_user['user_id'] = $user_model_created->id;
                 $support_user['channel'] = $user_model_created->channel;
 
@@ -92,23 +92,23 @@ class LoginController extends Controller
                 $supportScoreArray['point'] = 0;
                 $supportScoreArray['user'] = json_encode($support_user);
                 $this->supportScoreService->create($supportScoreArray);
-                // Log::debug('crear supportScoreArray');   
+                // Log::debug('crear supportScoreArray');
                 // Log::debug(json_encode($supportScoreArray));
-                
+
                 // $total = count($user_model_created->supportScores->where('point',1));
             }
         }else{
             if(count($user_model->supportScores)> 0){
                 $total = count($user_model->supportScores->where('point', 1));
             }
-            
+
             if ($total != 0) {
                 $user_model->points_support = $total;
                 $user_model->save();
             }
-        
+
         }
-       
+
         if (isset($user_model->time_zone) && !empty($user_model->time_zone)) {
             return redirect('summary');
         } else {
@@ -140,7 +140,7 @@ class LoginController extends Controller
         $result = $this->userService->userLoginTwich($credentials['email'], $credentials['password']);
         Log::debug('result-----' . json_encode($result));
         if(isset($result['user']) && $result['user'] != false){
-            
+
             $user_model = $result['user'];
             Log::debug('login admin------------');
             Log::debug(json_encode($user_model));

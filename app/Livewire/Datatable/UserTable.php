@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Datatable;
 
+use App\Enums\RoleType;
 use App\Models\Team;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
@@ -14,15 +15,16 @@ use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 class UserTable extends DataTableComponent
 {
     protected $model = User::class;
+    public $team;
     private $userService;
 
     public function builder(): Builder
     {
         $this->userService = new UserService();
-        $query = $this->userService->TableQuery(session('usersFilter'));
+        $query = $this->userService->TableQuery(session('usersFilter'),$this->team);
         return $query;
     }
-    
+
     public function configure(): void
     {
         //$this->setFiltersStatus(true);
@@ -36,7 +38,7 @@ class UserTable extends DataTableComponent
         return [
             SelectFilter::make('status')
             ->options([
-               
+
                 '1' => 'Activo',
                 '0' => 'Inactivo',
             ])
@@ -67,20 +69,24 @@ class UserTable extends DataTableComponent
             Column::make('Rol','role_id')
             ->format(
                 function ($value,$row) {
-                    
-                    return '<strong>' . $row->role->name . '</strong>';
-                   
-                   
+                    if($row->role->id == RoleType::god){
+                        return '<strong>' . 'Admin' . '</strong>';
+                    }else{
+                        return '<strong>' . $row->role->name . '</strong>';
+                    }
+
+
+
                 }
             )
             ->html(),
             Column::make('Rango','range_id')
             ->format(
                 function ($value,$row) {
-                    
+
                     return '<strong>' . $row->range->name . '</strong>';
-                   
-                   
+
+
                 }
             )
             ->html(),
@@ -101,14 +107,14 @@ class UserTable extends DataTableComponent
                     else{
                         return ' <i class="bi bi-x-circle-fill text-danger"></i>';
                     }
-                   
+
                 }
             )
             ->html(),
-            
+
             //     ->sortable(),
             // Column::make("Active", "active")
-              
+
             Column::make("Area", "area")
                 ->sortable(),
             Column::make("Phone", "phone")
@@ -117,15 +123,15 @@ class UserTable extends DataTableComponent
             //     ->sortable(),
             // Column::make("Time zone", "time_zone")
             //     ->sortable(),
-           
+
             Column::make('Accion','phone')
             ->format(
                 function ($value,$row) {
 
-                    
+
                         return view('livewire.admin.delete-modal',['user' => $row]);
-                
-                   
+
+
                 }
             )
             ->html(),
@@ -143,7 +149,7 @@ class UserTable extends DataTableComponent
             //     ->sortable(),
             // Column::make("Updated at", "updated_at")
             //     ->sortable(),
-            
+
                 ];
             }
 }

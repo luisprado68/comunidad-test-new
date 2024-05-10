@@ -78,6 +78,8 @@ final class TeamService
 
         $teamWithUsers = $this->model::whereHas('users', function ($query) {
             $query->select('current_team_id', DB::raw('count(*) as user_count'))
+                    ->where('deleted',0)
+                    ->where('status',1)
                   ->groupBy('current_team_id')
                  ->having('user_count', '!=', 100);
                 // ->whereBetween('user_count', [1, 5]);

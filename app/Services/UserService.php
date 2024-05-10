@@ -39,7 +39,7 @@ final class UserService
 
     public function all(){
         $this->setModel();
-        
+
         $users = $this->model::all();
         if(count($users) > 0){
             return $users;
@@ -87,7 +87,7 @@ final class UserService
 
     public function userExists($email, $twich_id = null)
     {
-        
+
         $this->setModel();
         if (isset($twich_id)) {
             $user = $this->model
@@ -111,7 +111,7 @@ final class UserService
 
     public function userExistsActive($email, $twich_id = null)
     {
-        
+
         $this->setModel();
         if (isset($twich_id)) {
             $user = $this->model
@@ -121,7 +121,7 @@ final class UserService
         } else {
             $user = $this->model::where('email', $email)->first();
         }
-        
+
         if ($user) {
             return $user;
         } else {
@@ -133,10 +133,10 @@ final class UserService
     {
         $result['user'] = false;
         $result['message'] = '';
-     
+
         $this->setModel();
         if (isset($email) && isset($password)) {
-           
+
             $user = $this->model
             ::where('email', $email)
             ->first();
@@ -151,7 +151,7 @@ final class UserService
             return false;
         }
 
-        
+
     }
 
     public function userLoginTwich($email, $password)
@@ -160,7 +160,7 @@ final class UserService
      $result['message'] = '';
         $this->setModel();
         if (isset($email) && isset($password)) {
-           
+
             $user = $this->model
                 ::where('email', $email)
                 ->where('channel',$password)
@@ -178,13 +178,13 @@ final class UserService
                     //     return $result;
                     // }
                 }
-                
-                
+
+
         } else {
             return $result;
         }
 
-        
+
     }
 
     public function getUsers()
@@ -212,7 +212,7 @@ final class UserService
             return false;
         }
     }
-    
+
     /**
      * @param $userArray
      * @return false|mixed
@@ -235,7 +235,7 @@ final class UserService
             if(isset($teamId)){
                 $user->current_team_id = $teamId;
             }
-            
+
             $user->range_id = 1;
             $user->role_id = 2;
             $user->description = $userArray['description'] ?? null;
@@ -245,6 +245,7 @@ final class UserService
             $user->country_id = $userArray['country_id'] ?? 1;
             $user->img_profile = $userArray['profile_image_url'] ?? null;
             $user->deleted = 0;
+            $user->current_team_id = 0;
             $user->save();
 
             $user->token = session('access_token') ?? '';
@@ -276,8 +277,9 @@ final class UserService
                 $user->status = 0;
             }
             $user->update();
-            return $user->id;
+            return $user;
         } catch (Error $e) {
+            Log::error($e->getMessage());
             return false;
         }
     }
@@ -304,14 +306,22 @@ final class UserService
         }
     }
 
-    public function TableQuery($filter = null)
+    public function TableQuery($filter = null,$team = null)
     {
         $this->setModel();
         $query = $this->model::query()->select('*')
             // ->with('account')
             ->where('deleted', 0);
+
+            if(isset($team)){
+                $query->where('current_team_id',$team->id);
+            }
+
+
         return $query;
     }
+
+
 
     public function getUsersDeleted()
     {
@@ -384,10 +394,20 @@ final class UserService
     {
         $this->setModel();
 
-        $query = $this->model::query()->select('*')->where('deleted',true)
-        
-        ->limit(10);
-      
+        $query = $this->model::query()->select('*')->where('deleted',true);
+
+//        ->limit(10);
+
+        $list = $query->get();
+        // Log::debug(json_encode($list));
+        return $query;
+    }
+
+    public function getUsersNewsQuery()
+    {
+        $this->setModel();
+
+        $query = $this->model::query()->select('*')->where('current_team_id',0);
         $list = $query->get();
         // Log::debug(json_encode($list));
         return $query;

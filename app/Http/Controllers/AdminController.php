@@ -74,8 +74,8 @@ class AdminController extends Controller
         // $location = Location::get(request()->ip());
         // dump($location);
         // $this->validateDates($location);
-    
-      
+
+
         return view('admin.adminLogin');
     }
 
@@ -95,7 +95,7 @@ class AdminController extends Controller
         }
             dump($currentDateTime);
             dump($otherDateTime);
-            
+
         if($currentDateTime->gt($otherDateTime)){
             dump('finished');
         }elseif ($currentDateTime->lt($otherDateTime)) {
@@ -104,7 +104,7 @@ class AdminController extends Controller
     }
     public function login(Request $request)
     {
-        
+
         Log::debug('login-----');
         $credentials = $request->all();
         // dd($credentials);
@@ -115,7 +115,8 @@ class AdminController extends Controller
         if (!empty($exist['user']) && $exist['user'] != false) {
             // dd($exist);
             Log::debug('exist-----');
-            return redirect('dashboard');
+            // return redirect('dashboard');
+            return view('actions/teams');
         } else {
             return redirect('admin')->with(['message' => $exist['message']]);
         }
@@ -127,7 +128,7 @@ class AdminController extends Controller
 
         if (Auth::user()) {
             $this->route = FacadesRoute::current();
-            
+
             $this->user_model = Auth::user();
             $users = $this->userService->getUsersModel();
             // dd($users);
@@ -152,7 +153,7 @@ class AdminController extends Controller
         }
     }
     public function deleteSchedulerUser($id){
-        
+
         $streamers_supported = [];
         $test = null;
         if (Auth::user()) {
@@ -186,7 +187,7 @@ class AdminController extends Controller
     }
 
     public function usersDeleted(){
-      
+
         if (Auth::user()) {
             $this->route = FacadesRoute::current();
             $this->user_model = Auth::user();
@@ -203,14 +204,15 @@ class AdminController extends Controller
         if (Auth::user()) {
             $this->user_model = Auth::user();
             $user = $this->userService->getById($id);
-          
+
             $user->deleted = false;
             // $user->status = false;
-           
+
             $user->save();
             Log::debug('user updated' . json_encode($user));
-      
-            return redirect('dashboard');
+
+            // return redirect('dashboard');
+            return view('actions/teams');
         }
     }
     public function schedulers()
@@ -236,7 +238,7 @@ class AdminController extends Controller
                         $user['name'] =  $user_obteined->channel;
                         $collection = new Collection();
                         foreach ($supports as $key => $support_found) {
-    
+
                             $sup = json_decode($support_found->supported);
                             $date = new Carbon($support_found->updated_at);
                             $date->tz = $this->user_model->time_zone;
@@ -276,10 +278,10 @@ class AdminController extends Controller
     }
 
     public function rankingsPoints(){
-       
+
         if (Auth::user()) {
             $this->route = FacadesRoute::current();
-            
+
             $this->user_model = Auth::user();
             $users = $this->userService->getUsersTop();
             // dd($users);
@@ -292,7 +294,7 @@ class AdminController extends Controller
     public function rankingsSchedulers(){
         if (Auth::user()) {
             $this->route = FacadesRoute::current();
-            
+
             $this->user_model = Auth::user();
             $users = $this->userService->getUsersSchedulers();
             // dd($users);
@@ -312,17 +314,17 @@ class AdminController extends Controller
         if(isset($schedulers)){
             if(count($schedulers) > 0){
                 foreach ($schedulers as $key => $scheduler_by_user) {
-                   
+
                         $this->scheduleService->delete($scheduler_by_user->id);
-                    
+
                 }
             }
-          
+
         }
         // dd($schedulers);
         $allUsers = $this->userService->all();
         foreach ($allUsers as $key => $user) {
-          
+
             $user_array['user_id'] = $user->id;
             $user_array['points_day'] = 0;
             $user_array['points_week'] = 0;
@@ -342,9 +344,10 @@ class AdminController extends Controller
             //     }
             //     Log::debug('result:  ---' . json_encode($result));
             // }
-            
+
         }
-        return redirect('dashboard');
+        // return redirect('dashboard');
+        return view('actions/teams');
     }
     public function edit($id)
     {
@@ -356,6 +359,7 @@ class AdminController extends Controller
             $teams = $this->teamService->all();
             $roles = $this->rolesService->getRoles($this->user_model->role_id);
             $user = $this->userService->getById($id);
+            $team = $user->team;
             return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams]);
         } else {
             return redirect('admin');
@@ -454,7 +458,7 @@ class AdminController extends Controller
                 // return $list_day;
             }
         }
-        
+
         return $list_day;
         // dump($list_day);
 
@@ -472,7 +476,13 @@ class AdminController extends Controller
             Log::debug('user updated' . json_encode($user));
             // $users = $this->userService->getUsersModel();
             // return view('admin.list', ['users' => $users]);
-            return redirect('dashboard');
+            // return redirect('dashboard');
+            if(isset($user->team)){
+                $team = $user->team;
+                return redirect()->route('team-show', ['id' => $team->id]);
+            }else{
+                return view('actions/teams');
+            }
         }
         //  else {
         //     return redirect('admin');
@@ -490,10 +500,16 @@ class AdminController extends Controller
         ]);
         $user = $this->userService->update($user);
 
+
         $users = $this->userService->getUsersModel();
-        // dd($users);
-        // return view('admin.list', ['users' => $users, 'user_model' => $this->user_model]);
-        return redirect('dashboard');
+        if(isset($user->team)){
+            $team = $user->team;
+            return redirect()->route('team-show', ['id' => $team->id]);
+        }else{
+            return view('actions/teams');
+        }
+
+
     }
     public function logoutAdmin()
     {
@@ -543,9 +559,9 @@ class AdminController extends Controller
                     $score_new['neo_coins'] = intval($data['neo_coins']);
                     $created = $this->scoreService->create($score_new);
                 }
-               
+
             }
-           
+
 
             // dump($score);
             if (isset($user->score)) {
@@ -564,10 +580,10 @@ class AdminController extends Controller
             }
 
             $groupedArray = $this->scheduleService->getSchedulerByUser($user);
-            
-            
+
+
             return view('admin.show', ['user' => $user, 'week' => $groupedArray, 'date' => $new_date, 'streamers_supported' => $streamers_supported]);
-      
+
         } else {
             return redirect('admin');
         }

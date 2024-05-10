@@ -32,8 +32,13 @@
 
                 <div class="container mt-5 ">
                     <div class="row">
-                        <a href="{{ route('dashboard') }}"><button type="button"
-                                class="btn btn-dark">Volver</button></a>
+                        @if(isset($user->current_team_id))
+                            <a href="{{ route('team-show', $user->current_team_id) }}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                        @else
+                            <a href="{{ route('actions-teams')}}"><button type="button"
+                                                                          class="btn btn-dark">Volver</button></a>
+                        @endif
+
                         <div class="col-lg-12">
                             <div class="row">
                                 <div class="col-lg-12">
@@ -54,7 +59,7 @@
                                             <h5>Zona horaria</h5>
                                         </div>
                                         <div class="col-2">
-                                           
+
                                         </div>
                                         <div class="col-2">
                                             <h6>{{ $user->name }}</h6>
@@ -90,13 +95,13 @@
                                                             type="text" placeholder="{{ $time['time'] }}" disabled>
                                                         </div>
                                                         <div class="p-1 col-2">
-                                                            
+
                                                                 <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                                                     data-bs-target="{{'#deleteCalendar' . $time['id']}}">
                                                                     <i class="bi bi-trash-fill"></i>
                                                                 </button>
 
-                                                                
+
                                                                 <div class="modal fade" id="{{'deleteCalendar' . $time['id']}}" tabindex="-1"
                                                                     aria-labelledby="calendarLabel" aria-hidden="true">
                                                                     <div class="modal-dialog">
@@ -117,14 +122,14 @@
                                                                                 <button type="button" class="btn btn-danger"><a
                                                                                         class="dropdown-item"
                                                                                         href="{{ route('admin-delete-schedule',$time['id']) }}">Eliminar</a></button>
-                                                                                    
+
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                         </div>
                                                     </div>
-                                                        
+
                                                     @endforeach
 
 
@@ -136,14 +141,14 @@
                         </div>
                         <div class="col-lg-12">
                             <h4 class="text-center">Puntaje</h4>
-                          
+
                             {{-- <form action="{{ route('admin-post') }}" method="POST">
                                 @csrf
                             </form> --}}
                             <div class="row">
-                               
+
                                     <form action="{{ route('admin-update-point') }}" method="POST">
-                                        <input type="number" class="form-control" aria-label="Default" name="user_id" 
+                                        <input type="number" class="form-control" aria-label="Default" name="user_id"
                                                 aria-describedby="inputGroup-sizing-default" value="{{ $user->id }}" style="display: none">
                                         <div class="mt-3 mb-3 col-8">
                                             <input class="form-check-input check-calendar" type="checkbox"  type="checkbox" name="calendar_enabled"  value="1" @if (isset($user)) @if ($user->calendar_enabled==1) checked @endif @endif id="0">
@@ -164,7 +169,7 @@
                                                 {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
                                                 <input type="number" class="form-control" aria-label="Default" name="points"  min="0" max="60"
                                                     aria-describedby="inputGroup-sizing-default" value="0">
-                                                
+
                                             </div>
                                         @endif
                                         <h6>Neo coins</h6>
@@ -179,13 +184,13 @@
                                                 {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
                                                 <input type="number" class="form-control" aria-label="Default" name="neo_coins"  min="0" max="500"
                                                     aria-describedby="inputGroup-sizing-default" value="0">
-                                                
+
                                             </div>
                                         @endif
                                             <div class="mt-3 mb-3 col">
                                                 <button type="submit" class="btn btn-success">Guardar</button>
                                             </div>
-                                        
+
                                     </form>
                             </div>
                         </div>
