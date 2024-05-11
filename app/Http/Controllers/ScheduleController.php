@@ -163,7 +163,7 @@ class ScheduleController extends Controller
                     "sabado" => ['day' => 6, 'times' => $this->times, 'status' => true],
 
                 ];
-
+                //TODO validar las horas por rango se deben mostrar los dias hasta llegar al limite
                 if ($user_model->range->hours_for_day <= count($this->scheduleService->getSchedulerDayByUser($user_model, Carbon::MONDAY))) {
                     $this->days_with_time['lunes']['status'] = false;
                 }
@@ -200,13 +200,18 @@ class ScheduleController extends Controller
                             if (count($schedules->where('start', $new_start)->where('user_id', $user_model->id)) == 1) {
                                 // dump($this->days_with_time[$key_day]['times'][$key_time]['disabled']);
                                 $this->days_with_time[$key_day]['times'][$key_time]['disabled'] = true;
-                            } elseif (count($schedules->where('start', $new_start)) == 1) {
-                                // dump($this->days_with_time[$key_day]['times'][$key_time]['duplicated']);
-                                $this->days_with_time[$key_day]['times'][$key_time]['duplicated'] = true;
-                            } elseif (count($schedules->where('start', $new_start)) == 2) {
-                                //remove item
-                                $this->days_with_time[$key_day]['times'][$key_time]['disabled'] = true;
                             }
+                            else{
+                                $key = $this->validateScheduleTeam($schedules,$new_start,$user_model);
+                                $this->days_with_time[$key_day]['times'][$key_time][$key] = true;
+                            }
+//                            elseif (count($schedules->where('start', $new_start)) == 1) {
+//                                // dump($this->days_with_time[$key_day]['times'][$key_time]['duplicated']);
+//                                $this->days_with_time[$key_day]['times'][$key_time]['duplicated'] = true;
+//                            } elseif (count($schedules->where('start', $new_start)) == 2) {
+//                                //remove item
+//                                $this->days_with_time[$key_day]['times'][$key_time]['disabled'] = true;
+//                            }
                         }
                     }
                     $this->days = [
@@ -261,16 +266,37 @@ class ScheduleController extends Controller
                 }
             }
             return view('schedule', [
-                'times' => $this->times, 'days' => $this->days, 'days_with_time' => $this->days_with_time, 
-                'schedule_avaible' => $this->schedule_avaible, 'day_status' => $this->day_status, 
-                "user" => $user_model, 'times' => json_encode($times), 'bronce' => $this->bronce, 
+                'times' => $this->times, 'days' => $this->days, 'days_with_time' => $this->days_with_time,
+                'schedule_avaible' => $this->schedule_avaible, 'day_status' => $this->day_status,
+                "user" => $user_model, 'times' => json_encode($times), 'bronce' => $this->bronce,
                 'plata' => $this->plata, 'oro' => $this->oro, 'platino' => $this->platino,'active_time_zone' => $this->active_time_zone
             ]);
         } else {
             return redirect('/');
         }
-    }
 
+        //validar fecha por team en el caso de encontrar disable o duplicated
+
+    }
+    public function validateScheduleTeam($schedules,$new_start,$user_model){
+        $result = '';
+        $schedulers = $schedules->where('start', $new_start);
+        $cantidad = 0;
+        if(count($schedulers)>0){
+
+            foreach ($schedulers as $scheduler){
+                if($scheduler->user->team->id == $user_model->team->id){
+                    $cantidad = $cantidad +1;
+                }
+            }
+            if($cantidad == 1){
+                $result ='duplicated';
+            }elseif ($cantidad == 2){
+                $result = 'disabled';
+            }
+        }
+        return $result;
+    }
 
 
     public function getTimeSchedule($user, $time)
@@ -438,18 +464,18 @@ class ScheduleController extends Controller
         dump($en);
     //  dump('endOfWeek--------------------------------');
     // dump($en->endOfWeek($date));
-    
+
     // $hour_diff = $this->parseHoursToCountry($en->endOfWeek($date),$user->time_zone);
     $timezone1 = new DateTimeZone('Europe/Rome');
     $timezone2 = new DateTimeZone('UTC');
-    
+
     // Get the offsets in seconds for each timezone
     $offset1 = $timezone1->getOffset(new DateTime());
     $offset2 = $timezone2->getOffset(new DateTime());
-    
+
     // Convert offsets to hours
     $hourDifference = abs(($offset2 - $offset1) / 3600);
-  
+
     dump('hourDifference  -------------------------*** '.$hourDifference);
         dump('time_zone  -------------------------'.$time_zone);
         $new_time_user = Carbon::now($time_zone);
@@ -458,11 +484,11 @@ class ScheduleController extends Controller
         dump('new_test now -------------------------'.$utc_teste);
         $new_diff = $utc_teste->diffInHours($new_time_user);
         dump('new_diff  -------------------------'.$new_diff);
-       
+
         // $new_time_user->tz = $time_zone;
-        
+
         dump('new_test  time_zone-------------------------'.$new_time_user);
-       
+
         $start =  $en->endOfWeek($date);
         dump('inicio -------------------------'.$start);
         $start->tz = $time_zone;
@@ -470,11 +496,11 @@ class ScheduleController extends Controller
         $start_utc_country =  new Carbon($start->format('Y-m-d H:i'));
         dump('start_utc_country tz-------------------------'.$start_utc_country);
         $utc =  $en->endOfWeek($date);
-       
-        $diff = $start_utc_country->diffInHours($utc,false);   
+
+        $diff = $start_utc_country->diffInHours($utc,false);
         // dd($diff);
-       
-        
+
+
         return $diff;
     }
 }

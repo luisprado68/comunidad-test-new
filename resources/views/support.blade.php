@@ -35,6 +35,33 @@
                                                         <img src=" {{ $stream['img'] }}" alt="tag"
                                                             class="m-1 text-center w-50 " style="height: 200px">
                                                     @endif
+
+                                                    <div class="col-lg-12 col-md-4 col-sm-12 text-center">
+                                                        <div class="text-center col-lg-12 col-sm-12">
+                                                            @if(isset($stream['instagram']) && $stream['instagram'] != '')
+                                                                <a href="{{$stream['instagram']}}" target="_blank"><i class="bi bi-instagram color-instagram"></i></a>
+                                                            @else
+
+                                                                <i class="bi bi-instagram color-instagram"></i>
+
+                                                            @endif
+                                                        </div>
+                                                        <div class="text-center col-lg-12 col-sm-12">
+                                                            @if(isset($stream['facebook']) && $stream['facebook'] != '')
+                                                                <a href="{{$stream['facebook']}}" target="_blank"><i class="bi bi-tiktok color-facebook"></i></a>
+                                                            @else
+                                                                <i class="bi bi-tiktok color-facebook"></i>
+                                                            @endif
+                                                        </div>
+                                                        <div class="text-center col-lg-12 col-sm-12">
+                                                            @if(isset($stream['youtube']) && $stream['youtube'] != '')
+                                                                <a href="{{$stream['youtube']}}" target="_blank"><i class="bi bi-youtube color-youtube"></i></a>
+                                                            @else
+                                                                <i class="bi bi-youtube color-youtube"></i>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+
                                                     <div class="col">
                                                         {{-- nuevos cambios --}}
                                                         <p id="contador" style="display: none"></p>
@@ -107,9 +134,9 @@
 
                         </div>
                     </div>
-                    
+
                 @endif
-                
+
             @endif
 
             @include('layouts.footer')
