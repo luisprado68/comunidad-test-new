@@ -24,7 +24,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('ranges', function (Blueprint $table) {
 
             $table->dropColumn('order');
            

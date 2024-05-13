@@ -41,10 +41,16 @@ class ScheduleController extends Controller
     public $plata_time = 19;
     public $oro_time = 18;
     public $platino_time = 17;
+    public $diamante_time = 16;
+    public $esmeralda_time = 15;
+    public $lider_time = 14;
     public $bronce;
     public $plata;
     public $oro;
     public $platino;
+    public $diamante;
+    public $esmeralda;
+    public $lider;
     public $active_time_zone = false;
 
 
@@ -74,6 +80,9 @@ class ScheduleController extends Controller
             $this->plata = $this->getTimeSchedule($user_model, $this->plata_time);
             $this->oro = $this->getTimeSchedule($user_model, $this->oro_time);
             $this->platino = $this->getTimeSchedule($user_model, $this->platino_time);
+            $this->diamante = $this->getTimeSchedule($user_model, $this->diamante_time);
+            $this->esmeralda = $this->getTimeSchedule($user_model, $this->esmeralda_time);
+            $this->lider = $this->getTimeSchedule($user_model, $this->lider_time);
 
             if (!empty($user_model)) {
 
@@ -103,7 +112,10 @@ class ScheduleController extends Controller
                                 $hour >= $this->bronce && $user_model->range_id == 1 ||
                                 $hour >= $this->plata && $user_model->range_id == 2 ||
                                 $hour >= $this->oro && $user_model->range_id == 3 ||
-                                $hour >= $this->platino && $user_model->range_id == 4
+                                $hour >= $this->platino && $user_model->range_id == 4 ||
+                                $hour >= $this->diamante && $user_model->range_id == 6 ||
+                                $hour >= $this->esmeralda && $user_model->range_id == 5 ||
+                                $hour >= $this->lider && $user_model->range_id == 8
                             ) {
                                 // dump('paasaa');
                                 if (!isset($schedules_by_user)) {

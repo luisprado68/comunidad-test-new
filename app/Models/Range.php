@@ -21,6 +21,7 @@ class Range extends Authenticatable
         'name',
         'hours_for_day',
         'hours_for_week',
+        'order',
     ];
 
     public function users()

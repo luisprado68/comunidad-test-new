@@ -40,7 +40,7 @@ final class RangeService
     public function all(){
         $this->setModel();
         
-        $roles = $this->model::all();
+        $roles = $this->model::orderBy('order')->get();
         if(count($roles) > 0){
             return $roles;
         }else {
