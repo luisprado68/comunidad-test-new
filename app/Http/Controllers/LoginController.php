@@ -82,7 +82,7 @@ class LoginController extends Controller
         if ($user_model == false) {
             // TODO validar y traer el primer equipo que tenga menos de 100 usuarios para asignar
 //            $team = $this->teamService->getFirstTeamAviable();
-            $user_model_created = $this->userService->create($user,$team->id);
+            $user_model_created = $this->userService->create($user);
             if (session()->exists('support_to_user_id')) {
 
                 $support_user['user_id'] = $user_model_created->id;
