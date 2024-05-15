@@ -506,6 +506,7 @@ final class ScheduleService
             if(isset($currentStream_same_group)){
                 if($currentStream_same_group->user->team->id == $user->team->id){
                     $currentStreams = $currentStream_same_group;
+                    break;
                 }
             }
         }
