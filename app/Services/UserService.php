@@ -235,7 +235,7 @@ final class UserService
             if(isset($teamId)){
                 $user->current_team_id = $teamId;
             }
-
+            //TODO cambiar rango a hierron pero falta imagen
             $user->range_id = 1;
             $user->role_id = 2;
             $user->description = $userArray['description'] ?? null;

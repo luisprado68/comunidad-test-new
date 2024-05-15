@@ -503,7 +503,7 @@ final class ScheduleService
         // dump($end_string);
         $currentStreams_same_group = $this->model::whereBetween('start',[$start_string, $end_string])->where('user_id','!=',$user->id)->distinct()->get();
         foreach ($currentStreams_same_group as $currentStream_same_group){
-            if(isset($currentStreams)){
+            if(isset($currentStream_same_group)){
                 if($currentStream_same_group->user->team->id == $user->team->id){
                     $currentStreams = $currentStream_same_group;
                 }
