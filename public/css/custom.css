@@ -261,7 +261,12 @@ div.avaibleInput{
   .profile {
     width: 100% !important;
   }
-
+  .logo {
+    width: 70px;
+  }
+  .section-home{
+    padding-top:0px !important;
+  }
   /* perfil */
 }
 
@@ -288,6 +293,7 @@ div.avaibleInput{
     padding-right: 10px !important;
     padding-left: 20px !important;
   }
+  
 }
 /* @media (min-width: 992px){
   .navbar-expand-lg .navbar-nav .nav-link {

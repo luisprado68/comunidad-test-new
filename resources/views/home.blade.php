@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
 
-            <div class="pt-5 col-md-12 w-100">
+            <div class="pt-5 col-md-12 w-100 section-home">
                 @if (session()->has('user') && session('status') == 0)
 
                     @include('link')
