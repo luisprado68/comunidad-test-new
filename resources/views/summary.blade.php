@@ -25,13 +25,21 @@
                                     <div class="text-center col justify-content-center">
                                         {{-- @if (env('APP_ENV') == 'local') --}}
                                             @if ($user->range->id == 1 )
-                                                <img src="{{ asset('/img/bronce.svg') }}" alt="tag" class="m-2 w-50">
+                                                <img src="{{ asset('/img/BRONCE.png') }}" alt="tag" class="m-2 w-50">
                                             @elseif($user->range->id == 2 )
-                                                <img src="{{ asset('/img/plata.svg') }}" alt="tag" class="m-2 w-50">
+                                                <img src="{{ asset('/img/PLATA.png') }}" alt="tag" class="m-2 w-50">
                                             @elseif($user->range->id == 3 )
-                                                <img src="{{ asset('/img/oro.svg') }}" alt="tag" class="m-2 w-50">
+                                                <img src="{{ asset('/img/ORO.png') }}" alt="tag" class="m-2 w-50">
                                             @elseif($user->range->id == 4 )
-                                                <img src="{{ asset('/img/platino.svg') }}" alt="tag" class="m-2 w-50">
+                                                <img src="{{ asset('/img/PLATINO.png') }}" alt="tag" class="m-2 w-50">
+                                            @elseif($user->range->id == 5 )
+                                                <img src="{{ asset('/img/ESMERALDA.png') }}" alt="tag" class="m-2 w-50">
+                                            @elseif($user->range->id == 6 )
+                                                <img src="{{ asset('/img/DIAMANTE.png') }}" alt="tag" class="m-2 w-50">
+                                            @elseif($user->range->id == 7 )
+                                                <img src="{{ asset('/img/HIERRO.png') }}" alt="tag" class="m-2 w-50">
+                                            @elseif($user->range->id == 8 )
+                                                <img src="{{ asset('/img/LIDERES.png') }}" alt="tag" class="m-2 w-50">
                                             @endif
                                           
                                         {{-- @else
