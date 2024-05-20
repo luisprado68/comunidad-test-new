@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Livewire\Home;
+use App\Models\Log as ModelsLog;
 use App\Services\ScheduleService;
+use App\Services\StreamSupportService;
 use App\Services\TwichService;
 use App\Services\UserService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use GuzzleHttp\Client;
@@ -19,6 +22,7 @@ class HomeController extends Controller
     private $twichService;
     private $userService;
     private $scheduleService;
+    private $streamSupportService;
     public function __construct(TwichService $twichService, UserService $userService,ScheduleService $scheduleService)
     {
         $this->twichService = $twichService;
@@ -52,8 +56,7 @@ class HomeController extends Controller
             else{
                 session(['status' => 0]);
             }
-
-            
+        
         }
         $users = $this->userService->getUsersTop();
         if($users){

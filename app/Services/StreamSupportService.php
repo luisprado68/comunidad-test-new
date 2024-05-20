@@ -149,5 +149,16 @@ final class StreamSupportService
         }
     }
 
+    public function delete($id)
+    {
+        $this->setModel();
+        $schedule = $this->model::where('id', $id)->first();
+        if (isset($schedule)) {
+            $schedule->delete();
+            return true;
+        } else {
+            return null;
+        }
+    }
     
 }

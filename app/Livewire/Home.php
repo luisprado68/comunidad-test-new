@@ -2,10 +2,13 @@
 
 namespace App\Livewire;
 
+use App\Models\Log as ModelsLog;
 use App\Models\User;
 use App\Services\ScheduleService;
+use App\Services\StreamSupportService;
 use App\Services\TwichService;
 use App\Services\UserService;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
@@ -28,6 +31,7 @@ class Home extends Component
     private $twichService;
     private $userService;
     private $scheduleService;
+    private $streamSupportService;
 
     public function boot(TwichService $twichService, UserService $userService,ScheduleService $scheduleService)
     {
@@ -59,7 +63,6 @@ class Home extends Component
             }
 
             
-        }
         
         $this->users = $this->userService->getUsersTop();
         if($this->users){

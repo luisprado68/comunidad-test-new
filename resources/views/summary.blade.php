@@ -53,7 +53,7 @@
                                                 <img src="./public/img/platino.svg" alt="tag" class="m-2 w-50">
                                             @endif
                                         @endif --}}
-                                        <h4 class="text-center text-light">{{$user->range->name}}</h4>
+                                        {{-- <h4 class="text-center text-light">{{$user->range->name}}</h4> --}}
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">

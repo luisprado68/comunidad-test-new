@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Models\Log as ModelsLog;
 use App\Services\ScheduleService;
 use App\Services\ScoreService;
+use App\Services\StreamSupportService;
 use App\Services\TwichService;
 use App\Services\UserService;
 use Carbon\Carbon;
@@ -20,6 +21,7 @@ class Kernel extends ConsoleKernel
     private $userService;
     private $scoreService;
     private $schedulerService;
+    private $streamSupportService;
     /**
      * Define the application's command schedule.
      */
@@ -98,10 +100,11 @@ class Kernel extends ConsoleKernel
             Log::debug('---------------[START]  Reset Calendar --------');
             $this->userService = new UserService();
             $this->schedulerService = new ScheduleService();
+            $this->streamSupportService = new StreamSupportService();
               
             //corre a las 3 amm arg 00 mex
                 ModelsLog::create([
-                    'action' => 'Reset Calendar',
+                    'action' => 'Reset Calendar y Support Streams',
                     'message' => 'Se reseta los calendarios'
                 ]);
                 
@@ -118,6 +121,13 @@ class Kernel extends ConsoleKernel
                             }
                         }
                     }
+
+                    if(isset($user->streamSupport) && count($user->streamSupport)){
+                        foreach ($user->streamSupport as $key => $streamSupport) {
+                            $this->streamSupportService->delete($streamSupport->id);
+                        }
+                    }
+                    
                 }
             Log::debug('---------------[FINISH] END Reset Calendar---------------');
         })->weeklyOn(7, '10:00');
