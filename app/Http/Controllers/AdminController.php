@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -359,13 +360,31 @@ class AdminController extends Controller
             $teams = $this->teamService->all();
             $userRoles = $this->user_model->roles->pluck('name')->toArray();
             Log::debug('userRoles -------- ' . json_encode($userRoles));
-            $roles = $this->rolesService->getRoles($this->user_model->role_id);
+            $roles = $this->rolesService->getRoles($this->user_model->roles->first()->id);
             $user = $this->userService->getById($id);
             $team = $user->team;
             return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams,'userRoles' => $userRoles]);
         } else {
             return redirect('admin');
         }
+    }
+
+    public function updatePass($id)
+    {
+        Log::debug('id **** ---------------------------------- ' . json_encode($id));
+        if (Auth::user() && intval($id) != 0) {
+            $this->user_model = Auth::user();
+
+            $user = $this->userService->getById($id);
+//            dd($user);
+            $user->password = Hash::make('comunidad24@');
+            $user->save();
+            return redirect()->route('team-show', $user->current_team_id);
+        }
+//            return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams,'userRoles' => $userRoles]);
+//        } else {
+//            return redirect('admin');
+//        }
     }
     public function show($id)
     {

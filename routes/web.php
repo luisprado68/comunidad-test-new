@@ -105,6 +105,8 @@ Route::middleware([
 
     Route::get('admin/list', [AdminController::class, 'list'])->name('admin-list');
     Route::get('admin/{id}', [AdminController::class, 'edit'])->name('admin-edit');
+    Route::get('admin/update/pass/{id}', [AdminController::class, 'updatePass'])->name('user-update-pass');
+
     Route::get('admin/show/{id}', [AdminController::class, 'show'])->name('admin-show');
     Route::get('admin/show/{id}/edit', [AdminController::class, 'editScheduler'])->name('admin-show-scheduler');
     Route::get('admin/delete/{id}', [AdminController::class, 'delete'])->name('admin-delete');

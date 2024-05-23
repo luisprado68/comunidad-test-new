@@ -237,7 +237,7 @@ final class UserService
             }
             //TODO cambiar rango a hierron pero falta imagen
             $user->range_id = 1;
-            $user->role_id = 2;
+//            $user->role_id = 2;
             $user->description = $userArray['description'] ?? null;
             $user->channel = $userArray['display_name'];
             $user->password = $userArray['display_name']; //TODO
@@ -247,9 +247,10 @@ final class UserService
             $user->deleted = 0;
             $user->current_team_id = 0;
             $user->save();
-
             $user->token = session('access_token') ?? '';
             $user->update();
+
+            $user->assignRole('streamer');
             return $user;
         } catch (Error $e) {
             return false;
@@ -267,7 +268,7 @@ final class UserService
             $user = User::find($userArray['id']);
             $user->name = $userArray['name'];
             $user->email = $userArray['email'];
-            
+
             $user->range_id = intval($userArray['range']);
             // $user->role_id = intval($userArray['role']);
             $user->current_team_id = intval($userArray['team']);

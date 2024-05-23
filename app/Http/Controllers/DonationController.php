@@ -21,26 +21,26 @@ class DonationController extends Controller
     }
     public function index(){
 
-        $newss = User::all();
-        // Assign the 'streamer' role to each user
-        foreach ($newss as $user) {
-            $user->assignRole('streamer');
-        }
+//        $newss = User::all();
+//        // Assign the 'streamer' role to each user
+//        foreach ($newss as $user) {
+//            $user->assignRole('streamer');
+//        }
 
         $times = [];
         $active = false;
         if(session()->exists('user')){
             $user = session('user');
-            
+
             $userModel = $this->userService->userExistsActive($user['display_name'].'@gmail.com',$user['id']);
             $currentStreams = $this->scheduleService->getStreamByUser($userModel);
-            
+
             if(count($currentStreams) > 0){
                 $times = $this->scheduleService->getTimes($currentStreams,$userModel);
             }
             // @dd($active);
             if($userModel->status){
-               
+
                 session(['status' => $userModel->status]);
             }
             else{
@@ -51,6 +51,6 @@ class DonationController extends Controller
         // else{
         //     return redirect('/');
         // }
-        
+
     }
 }

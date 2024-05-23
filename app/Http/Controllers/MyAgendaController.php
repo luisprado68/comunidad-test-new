@@ -49,16 +49,16 @@ class MyAgendaController extends Controller
         if (session()->exists('user')) {
             $this->user = session('user');
             $this->user_model = $this->userService->userExistsActive($this->user['display_name'] . '@gmail.com', $this->user['id']);
-          
+
             if ($this->user_model->status) {
 
                 session(['status' => $this->user_model->status]);
             } else {
                 session(['status' => 0]);
             }
-          
-           
-            
+
+
+            $flag= false;
             $groupedArray['sunday']=[
                 0 =>  [
                   "day" => "sunday",
@@ -70,7 +70,7 @@ class MyAgendaController extends Controller
                 $groupedArray['thursday'] = [];
                 $groupedArray['friday'] = [];
                 $groupedArray['saturday'] = [];
-    
+
                 $groupedArray_two = $this->scheduleService->getSchedulerByUser($this->user_model);
                 // dd($groupedArray_two);
                 Log::debug('groupedArray_two ------------------------ ' . json_encode($groupedArray_two));
@@ -83,17 +83,17 @@ class MyAgendaController extends Controller
                         $supportScore->point = 1;
                         $supportScore->save();
                     }
-                   
+
                 }
                 $groupedArray = array_merge($groupedArray, $groupedArray_two);
-               
+
                 // $test = new Carbon('2024-02-11 06:10:00');
                 // dump($test->format('H'));
                 // dump($test->format('l'));
                 $today = Carbon::now();
                 $today->tz = $this->user_model->time_zone;
-                
-    
+
+
                 $day_int = 0;
                         switch ($today->format('l')) {
                             case 'Sunday':
@@ -118,48 +118,41 @@ class MyAgendaController extends Controller
                                 $day_int = 6;
                                 break;
                         }
-               
+
                         $i = 0;
                 foreach ($groupedArray as $key => $value) {
-                    
+
                     $groupedArray[$key]['status'] = false;
                     if ($day_int <= $i) {
                         if(isset($groupedArray[$key][0])){
                             // dump($groupedArray[$key][0]['day']);
                             if($groupedArray[$key][0]['day'] != 'sunday'){
                                 $groupedArray[$key]['status'] = true;
+                                $flag = true;
                             }
-                            
-    
                         }
-                        
-                      
-                       
                     }
                     $i++;
-                   
                 }
-    
-              
-                
-                return view('my_agendas', ['showAgendas' => $this->showAgendas, 'week' => $groupedArray, 'user' => $this->user_model]);
+
+                return view('my_agendas', ['showAgendas' => $this->showAgendas, 'week' => $groupedArray, 'user' => $this->user_model,'flag'=>$flag]);
         }
         else{
             return redirect('/');
         }
-       
+
     }
 
-  
+
     public function getFormatDays($schedulers){
         $time_by_day = [];
         foreach ($schedulers as $key => $scheduler) {
-               
+
             $date = new Carbon($scheduler->day);
-           
+
             $dates =$this->scheduleService->getByUserIdAndDate($this->user_model,$scheduler->start);
             foreach ($dates as $key => $value) {
-                
+
                 $time = new Carbon($value->start);
                 $time->tz = $this->user_model->time_zone;
                 // dump($this->user_model->time_zone);
@@ -169,9 +162,9 @@ class MyAgendaController extends Controller
             $list_day[$day_name]['date'] = $time->format('d-m-Y');
             $list_day[$day_name]['times'] = $time_by_day;
             $time_by_day = [];
-            
+
         }
-        
+
         return $list_day;
     }
 }

@@ -6,13 +6,13 @@
             @if (session()->has('user') && session('status') == 0)
                 @include('link')
             @else
-                
+
                 @if (isset($user_watched))
                     @include('status-user', ['user' => $user])
                 @endif
                 @include('status', ['user' => $user])
                 <div class="pt-1 mb-4 col-md-12 w-100">
-                    <div class="card bg-secondary">
+                    <div class="card bg-dark">
                         <div class="card-body ">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -20,7 +20,7 @@
                                         <div class="card-body banner">
                                             <h3 class="text-center text-light">Rango</h3>
                                         </div>
-                                        
+
                                     </div>
                                     <div class="text-center col justify-content-center">
                                         {{-- @if (env('APP_ENV') == 'local') --}}
@@ -41,7 +41,7 @@
                                             @elseif($user->range->id == 8 )
                                                 <img src="{{ asset('/img/LIDERES.png') }}" alt="tag" class="m-2 w-50">
                                             @endif
-                                          
+
                                         {{-- @else
                                             @if ($user->range->id == 1 )
                                                 <img src="./public/img/bronce.svg" alt="tag" class="m-2 w-50">
@@ -68,11 +68,11 @@
                                                 <h3 class="mb-1 text-center text-light">{{$item}}</h3>
                                             @endforeach
                                         @endif
-                                        
-                                       
+
+
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -80,7 +80,7 @@
                 @if (!isset($user_watched))
                     @include('share')
                 @endif
-               
+
             @endif
 
 
@@ -96,6 +96,6 @@
         <script src="./public/js/setTime.js"></script>
     @endif --}}
 
-    
+
 
 @endpush

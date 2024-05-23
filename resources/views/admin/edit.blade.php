@@ -75,7 +75,7 @@
                                                 <select class="mb-3 form-select" aria-label=".form-select example" name="role" id="role">
                                                     {{-- <option value="{{''}} selected>Seleccione una opción</option> --}}
                                                     @foreach ($roles as $role)
-                                                    
+
                                                     <option value="{{ $role->name }}" {{ in_array($role->name, $userRoles) ? 'selected' : '' }}>
                                                         {{ $role->name }}
                                                     </option>
@@ -107,6 +107,10 @@
                                                 @else
                                                     <a href="{{ route('team-show', $user->current_team_id) }}"><button type="button" class="btn btn-danger">Cancel</button></a>
                                                 @endif
+                                                @if(auth()->user()->can('users-pass'))
+                                                    <a href="{{ route('user-update-pass', $user->id) }}"><button type="button" class="btn btn-primary">Actualizar Pass</button></a>
+                                                @endif
+
 
                                             </div>
 

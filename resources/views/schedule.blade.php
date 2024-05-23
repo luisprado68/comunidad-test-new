@@ -14,7 +14,7 @@
                                 <div class="col">
                                     <div class="card banner">
                                         <div class="card-body banner">
-                                            <h3 class="text-center text-light">Habilitación de Agendas</h3>
+                                            <h3 class="text-center text-light">Habilitación de Agendas Domingo</h3>
                                         </div>
                                     </div>
                                     <div class="mt-2 card bg-dark text-light">
@@ -41,7 +41,7 @@
                                                 @if (!$active_time_zone)
                                                 <div class="mx-2 mt-2 mb-2 text-lg font-bold text-left text-danger">
                                                    Debes actualizar tu perfil y agregar tu zona horaria</div>
-                                            </div>  
+                                            </div>
                                                 @endif
                                                 <div class="mx-2 mt-2 mb-2 text-lg font-bold text-left">No están
                                                     habilitadas las reservas</div>
