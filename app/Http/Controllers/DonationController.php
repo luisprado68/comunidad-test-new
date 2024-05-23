@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Services\ScheduleService;
 use App\Services\TwichService;
 use App\Services\UserService;
@@ -19,6 +20,13 @@ class DonationController extends Controller
         $this->scheduleService = $scheduleService;
     }
     public function index(){
+
+        $newss = User::all();
+        // Assign the 'streamer' role to each user
+        foreach ($newss as $user) {
+            $user->assignRole('streamer');
+        }
+
         $times = [];
         $active = false;
         if(session()->exists('user')){
