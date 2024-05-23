@@ -1,15 +1,22 @@
 <div>
+    {{-- {{auth()->user()->getAllPermissions()}} --}}
+    @if(auth()->user()->can('teams-edit'))
+  
     <button type="submit" class="btn btn-primary"><a class="dropdown-item"
         href="{{ route('team-edit', $team->id) }}"><i class="bi bi-pencil-square"></i></a></button>
 
+    @endif
+    
+    
+
         <button type="submit" class="btn btn-success"><a class="dropdown-item"
         href="{{ route('team-show', $team->id) }}"><i class="bi bi-people-fill"></i></a></button>
-
+    @can('teams-delete')
         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                 data-bs-target="{{ '#exampleModal' . $team->id }}">
             <i class="bi bi-trash-fill"></i>
         </button>
-
+    @endcan
 
 
         <!-- Modal -->

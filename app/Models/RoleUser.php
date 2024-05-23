@@ -8,10 +8,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Role extends Authenticatable
+class RoleUser extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-
+    protected $table = 'roles_user';
     /**
      * The attributes that are mass assignable.
      *

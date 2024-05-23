@@ -357,10 +357,12 @@ class AdminController extends Controller
             Log::debug('user **** ---------------------------------- ' . json_encode($this->user_model));
             $ranges = $this->rangeService->all();
             $teams = $this->teamService->all();
+            $userRoles = $this->user_model->roles->pluck('name')->toArray();
+            Log::debug('userRoles -------- ' . json_encode($userRoles));
             $roles = $this->rolesService->getRoles($this->user_model->role_id);
             $user = $this->userService->getById($id);
             $team = $user->team;
-            return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams]);
+            return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams,'userRoles' => $userRoles]);
         } else {
             return redirect('admin');
         }

@@ -132,20 +132,24 @@
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('Acciones') }}
                                 </div>
-
+                                @if(auth()->user()->can('users-delete'))
+                                
                                 <x-dropdown-link href="{{ route('admin-users-deleted') }}">
                                     {{ __('Usuarios Eliminados') }}
                                 </x-dropdown-link>
-
+                                @endif
 
 
                                 <div class="border-t border-gray-200"></div>
                                 <x-dropdown-link href="{{ route('admin-schedulers') }}">
                                     {{ __('Calendarios') }}
                                 </x-dropdown-link>
+                                @if(auth()->user()->can('users-edit'))
+
                                 <x-dropdown-link href="{{ route('admin-users-new') }}">
                                     {{ __('Usuario sin equipo') }}
                                 </x-dropdown-link>
+                                @endif
                                 <div class="border-t border-gray-200"></div>
                                 {{-- <x-dropdown-link href="{{ route('actions-teams') }}">
                                     {{ __('Equipos') }}

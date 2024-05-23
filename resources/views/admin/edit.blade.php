@@ -75,8 +75,10 @@
                                                 <select class="mb-3 form-select" aria-label=".form-select example" name="role" id="role">
                                                     {{-- <option value="{{''}} selected>Seleccione una opción</option> --}}
                                                     @foreach ($roles as $role)
-
-                                                    <option value="{{ $role->id }}" {{ ( $role->id == $user->role_id) ? 'selected' : '' }}> {{ $role->name }} </option>
+                                                    
+                                                    <option value="{{ $role->name }}" {{ in_array($role->name, $userRoles) ? 'selected' : '' }}>
+                                                        {{ $role->name }}
+                                                    </option>
                                                     @endforeach
                                                   </select>
                                             </div>

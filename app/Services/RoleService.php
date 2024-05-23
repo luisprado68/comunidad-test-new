@@ -2,7 +2,7 @@
 namespace App\Services;
 
 use App\Models\Range;
-use App\Models\Role;
+use App\Models\RoleUser;
 use App\Models\User;
 use Broobe\Services\Service;
 use Broobe\Services\Traits\{CreateModel, DestroyModel, ReadModel, UpdateModel};
@@ -14,6 +14,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request as Psr7Request;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Spatie\Permission\Models\Role;
 
 final class RoleService
 {
@@ -52,8 +53,8 @@ final class RoleService
         $roles = [];
         $this->setModel();
         
-        if($role_id == 1){
-            $roles = $this->model::whereIn('id', [1,2,5,6])->get();
+        if($role_id == 4 || $role_id == 1){
+            $roles = $this->model::whereIn('id', [2,4,2,5,6])->get();
         }elseif($role_id == 3){
             $roles = $this->model::all();
         }

@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Datatable;
 
+use App\Enums\RoleType;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\User;
@@ -35,7 +36,11 @@ class UserTopScoresTable extends DataTableComponent
                 ->format(
                     function ($value,$row) {
                         
-                        return '<strong>' . $row->role->name . '</strong>';
+                        if($row->role->id == RoleType::admin){
+                            return '<strong>' . 'admin_lider' . '</strong>';
+                        }else{
+                            return '<strong>' . $row->role->name . '</strong>';
+                        }
                        
                        
                     }

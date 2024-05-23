@@ -267,8 +267,9 @@ final class UserService
             $user = User::find($userArray['id']);
             $user->name = $userArray['name'];
             $user->email = $userArray['email'];
+            
             $user->range_id = intval($userArray['range']);
-            $user->role_id = intval($userArray['role']);
+            // $user->role_id = intval($userArray['role']);
             $user->current_team_id = intval($userArray['team']);
             // $user->active = $userArray['active'];
             if(array_key_exists('status',$userArray)){
@@ -277,6 +278,8 @@ final class UserService
                 $user->status = 0;
             }
             $user->update();
+            $user->syncRoles([$userArray['role']]);
+            // $user->assignRole($userArray['role']);
             return $user;
         } catch (Error $e) {
             Log::error($e->getMessage());

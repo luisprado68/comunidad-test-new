@@ -69,8 +69,8 @@ class UserTable extends DataTableComponent
             Column::make('Rol','role_id')
             ->format(
                 function ($value,$row) {
-                    if($row->role->id == RoleType::god){
-                        return '<strong>' . 'Admin' . '</strong>';
+                    if($row->role->id == RoleType::admin){
+                        return '<strong>' . 'admin_lider' . '</strong>';
                     }else{
                         return '<strong>' . $row->role->name . '</strong>';
                     }

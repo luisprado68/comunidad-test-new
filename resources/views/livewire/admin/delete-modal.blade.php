@@ -1,16 +1,21 @@
 <div>
+    @if(auth()->user()->can('users-edit'))
     <button type="submit" class="btn btn-primary"><a class="dropdown-item"
         href="{{ route('admin-edit', $user->id) }}"><i class="bi bi-pencil-square"></i></a></button>
-          
+    @endif
+    
+    
         <button type="submit" class="btn btn-success"><a class="dropdown-item"
         href="{{ route('admin-show', $user->id) }}"><i class="bi bi-eye-fill"></i></a></button>
     
+    
     @if (!$user->deleted)
+        @if(auth()->user()->can('users-delete'))
         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
             data-bs-target="{{ '#exampleModal' . $user->id }}">
             <i class="bi bi-trash-fill"></i>
         </button>
-
+        @endif
         <!-- Modal -->
         <div class="modal fade" id="{{ 'exampleModal' . $user->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
