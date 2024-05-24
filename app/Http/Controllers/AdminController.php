@@ -371,7 +371,7 @@ class AdminController extends Controller
                 $rol_id = 2;
             }
             $roles = $this->rolesService->getRoles($rol_id);
-            Log::debug('rol user  -------- ' . json_encode($this->user_model->roles->first()->id));
+            Log::debug('rol user  -------- ' . json_encode($this->user_model->roles->last()->id));
             $user = $this->userService->getById($id);
             $team = $user->team;
             return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams,'userRoles' => $userRoles]);
