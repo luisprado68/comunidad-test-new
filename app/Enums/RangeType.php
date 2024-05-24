@@ -11,11 +11,11 @@ use BenSampo\Enum\Enum;
  */
 final class RangeType extends Enum
 {
-    const hierro = 1;
-    const bronce = 2;
-    const plata = 3;
-    const oro = 4;
-    const platino = 5;
-    const esmeralda = 6;
-    const diamante = 7;
+    const hierro = 7;
+    const bronce = 1;
+    const plata = 2;
+    const oro = 3;
+    const platino = 4;
+    const esmeralda = 5;
+    const diamante = 6;
 }

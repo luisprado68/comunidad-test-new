@@ -129,8 +129,8 @@ final class ScoreService
             }else{
                 return false;
             }
-            
-           
+
+
         } catch (Error $e) {
             return false;
         }
@@ -142,9 +142,9 @@ final class ScoreService
                     $score = $user->score;
                     if(isset($score)){
                         if ($user->score->points_week == 60) {
-                          
-                          
-                                if ($user->range_id < 4) {
+
+
+                                if ($user->hasRole('streamer') && $user->range_id <= RangeType::hierro ) {
                                     $range_id = $user->range_id;
                                     $range_id = $range_id + 1;
                                     $user->range_id = $range_id;
@@ -158,14 +158,18 @@ final class ScoreService
                                     Log::debug('Subio de rango*********');
                                 }
                         }
-                        elseif (($user->score->points_week < 45 && ($user->range_id == RangeType::oro || $user->range_id == RangeType::platino)) || 
-                        ($user->score->points_week < 45 &&  $user->range_id == RangeType::plata)) {
-                             
+                        elseif ($user->score->points_week < 45 && $user->range_id >= RangeType::bronce && $user->range_id <= RangeType::platino && $user->hasRole('streamer')) {
+
                             //comento que bajen de rango
-                            if($user->range_id > RangeType::bronce && $user->role->id == RoleType::streamer ){
-                               
+                            if($user->range_id >= RangeType::bronce  ){
+
                                 $range_before =  $user->range_id;
-                                $user->range_id = $range_before - 1;
+                                $fecha2 =now();
+                                if ($user->range_id == RangeType::bronce && $user->created_at->diffInDays($fecha2) >= 7) {
+                                    $user->range_id = RangeType::hierro;
+                                }elseif($user->range_id > RangeType::bronce  && $user->range_id !=  RangeType::hierro){
+                                    $user->range_id = $range_before - 1;
+                                }
                                 $user->save();
                                 ModelsLog::create([
                                     'action' => 'Bajo de rango ',
@@ -174,25 +178,25 @@ final class ScoreService
                                     'message' => 'Usuario: '.$user->id . ' Channel: '.$user->channel.' bajo de rango puntaje semanal: '.$user->score->points_week,
                                 ]);
                             }
-                            
+
                         } elseif ($user->points_support == 25) {
 
                                 if($user->range_id != 4){
                                     $user->range_id = 4;
                                     $user->save();
                                 }
-                                
-                            
-                             
+
+
+
                         }
-                       
+
                     }
-                   
+
                 }
-                
-        
-            
-    
+
+
+
+
     }
 
     public function getUsersSixty(){

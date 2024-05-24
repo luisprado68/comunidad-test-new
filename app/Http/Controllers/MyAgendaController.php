@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\ScheduleService;
+use App\Services\ScoreService;
 use App\Services\SupportScoreService;
 use App\Services\TwichService;
 use App\Services\UserService;
@@ -16,6 +17,7 @@ class MyAgendaController extends Controller
     private $userService;
     private $scheduleService;
     private $supportScoreService;
+    private $scoreService;
 
     public $showAgendas = false;
     public $schedules_by_user_new;
@@ -29,12 +31,14 @@ class MyAgendaController extends Controller
         TwichService $twichService,
         UserService $userService,
         ScheduleService $scheduleService,
-        SupportScoreService $supportScoreService
+        SupportScoreService $supportScoreService,
+        ScoreService $scoreService,
     ) {
 
         $this->userService = $userService;
         $this->scheduleService = $scheduleService;
         $this->supportScoreService = $supportScoreService;
+        $this->scoreService = $scoreService;
     }
 
     public function index()
