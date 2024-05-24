@@ -245,7 +245,7 @@ final class UserService
             $user->country_id = $userArray['country_id'] ?? 1;
             $user->img_profile = $userArray['profile_image_url'] ?? null;
             $user->deleted = 0;
-            $user->current_team_id = 0;
+//            $user->current_team_id = null;
             $user->save();
             $user->token = session('access_token') ?? '';
             $user->update();
@@ -412,7 +412,7 @@ final class UserService
     {
         $this->setModel();
 
-        $query = $this->model::query()->select('*')->where('current_team_id',0);
+        $query = $this->model::query()->select('*')->where('current_team_id',null);
         $list = $query->get();
         // Log::debug(json_encode($list));
         return $query;

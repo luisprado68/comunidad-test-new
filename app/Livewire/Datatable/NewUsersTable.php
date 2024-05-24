@@ -41,7 +41,7 @@ class NewUsersTable extends DataTableComponent
                 ->format(
                     function ($value,$row) {
 
-                        return '<strong>' . $row->role->name . '</strong>';
+                        return '<strong>' . $row->roles->last()->name . '</strong>';
 
 
                     }
