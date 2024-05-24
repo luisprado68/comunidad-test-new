@@ -360,7 +360,9 @@ class AdminController extends Controller
             $teams = $this->teamService->all();
             $userRoles = $this->user_model->roles->pluck('name')->toArray();
             Log::debug('userRoles -------- ' . json_encode($userRoles));
+
             $roles = $this->rolesService->getRoles($this->user_model->roles->first()->id);
+            Log::debug('rol user  -------- ' . json_encode($this->user_model->roles->first()->id));
             $user = $this->userService->getById($id);
             $team = $user->team;
             return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams,'userRoles' => $userRoles]);
