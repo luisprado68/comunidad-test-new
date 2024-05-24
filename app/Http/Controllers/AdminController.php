@@ -360,8 +360,17 @@ class AdminController extends Controller
             $teams = $this->teamService->all();
             $userRoles = $this->user_model->roles->pluck('name')->toArray();
             Log::debug('userRoles -------- ' . json_encode($userRoles));
-
-            $roles = $this->rolesService->getRoles($this->user_model->roles->first()->id);
+            if($this->user_model->hasRole('administrator')){
+                $rol_id = 1;
+            }elseif($this->user_model->hasRole('admin_lider')){
+                $rol_id = 4;
+            }
+            elseif($this->user_model->hasRole('admin_general')){
+                $rol_id = 5;
+            }else{
+                $rol_id = 2;
+            }
+            $roles = $this->rolesService->getRoles($rol_id);
             Log::debug('rol user  -------- ' . json_encode($this->user_model->roles->first()->id));
             $user = $this->userService->getById($id);
             $team = $user->team;

@@ -53,7 +53,7 @@ final class RoleService
         $roles = [];
         $this->setModel();
         
-        if($role_id == 4 || $role_id == 1){
+        if($role_id == 4 || $role_id == 1 || $role_id == 2){
             $roles = $this->model::whereIn('id', [2,4,5,6])->get();
         }elseif($role_id == 3){
             $roles = $this->model::all();
