@@ -65,7 +65,7 @@
                                                 <select class="mb-3 form-select" aria-label=".form-select example" name="range" id="range">
                                                     {{-- <option value="{{''}} selected>Seleccione una opción</option> --}}
                                                     @foreach ($ranges as $range)
-                                                    <option value="{{ $range->id }}" {{ ( $range->id == $user->range_id) ? 'selected' : '' }}> {{ $range->name }} </option>
+                                                    <option value="{{ $range->id }}" {{ ( $range->id == $user->roles->last()->id) ? 'selected' : '' }}> {{ $range->name }} </option>
                                                     @endforeach
                                                   </select>
                                             </div>
