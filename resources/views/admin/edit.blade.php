@@ -76,7 +76,7 @@
                                                     {{-- <option value="{{''}} selected>Seleccione una opción</option> --}}
                                                     @foreach ($roles as $role)
 
-                                                    <option value="{{ $role->name }}" {{ in_array($role->name, $userRoles) ? 'selected' : '' }}>
+                                                    <option value="{{ $role->name }}" {{ in_array($user->roles->last()->name, $userRoles) ? 'selected' : '' }}>
                                                         {{ $role->name }}
                                                     </option>
                                                     @endforeach
