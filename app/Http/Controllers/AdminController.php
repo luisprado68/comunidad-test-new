@@ -358,21 +358,12 @@ class AdminController extends Controller
             Log::debug('user **** ---------------------------------- ' . json_encode($this->user_model));
             $ranges = $this->rangeService->all();
             $teams = $this->teamService->all();
-            $userRoles = $this->user_model->roles->pluck('name')->toArray();
-            Log::debug('userRoles -------- ' . json_encode($userRoles));
-            if($this->user_model->hasRole('administrator')){
-                $rol_id = 1;
-            }elseif($this->user_model->hasRole('admin_lider')){
-                $rol_id = 4;
-            }
-            elseif($this->user_model->hasRole('admin_general')){
-                $rol_id = 5;
-            }else{
-                $rol_id = 2;
-            }
-            $roles = $this->rolesService->getRoles($rol_id);
-            Log::debug('rol user  -------- ' . json_encode($this->user_model->roles->last()->id));
             $user = $this->userService->getById($id);
+            $userRoles = $user->roles->pluck('name')->toArray();
+//            Log::debug('userRoles -------- ' . json_encode($userRoles));
+            $roles = $this->rolesService->getRoles($this->user_model->roles->last()->id);
+            Log::debug('rol user  -------- ' . json_encode($this->user_model->roles->last()->id));
+
             $team = $user->team;
             return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams,'userRoles' => $userRoles]);
         } else {

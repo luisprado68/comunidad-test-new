@@ -279,6 +279,7 @@ final class UserService
                 $user->status = 0;
             }
             $user->update();
+            Log::debug('rol a actualizar --' .json_encode($userArray['role']));
             $user->syncRoles([$userArray['role']]);
             // $user->assignRole($userArray['role']);
             return $user;

@@ -40,7 +40,7 @@ final class RoleService
 
     public function all(){
         $this->setModel();
-        
+
         $roles = $this->model::all();
         if(count($roles) > 0){
             return $roles;
@@ -52,13 +52,13 @@ final class RoleService
     public function getRoles($role_id){
         $roles = [];
         $this->setModel();
-        
+
         if($role_id == 4 || $role_id == 1 || $role_id == 2){
-            $roles = $this->model::whereIn('id', [2,4,5,6])->get();
+            $roles = $this->model::whereIn('id', [2,4,5,6])->get()->pluck('name')->toArray();
         }elseif($role_id == 3){
-            $roles = $this->model::all();
+            $roles = $this->model::all()->pluck('name')->toArray();
         }
-        
+
         if(count($roles) > 0){
             return $roles;
         }else {
@@ -77,7 +77,7 @@ final class RoleService
         }
     }
 
- 
+
     /**
      * @param $accountId
      * @return mixed
@@ -85,7 +85,7 @@ final class RoleService
 
     public function userExists($email, $twich_id = null)
     {
-        
+
         $this->setModel();
         if (isset($twich_id)) {
             $user = $this->model
@@ -109,7 +109,7 @@ final class RoleService
 
     public function userExistsActive($email, $twich_id = null)
     {
-        
+
         $this->setModel();
         if (isset($twich_id)) {
             $user = $this->model
@@ -119,7 +119,7 @@ final class RoleService
         } else {
             $user = $this->model::where('email', $email)->first();
         }
-        
+
         if ($user) {
             return $user;
         } else {
@@ -127,7 +127,7 @@ final class RoleService
         }
     }
 
-   
+
 
     public function getUsers()
     {
@@ -158,7 +158,7 @@ final class RoleService
      * @param $userArray
      * @return false|mixed
      */
-   
+
 
     /**
      * @param array $user

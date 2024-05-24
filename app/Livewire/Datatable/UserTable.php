@@ -74,7 +74,7 @@ class UserTable extends DataTableComponent
                     if($row->roles->first()->id == RoleType::admin){
                         return '<strong>' . 'admin_lider' . '</strong>';
                     }else{
-                        return '<strong>' . $row->roles->first()->name . '</strong>';
+                        return '<strong>' . $row->roles->last()->name . '</strong>';
                     }
 
 
