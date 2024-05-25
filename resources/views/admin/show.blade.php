@@ -68,7 +68,7 @@
                                             <h6>{{ $user->email }}</h6>
                                         </div>
                                         <div class="col-2">
-                                            <h6>{{ $user->role->name }}</h6>
+                                            <h6>{{ $user->roles->last()->name }}</h6>
                                         </div>
                                         <div class="col-2">
                                             <h6>{{ $user->channel }}</h6>

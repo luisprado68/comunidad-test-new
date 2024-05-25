@@ -9,17 +9,13 @@
         <div class="row">
             <div class="col-12">
                 {{-- @dump(Auth::user()->team->getRoleNames()) --}}
-                
+
                 {{-- @dump(Auth::user()->getRoleNames()) --}}
-                @role('administrator')
-                    I am a writer!
-                @else
-                    I am not a writer...
-                @endrole
+
                 @livewire('datatable.team-table', ["model" => Team::class, "userService" => null])
-          
+
             </div>
         </div>
     </div>
-   
+
 </x-app-layout>
