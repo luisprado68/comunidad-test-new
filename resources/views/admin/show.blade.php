@@ -46,7 +46,7 @@
                                         <div class="col-2">
                                             <h5>Nombre</h5>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-4">
                                             <h5>Email</h5>
                                         </div>
                                         <div class="col-2">
@@ -58,13 +58,13 @@
                                         <div class="col-2">
                                             <h5>Zona horaria</h5>
                                         </div>
-                                        <div class="col-2">
+{{--                                        <div class="col-2">--}}
 
-                                        </div>
+{{--                                        </div>--}}
                                         <div class="col-2">
                                             <h6>{{ $user->name }}</h6>
                                         </div>
-                                        <div class="col-2">
+                                        <div class="col-4">
                                             <h6>{{ $user->email }}</h6>
                                         </div>
                                         <div class="col-2">
