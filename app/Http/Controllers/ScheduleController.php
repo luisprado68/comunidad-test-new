@@ -439,7 +439,17 @@ class ScheduleController extends Controller
                 // Log::debug('schedule_user:-----' . json_encode($schedule_user));
 
                 $dates_other_users =  $this->scheduleService->validateNewScheduleByUser($schedule_user['start']);
-                if (count($dates_other_users) == 2) {
+                $currentStreams = [];
+                foreach ($dates_other_users as $currentStream_same_group){
+                    if(count($currentStreams) <=2){
+                        if($currentStream_same_group->user->team->id == $user_model->team->id){
+                            array_push($currentStreams,$currentStream_same_group);
+
+                        }
+                    }
+
+                }
+                if (count($currentStreams) == 2) {
                     $hourDuplicated = true;
                     $date_time_zone = new Carbon($schedule_user['start']);
                     $date_time_zone->tz = $user_model->time_zone;
