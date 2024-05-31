@@ -95,7 +95,7 @@ Route::middleware([
     Route::get('admin/new-users', function () {return view('actions/users-new');})->name('admin-users-new');
 
     Route::get('admin/schedulers', [AdminController::class, 'schedulers'])->name('admin-schedulers');
-
+    Route::get('admin/schedulers/{teamId}', [AdminController::class, 'schedulersTeam'])->name('admin-schedulers-teams');
 
     Route::get('admin/teams/list', function () {return view('actions/teams');})->name('actions-teams');
     Route::get('admin/team/{id}', [TeamController::class, 'edit'])->name('team-edit');
