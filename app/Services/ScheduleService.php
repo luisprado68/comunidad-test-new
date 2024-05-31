@@ -186,7 +186,7 @@ final class ScheduleService
             return null;
         }
     }
-    public function getDatesByDay($user,$day){
+    public function getDatesByDay($user,$day,$team_id = null){
         $week = [];
         $week_time_zone = [];
         // dump('day');
@@ -212,12 +212,11 @@ final class ScheduleService
             // dump('end----');
             // dump($day_end);
         }
+        $week = $this->model::join('users', 'schedule.user_id', '=', 'users.id')->whereBetween('schedule.start', [$day_start, $day_end])
+            ->where('users.current_team_id',$team_id)->orderBy('users.current_team_id')->get();
+//        dump($week);
 
-
-
-
-
-        $week = $this->model::whereBetween('start', [$day_start, $day_end])->orderBy('start')->get();
+        Log::debug(json_encode($week));
         // $week = $this->model::whereBetween('start', [$day_start, $day_end])->get();
 
         foreach ($week as $key => $day) {
@@ -229,18 +228,18 @@ final class ScheduleService
         return $week_time_zone;
     }
 
-    public function getSchedulerWeek($user)
+    public function getSchedulerWeek($user,$team_id)
     {
 
         $allDays = [];
-        $monday = $this->getDatesByDay($user,Carbon::MONDAY);
+        $monday = $this->getDatesByDay($user,Carbon::MONDAY,$team_id);
         // dump($monday);
-        $tuesday = $this->getDatesByDay($user,Carbon::TUESDAY);
-        $wednesday = $this->getDatesByDay($user,Carbon::WEDNESDAY);
-        $thursday = $this->getDatesByDay($user,Carbon::THURSDAY);
-        $friday = $this->getDatesByDay($user,Carbon::FRIDAY);
+        $tuesday = $this->getDatesByDay($user,Carbon::TUESDAY,$team_id);
+        $wednesday = $this->getDatesByDay($user,Carbon::WEDNESDAY,$team_id);
+        $thursday = $this->getDatesByDay($user,Carbon::THURSDAY,$team_id);
+        $friday = $this->getDatesByDay($user,Carbon::FRIDAY,$team_id);
         // dump('saturday');
-        $saturday = $this->getDatesByDay($user,Carbon::SATURDAY);
+        $saturday = $this->getDatesByDay($user,Carbon::SATURDAY,$team_id);
         // dump($saturday);
         $allDays =[
             'Lunes' => $monday,

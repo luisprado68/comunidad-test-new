@@ -226,7 +226,14 @@ class AdminController extends Controller
             $this->user_model = Auth::user();
             // dump($this->user_model);
             $users = $this->userService->getUsersModel();
-            $week = $this->scheduleService->getSchedulerWeek($this->user_model);
+            $teams = $this->teamService->all();
+            $groups = [];
+
+            foreach ($teams as $team) {
+                $week = $this->scheduleService->getSchedulerWeek($this->user_model,$team->id);
+                array_push($groups,$week);
+            }
+
 
             $supports_ids = $this->streamSupportService->getSupportsStreams();
             if(isset($supports_ids)){
@@ -259,20 +266,7 @@ class AdminController extends Controller
                     }
                 }
             }
-            // dump($all);
-            // dump($supports_ids);
-            // dump('ssss');
-            // dump($all);
-            // foreach ($week as $key => $value) {
-
-            //     $date = new Carbon($value->start);
-            //     $date->tz = $this->user_model->time_zone;
-
-            //     array_push($week_time_zone,['date' => $date->format('d-m-Y H:i:s'),'user' => $value->user->name]);
-
-            // }
-            // dd($week);
-            return view('admin.schedulers', ['users' => $users, 'user_model' => $this->user_model, 'week' => $week, 'all' => $all]);
+            return view('admin.schedulers', ['users' => $users, 'user_model' => $this->user_model, 'week' => $week, 'all' => $all,'groups' => $groups,'teams' => $teams]);
         } else {
             return redirect('admin');
         }
