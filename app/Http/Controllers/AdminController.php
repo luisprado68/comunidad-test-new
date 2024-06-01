@@ -613,17 +613,20 @@ class AdminController extends Controller
                     $status = false;
                 }
                 $user->calendar_enabled = $status;
-                    $user->save();
+                $user->points_support = intval($data['points_support']);
+                $user->save();
 
                 $score = $user->score;
                 if(isset($score)){
-                    $score->points_week = intval($data['points']);
+                    $score->points_day = intval($data['points_day']);
+                    $score->points_week = intval($data['points_week']);
                     $score->neo_coins = intval($data['neo_coins']);
+
                     $score->save();
                 }else{
                     $score_new['user_id'] = $user->id;
-                    $score_new['points_day'] = 0;
-                    $score_new['points_week'] = intval($data['points']);
+                    $score_new['points_day'] = intval($data['points_day']);
+                    $score_new['points_week'] = intval($data['points_week']);
                     $score_new['neo_coins'] = intval($data['neo_coins']);
                     $created = $this->scoreService->create($score_new);
                 }

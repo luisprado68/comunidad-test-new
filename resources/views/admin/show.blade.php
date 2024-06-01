@@ -156,22 +156,22 @@
                                                 Agenda Activa
                                             </label>
                                         </div>
-                                        <h6>Punteje Semanal</h6>
                                         @csrf
-                                        @if (isset($user->score->points_week))
-                                            <div class="mt-3 mb-3 col-3">
-                                                {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
-                                                <input type="number" class="form-control" aria-label="Default" name="points"  min="0" max="60"
-                                                    aria-describedby="inputGroup-sizing-default" value="{{ $user->score->points_week }}">
-                                            </div>
-                                        @else
-                                            <div class="mt-3 mb-3 col-3">
-                                                {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
-                                                <input type="number" class="form-control" aria-label="Default" name="points"  min="0" max="60"
-                                                    aria-describedby="inputGroup-sizing-default" value="0">
 
+                                        <h6>Punteje Dia</h6>
+                                        <div class="mt-3 mb-3 col-3">
+                                            {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
+                                            <input type="number" class="form-control" aria-label="Default" name="points_day"  min="0" max="60"
+                                                   aria-describedby="inputGroup-sizing-default" value="{{ isset($user->score->points_day) ? $user->score->points_day :'0' }}">
+                                        </div>
+                                        <h6>Punteje Semanal</h6>
+
+                                            <div class="mt-3 mb-3 col-3">
+                                                {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
+                                                <input type="number" class="form-control" aria-label="Default" name="points_week"  min="0" max="60"
+                                                    aria-describedby="inputGroup-sizing-default" value="{{ isset($user->score->points_week) ? $user->score->points_week :'0' }}">
                                             </div>
-                                        @endif
+
                                         <h6>Neo coins</h6>
                                         @if (isset($user->score->neo_coins))
                                         <div class="mt-3 mb-3 col-3">
@@ -187,6 +187,13 @@
 
                                             </div>
                                         @endif
+
+                                        <h6>Punteje Referido</h6>
+                                        <div class="mt-3 mb-3 col-3">
+                                            {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
+                                            <input type="number" class="form-control" aria-label="Default" name="points_support"  min="0" max="60"
+                                                   aria-describedby="inputGroup-sizing-default" value="{{ isset($user->points_support) ? $user->points_support :'0' }}">
+                                        </div>
                                             <div class="mt-3 mb-3 col">
                                                 <button type="submit" class="btn btn-success">Guardar</button>
                                             </div>
@@ -194,13 +201,6 @@
                                     </form>
                             </div>
                         </div>
-                            <h6>Punteje Dia</h6>
-                            @if (isset($user->score->points_day))
-                                {{ $user->score->points_day }}
-                            @else
-                                0
-                            @endif
-
                             <h6>Users Watching
                                 {{ (isset($user->score->count_users) ? '(' . $user->score->count_users . ')' : '0') .
                                     (isset($date) ? ' Fecha: ' . $date : '') }}
