@@ -8,7 +8,7 @@
                 @if (session()->has('user') && session('status') == 0)
 
                     @include('link')
-                @else 
+                @else
                     <div class="pb-3 text-center col">
                         <h4 class="text-center text-light">BIENVENIDO A LA COMUNIDAD MAS GRANDE DE STREAMERS</h4>
                         <h4 class="text-center text-light">DONDE PODRÁS CONOCER CREADORES DE CONTENIDO</h4>
@@ -63,13 +63,13 @@
                                                     </div>
                                                     <div class="col-lg-4 col-md-4">
                                                         <div class="text-center card-body">
-                                                            <a class="dropdown-item" href="https://trovo.live/" target="_blank"><button type="button" class="btn btn-lg trovo-button" 
+                                                            <a class="dropdown-item" href="https://trovo.live/" target="_blank"><button type="button" class="btn btn-lg trovo-button"
                                                                 style="">
                                                                 <img src="{{ asset('/img/trovo.png') }}" alt="" width="25px">
                                                                  Únete con
                                                                 TROVO</button></a>
-                                                                
-                                                            
+
+
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-md-4">
@@ -78,7 +78,7 @@
                                                                 style="">
                                                                 <i class="fa-brands fa-kickstarter"></i> Únete con
                                                                 KICK</button></a>
-                                                            
+
                                                         </div>
                                                     </div>
                                                 @endif
@@ -151,7 +151,7 @@
                                 <div class="col-12 ">
                                     <div class="px-3 pt-3 col">
                                         <div class="row">
-                                       
+
                                             <div class="text-center col-12 text-light card " style="background-color: #6474b8">
                                                 <h4>Sumate a la comunidad en Discord!</h4>
                                                 <a href="https://discord.gg/uncB86TTSg" target="_blank"><i class='pb-2 fab fa-discord animate__animated animate__bounce' style='font-size:30px;color:white'></i></a>
@@ -159,10 +159,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="pt-3 col-12">
-                                    
+
                                     <div class="col-md-12 w-100">
                                         <div class="card" style="background-color: #031633">
                                             {{-- <div class="card-header">{{ __('Dashboard') }}</div> --}}
@@ -171,81 +171,81 @@
                                                 <div class="col-12">
                                                     <h1 class="pb-3 text-center text-light">Top de la semana</h1>
                                                     <div class="row">
+{{--                                                        @dump($twoElements1)--}}
                                                         @if (count($twoElements1))
                                                             @foreach ($twoElements1 as $twoElements)
                                                             <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
-                                                            
                                                                     <div class=" text-light">
                                                                         <p style="display: inline"><b>{{'#' .$top++}}</b></p>
-                                                                        <p>{{$twoElements['channel']}}</p>
-                                                                        <img src="{{$twoElements['img_profile']}}" alt="tag"
-                                                                        class="rounded-circle" width="100px">
+                                                                        <a class="text-light link_streamer" style="text-decoration: none" href="{{ route('summary-user',['id' => $twoElements['user_id'] ]) }}"><p>{{$twoElements['channel']}}</p>
+                                                                            <img src="{{$twoElements['img_profile']}}" alt="tag"
+                                                                                 class="rounded-circle" width="100px"></a>
                                                                     </div>
                                                                 </div>
-                                                            
+
                                                             @endforeach
                                                         @endif
-                                                           
+
                                                         @if (count($twoElements2))
                                                             @foreach ($twoElements2 as $twoElements)
                                                             <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
-                                                            
-                                                                    <div class=" text-light">
-                                                                        <p style="display: inline"><b>{{'#' .$top++}}</b></p>
-                                                                        <p>{{$twoElements['channel']}}</p>
+
+                                                                <div class=" text-light">
+                                                                    <p style="display: inline"><b>{{'#' .$top++}}</b></p>
+                                                                    <a class="text-light link_streamer" style="text-decoration: none" href="{{ route('summary-user',['id' => $twoElements['user_id'] ]) }}"><p>{{$twoElements['channel']}}</p>
                                                                         <img src="{{$twoElements['img_profile']}}" alt="tag"
-                                                                        class="rounded-circle" width="100px">
-                                                                    </div>
+                                                                             class="rounded-circle" width="100px"></a>
                                                                 </div>
-                                                            
+                                                                </div>
+
                                                             @endforeach
                                                         @endif
-                                                            
+
                                                         @if (count($twoElements3))
                                                             @foreach ($twoElements3 as $twoElements)
                                                             <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
-                                                            
-                                                                    <div class=" text-light">
-                                                                        <p style="display: inline">{{'#' .$top++}}</p>
-                                                                        <p>{{$twoElements['channel']}}</p>
+
+                                                                <div class=" text-light">
+                                                                    <p style="display: inline"><b>{{'#' .$top++}}</b></p>
+                                                                    <a class="text-light link_streamer" style="text-decoration: none" href="{{ route('summary-user',['id' => $twoElements['user_id'] ]) }}"><p>{{$twoElements['channel']}}</p>
                                                                         <img src="{{$twoElements['img_profile']}}" alt="tag"
-                                                                        class="rounded-circle" width="100px">
-                                                                    </div>
+                                                                             class="rounded-circle" width="100px"></a>
                                                                 </div>
-                                                            
+                                                                </div>
+
                                                             @endforeach
                                                         @endif
-                                                            
+
                                                             @if (count($twoElements4))
                                                                 @foreach ($twoElements4 as $twoElements)
                                                                 <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
-                                                                
-                                                                        <div class=" text-light">
-                                                                            <p style="display: inline">{{'#' .$top++}}</p>
-                                                                            <p>{{$twoElements['channel']}}</p>
+
+                                                                    <div class=" text-light">
+                                                                        <p style="display: inline"><b>{{'#' .$top++}}</b></p>
+                                                                        <a class="text-light link_streamer" style="text-decoration: none" href="{{ route('summary-user',['id' => $twoElements['user_id'] ]) }}"><p>{{$twoElements['channel']}}</p>
                                                                             <img src="{{$twoElements['img_profile']}}" alt="tag"
-                                                                            class="rounded-circle" width="100px">
-                                                                        </div>
+                                                                                 class="rounded-circle" width="100px"></a>
                                                                     </div>
-                                                                
+                                                                    </div>
+
                                                                 @endforeach
                                                         @endif
-                                                           
+
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
-                                
+
+
                             </div>
-                            
+
                         </div>
-                       
+
                     </div>
-                   
-                   
+
+
                 @endif
 
 
@@ -262,5 +262,5 @@
     @else
         <script src="./public/js/setTime.js"></script>
     @endif --}}
-  
+
 @endpush

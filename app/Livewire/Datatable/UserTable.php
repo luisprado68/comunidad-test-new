@@ -93,11 +93,11 @@ class UserTable extends DataTableComponent
             )
             ->html(),
             Column::make("Email", "email")
-            ->searchable()
                 ->sortable(),
             // Column::make("Twich id", "twich_id")
             //     ->sortable(),
             Column::make("Channel", "channel")
+                ->searchable()
                 ->sortable(),
             Column::make("Status", "status")
             ->sortable()

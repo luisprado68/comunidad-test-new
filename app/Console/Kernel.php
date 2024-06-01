@@ -28,7 +28,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         $schedule->call(function () {
-          
+
             $this->twichService = new TwichService();
             $this->scheduleService = new ScheduleService();
             $this->scoreService = new ScoreService();
@@ -38,15 +38,15 @@ class Kernel extends ConsoleKernel
             $minute = $now->format('i');
 
             if ($minute == 15  || $minute == 57) {
-                
+
                 ModelsLog::create([
                     'action' => 'Validacion de chat en stream',
                     'message' => 'Se actualiza historial y puntaje'
                 ]);
-                
+
                 Log::debug('-------------------------------------------------minute: ' . $minute);
                 Log::debug('---------------[START]  Chatters ------------');
-               
+
                 $currentStreams = $this->scheduleService->getCurrentStreamKernel();
                 Log::debug('**** currentStreams ******** ');
                 Log::debug(json_encode($currentStreams));
@@ -54,7 +54,7 @@ class Kernel extends ConsoleKernel
                     foreach ($currentStreams as $key => $schedule_streaming) {
 
                         $chatters_schedule =  $this->twichService->getChattersKernel($schedule_streaming);
-                       
+
                     }
                 }
 
@@ -72,7 +72,7 @@ class Kernel extends ConsoleKernel
                 $this->scheduleService = new ScheduleService();
                 $this->scoreService = new ScoreService();
                 $this->userService = new UserService();
-    
+
                 $users = $this->userService->getUsersModel();
                 // Log::debug('-------------------------------------------------users: '. json_encode($users));
                 if(count($users) > 0){
@@ -83,14 +83,14 @@ class Kernel extends ConsoleKernel
                         $user_array['points_day'] = 0;
                         $user_array['points_week'] = 0;
                         $result = $this->scoreService->update($user_array);
-                        
+
                     }
                     ModelsLog::create([
                         'action' => 'Validacion de puntos',
                         'message' => 'Se reseta los puntos'
                     ]);
                 }
-            
+
             Log::debug('---------------[END]  Evaluete Points and Ranges & Start Reset Points ------------');
         })->weeklyOn(7, '11:57');
 
@@ -101,13 +101,13 @@ class Kernel extends ConsoleKernel
             $this->userService = new UserService();
             $this->schedulerService = new ScheduleService();
             $this->streamSupportService = new StreamSupportService();
-              
+
             //corre a las 3 amm arg 00 mex
                 ModelsLog::create([
                     'action' => 'Reset Calendar y Support Streams',
                     'message' => 'Se reseta los calendarios'
                 ]);
-                
+
                 $allUsers = $this->userService->all();
                 foreach ($allUsers as $key => $user) {
 
@@ -127,22 +127,22 @@ class Kernel extends ConsoleKernel
                             $this->streamSupportService->delete($streamSupport->id);
                         }
                     }
-                    
+
                 }
             Log::debug('---------------[FINISH] END Reset Calendar---------------');
         })->weeklyOn(7, '10:00');
 
 
         $schedule->call(function () {
-           
+
             $this->userService = new UserService();
             $this->twichService = new TwichService();
-            
+
             Log::debug('---------------[START]  Update score user --------');
                 $allUsers = $this->userService->getUsersModel();
                 foreach ($allUsers as $key => $user) {
 
-                    
+
                     if(isset($user->time_zone) && $user->time_zone != ""){
                         // Log::debug('---------------user timezone ---------------' . $user->channel);
                         $now =  Carbon::now($user->time_zone);
@@ -151,14 +151,18 @@ class Kernel extends ConsoleKernel
                         $score_week = 0;
                         // Log::debug('---------------user hour ---------------' . $hour);
                         if($hour == '00'){
-                            
+
                             $score = $user->score;
                             if(isset($score)){
                                 //se suma el punto del dia al semanal y despues resetea
                                 $score_day = $score->points_day;
                                 $score_week = $score->points_week;
                                 $score_week = $score_week + $score_day;
-                                $score->points_week = $score_week;
+                                if($score_week >= 60){
+                                    $score->points_week = 60;
+                                }else{
+                                    $score->points_week = $score_week;
+                                }
                                 $score->points_day = 0;
                                 $score->save();
                                 ModelsLog::create([
@@ -178,10 +182,10 @@ class Kernel extends ConsoleKernel
                                 ]);
                             }
 
-                            
+
                         }
                     }
-                   
+
 
                 }
                 Log::debug('---------------[FINISH] END  Update score user ---------------');
@@ -191,7 +195,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             Log::debug('---------------[START]  Refresh Tokens--------');
             $allUsers = $this->userService->getUsersModel();
-            
+
             foreach ($allUsers as $key => $user) {
                 $this->twichService->getRefreshToken($user);
             }

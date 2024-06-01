@@ -14,7 +14,7 @@ class SummaryController extends Controller
     private $scheduleService;
     public function __construct(UserService $userService,ScheduleService $scheduleService)
     {
-        
+
         $this->userService = $userService;
         $this->scheduleService = $scheduleService;
     }
@@ -26,17 +26,17 @@ class SummaryController extends Controller
         // dd(session('user'));
         if(session()->exists('user')){
             $user = session('user');
-            
+
             $userModel = $this->userService->userExistsActive($user['display_name'].'@gmail.com',$user['id']);
-            
-         
+
+
             foreach ($userModel->supportScores as $key => $supportScore) {
                 $stream = json_decode($supportScore->user);
                 array_push($ref,$stream->channel);
             }
-            
+
             if($userModel->status){
-               
+
                 session(['status' =>$userModel->status]);
             }
             else{
@@ -47,7 +47,7 @@ class SummaryController extends Controller
         }else{
             return redirect('/');
         }
-        
+
     }
 
     public function summaryByUserId($id){
@@ -56,21 +56,21 @@ class SummaryController extends Controller
         $times = [];
         $ref = [];
         // dd(session('user'));
-        if(session()->exists('user')){
-            $user = session('user');
-            
+//        if(session()->exists('user')){
+//            $user = session('user');
+//            dd($id);
             $userModel = $this->userService->getById($id);
-            
-            if(count($userModel->supportScores)){
+
+            if(isset($userModel->supportScores) && count($userModel->supportScores)){
                 foreach ($userModel->supportScores as $key => $supportScore) {
                     $stream = json_decode($supportScore->user);
                     array_push($ref,$stream->channel);
                 }
             }
-         
-            
+
+
             if($userModel->status){
-               
+
                 session(['status' =>$userModel->status]);
             }
             else{
@@ -78,9 +78,9 @@ class SummaryController extends Controller
             }
 
             return view('summary',["user"=>$userModel,'ref' => $ref,'user_watched' => true]);
-        }else{
-            return redirect('/');
-        }
-        
+//        }else{
+//            return redirect('/');
+//        }
+
     }
 }
