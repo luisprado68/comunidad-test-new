@@ -11,6 +11,7 @@ use DateTimeZone;
 use Error;
 use Exception;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use GuzzleHttp\Client;
@@ -71,28 +72,53 @@ final class TrovoService
 
         $this->url_test = 'http://localhost';
         $this->url = 'https://www.comunidadnc.com/trovo/login_token';
-        $client = new Client();
-        $headers = [
-            'Content-Type' => 'application/x-www-form-urlencoded',
-            'client-id' => '7c23b5396452b6ade3f848bf8b606e7a',
-//            'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
-        ];
-        $options = [
-            'form_params' => [
-//                'client_id' => '',
-                'client_secret' => '80ea1ddc012d0186fba1854354560927',
-                'grant_type' => 'authorization_code',
-                'redirect_uri' => $this->url,
-                'code' =>  $code,
-            ],
-        ];
-        $request = new Psr7Request('POST', 'https://open-api.trovo.live/openplatform/exchangetoken', $headers);
-        $res = $client->sendAsync($request, $options)->wait();
-        $result = json_decode($res->getBody(), true);
-        Log::debug("result getToken trovo-------------------------------------------");
-        Log::debug(json_encode($result));
+//        $client = new Client();
+//        $headers = [
+//            'Content-Type' => 'application/x-www-form-urlencoded',
+//            'client-id' => '7c23b5396452b6ade3f848bf8b606e7a',
+////            'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
+//        ];
+//        $options = [
+//            'form_params' => [
+////                'client_id' => '',
+//                'client_secret' => '80ea1ddc012d0186fba1854354560927',
+//                'grant_type' => 'authorization_code',
+//                'redirect_uri' => $this->url,
+//                'code' =>  $code,
+//            ],
+//        ];
+//        $request = new Psr7Request('POST', 'https://open-api.trovo.live/openplatform/exchangetoken', $headers);
+//        $res = $client->sendAsync($request, $options)->wait();
+//        $result = json_decode($res->getBody(), true);
+//        Log::debug("result getToken trovo-------------------------------------------");
+//        Log::debug(json_encode($result));
 //        session(['access_token' => $result['access_token']]);
 //        session(['refresh_token' => $result['refresh_token']]);
+
+
+        $response = Http::withHeaders([
+            'Accept' => 'application/json',
+            'client-id' => '7c23b5396452b6ade3f848bf8b606e7a'
+        ])->post('https://open-api.trovo.live/openplatform/exchangetoken', [
+            'client_secret' => '80ea1ddc012d0186fba1854354560927',
+            'grant_type' => 'authorization_code',
+            'code' => $code,
+            'redirect_uri' => $this->url,
+        ]);
+
+        if ($response->successful()) {
+            // Handle successful response
+            $data = $response->json();
+            Log::debug("result getToken trovo-------------------------------------------");
+            Log::debug(json_encode($data));
+            // Do something with $data
+        } else {
+            // Handle error
+            $error = $response->json();
+            Log::debug("Error getToken trovo-------------------------------------------");
+            Log::debug(json_encode($error));
+            // Do something with $error
+        }
     }
 
     public function getRefreshToken($user)
