@@ -33,14 +33,19 @@ class SupportController extends Controller
         $date_string = ' --';
         $arrayStream = [];
         $times = [];
+        $userModel = null;
         if(session()->exists('user')){
             $this->user = session('user');
 
-            $userModel = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['stream']);
+            if(array_key_exists('stream',$this->user)){
+                $user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['stream']);
+            }else{
+                $user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id']);
+            }
 
-            if($userModel->status){
+            if(isset($user_model) && $user_model->status){
 
-                session(['status' => $userModel->status]);
+                session(['status' => $user_model->status]);
             }
             else{
                 session(['status' => 0]);

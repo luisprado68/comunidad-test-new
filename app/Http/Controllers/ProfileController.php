@@ -37,8 +37,12 @@ class ProfileController extends Controller
         if(session()->exists('user')){
 
             $this->user = session('user');
+            if(array_key_exists('stream',$user)){
+                $user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['stream']);
+            }else{
+                $user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id']);
+            }
 
-            $user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['stream']);
             // $currentStreams = $this->scheduleService->getStreamByUser($user_model);
 
             // if(count($currentStreams) > 0){

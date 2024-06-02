@@ -26,9 +26,11 @@ class SummaryController extends Controller
         // dd(session('user'));
         if(session()->exists('user')){
             $user = session('user');
-
-            $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['stream']);
-
+            if(array_key_exists('stream',$user)){
+                $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['stream']);
+            }else{
+                $userModel = $this->userService->userExistsActive($user['email'],$user['id']);
+            }
 
             foreach ($userModel->supportScores as $key => $supportScore) {
                 $stream = json_decode($supportScore->user);

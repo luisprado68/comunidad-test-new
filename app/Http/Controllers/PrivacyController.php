@@ -18,7 +18,11 @@ class PrivacyController extends Controller
         if(session()->exists('user')){
             $user = session('user');
 
-            $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['stream']);
+            if(array_key_exists('stream',$user)){
+                $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['stream']);
+            }else{
+                $userModel = $this->userService->userExistsActive($user['email'],$user['id']);
+            }
 
             if($userModel->status){
 
