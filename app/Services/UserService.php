@@ -146,7 +146,8 @@ final class UserService
                 $user = $this->model::where('twich_id', $stream_id)->first();
             }
 
-        } else {
+        }
+        if(empty($user)){
             Log::debug('4444');
             $user = $this->model::where('email', $email)->first();
         }
