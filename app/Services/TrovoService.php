@@ -149,7 +149,6 @@ final class TrovoService
 
     public function getUser()
     {
-
         try {
             if (!empty(session('access_token'))) {
                 $client = new Client();
@@ -164,6 +163,11 @@ final class TrovoService
                 Log::debug('user TROVO---------');
                 Log::debug(json_encode($result));
                 $this->user = $result;
+                $this->user['id'] = $result['userId'];
+                $this->user['name'] = $result['userName'];
+                $this->user['display_name'] = $result['nickName'];
+                $this->user['profile_image_url'] = $result['profilePic'];
+
                 // $img = $this->user['profile_image_url'];
                 session(['user' => $this->user]);
                 return $this->user;

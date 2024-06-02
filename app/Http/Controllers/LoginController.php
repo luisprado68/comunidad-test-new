@@ -81,10 +81,9 @@ class LoginController extends Controller
         Log::debug(json_encode($user));
         if(array_key_exists('email',$user)){
             $user_model = $this->userService->userExists($user['email'], $user['id']);
-                $user_model = $this->userService->userExists($user['email'], $user['id']);
-            }else{
-                $user_model = $this->userService->userExists($user['id']);
-            }
+        }else{
+            $user_model = $this->userService->userExists($user['id']);
+        }
 
 
         // dump($user_model);
@@ -131,6 +130,47 @@ class LoginController extends Controller
     {
         $this->trovoService->getToken($request);
         $user = $this->trovoService->getUser();
+
+        if(array_key_exists('email',$user)){
+            $user_model = $this->userService->userExistsTrovo($user['email'], $user['id']);
+        }else{
+            $user_model = $this->userService->userExistsTrovo($user['id']);
+        }
+
+        if ($user_model == false) {
+            // TODO validar y traer el primer equipo que tenga menos de 100 usuarios para asignar
+//            $team = $this->teamService->getFirstTeamAviable();
+            $user_model_created = $this->userService->create($user);
+            if (session()->exists('support_to_user_id')) {
+
+                $support_user['user_id'] = $user_model_created->id;
+                $support_user['channel'] = $user_model_created->channel;
+
+                $supportScoreArray['user_id'] =  session('support_to_user_id');
+                $supportScoreArray['point'] = 0;
+                $supportScoreArray['user'] = json_encode($support_user);
+                $this->supportScoreService->create($supportScoreArray);
+                // Log::debug('crear supportScoreArray');
+                // Log::debug(json_encode($supportScoreArray));
+
+                // $total = count($user_model_created->supportScores->where('point',1));
+            }
+        }else{
+            if(count($user_model->supportScores)> 0){
+                $total = count($user_model->supportScores->where('point', 1));
+            }
+
+            if ($total != 0) {
+                $user_model->points_support = $total;
+                $user_model->save();
+            }
+
+        }
+        if (isset($user_model->time_zone) && !empty($user_model->time_zone)) {
+            return redirect('summary');
+        } else {
+            return redirect('profile');
+        }
 
 //        return json_encode($request->all());
     }

@@ -87,7 +87,6 @@ final class UserService
 
     public function userExists($email, $twich_id = null)
     {
-
         $this->setModel();
         if (isset($twich_id)) {
             $user = $this->model
@@ -97,9 +96,29 @@ final class UserService
         } else {
             $user = $this->model::where('email', $email)->first();
         }
-
         if ($user) {
+            $user->token = session('access_token') ?? '';
+            $user->refresh_token = session('refresh_token') ?? '';
+            $user->update();
+            return $user;
+        } else {
+            return false;
+        }
+    }
 
+    public function userExistsTrovo($email, $trovo_id = null)
+    {
+        $user = null;
+        $this->setModel();
+        if (isset($email)) {
+            $user = $this->model::where('email', $email)->first();
+        }
+        if(empty($user) && isset($trovo_id)){
+            $user = $this->model
+                ::where('trovo_id', $trovo_id)
+                ->first();
+        }
+        if (isset($user)) {
             $user->token = session('access_token') ?? '';
             $user->refresh_token = session('refresh_token') ?? '';
             $user->update();
