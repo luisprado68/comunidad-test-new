@@ -36,7 +36,7 @@ class SupportController extends Controller
         if(session()->exists('user')){
             $this->user = session('user');
 
-            $userModel = $this->userService->userExistsActive($this->user['display_name'].'@gmail.com',$this->user['id']);
+            $userModel = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['stream']);
 
             if($userModel->status){
 

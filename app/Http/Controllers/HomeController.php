@@ -31,7 +31,7 @@ class HomeController extends Controller
     }
     public function index()
     {
-        
+
         $twoElements1 = [];
         $twoElements2 = [];
         $twoElements3 = [];
@@ -43,27 +43,27 @@ class HomeController extends Controller
         // }
         if(session()->exists('user')){
             $user = session('user');
-            
-            $userModel = $this->userService->userExistsActive($user['display_name'].'@gmail.com',$user['id']);
-        
+
+            $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['stream']);
+
             // @dd($active);
             Log::debug('model------------------------');
             Log::debug(json_encode($userModel));
             if($userModel->status){
-               
+
                 session(['status' => $userModel->status]);
             }
             else{
                 session(['status' => 0]);
             }
-        
+
         }
         $users = $this->userService->getUsersTop();
         if($users){
             $users = $users->toArray();
-        
+
             $twoElements1 = array_slice($users, 0, 3);
-            
+
             // Get two elements starting from index 3
             $twoElements2 = array_slice($users, 3,3);
              // Get two elements starting from index 3
@@ -71,7 +71,7 @@ class HomeController extends Controller
               // Get two elements starting from index 3
             $twoElements4 = array_slice($users, 9,1);
         }
-       
+
         $top = 1;
         $top_two = 4;
         $top_three = 7;
@@ -79,9 +79,9 @@ class HomeController extends Controller
 
         return view('home',['users' => $users,'twoElements1' => $twoElements1,'twoElements2' => $twoElements2,
         'twoElements3' => $twoElements3,'twoElements4' => $twoElements4,'top' => $top,'top_two' => $top_two,'top_three' => $top_three,'top_four' => $top_four]);
-        
-    
+
+
     }
 
-  
+
 }

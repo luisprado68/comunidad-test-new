@@ -27,7 +27,7 @@ class SummaryController extends Controller
         if(session()->exists('user')){
             $user = session('user');
 
-            $userModel = $this->userService->userExistsActive($user['display_name'].'@gmail.com',$user['id']);
+            $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['stream']);
 
 
             foreach ($userModel->supportScores as $key => $supportScore) {

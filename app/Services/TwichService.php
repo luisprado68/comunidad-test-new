@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\StreamType;
 use App\Models\Log as ModelsLog;
 use App\Models\User;
 use Broobe\Services\Service;
@@ -126,7 +127,7 @@ final class TwichService
             $user->refresh_token = $result['refresh_token'];
             $user->update();
         }else{
-            
+
             ModelsLog::create([
                 'action' => 'No existe el refresh_token ',
                 'user_id' => $user->id,
@@ -134,12 +135,12 @@ final class TwichService
                 'message' => 'refresh_token:  '.$user->channel
             ]);
         }
-        
+
         } catch (Exception $e) {
             Log::debug("Error refresh_token " . $e->getMessage());
-           
+
         }
-        
+
     }
 
     public function getUser()
@@ -157,6 +158,7 @@ final class TwichService
                 $res = $client->sendAsync($request)->wait();
                 $result = json_decode($res->getBody(), true);
                 $this->user = $result['data'][0];
+                $this->user['stream'] = StreamType::twich;
 
                 Log::debug('user twich---------');
                 Log::debug(json_encode($this->user));
@@ -266,7 +268,7 @@ final class TwichService
         $users['status'] = 'error';
         $users['message'] = 'error';
         $supportStreams = [];
-       
+
         $user_streaming = $schedule->user;
         Log::debug('*********** user_streaming*************');
         Log::debug(json_encode($user_streaming));
@@ -290,14 +292,14 @@ final class TwichService
                         Log::debug('*********** user_chat*************');
                         Log::debug(json_encode($user_chat));
 
-                    
+
                         $supportStreams = $user_chat->streamSupport;
                         Log::debug('*********** supportStreams*************');
                         Log::debug(json_encode($supportStreams));
                         $exist_supported = false;
                         if (count($supportStreams) > 0) {
                             foreach ($supportStreams as $key => $supportStream) {
-                                
+
                                 $support_created = json_decode($supportStream->supported);
                                 Log::debug('*********** support_exist*************');
                                 Log::debug(json_encode($support_created));
@@ -307,9 +309,9 @@ final class TwichService
                                     Log::debug(json_encode($support_created));
                                     $supportStream->supported = json_encode($support_created);
                                     $supportStream->update();
-                                }               
+                                }
                             }
-                        } 
+                        }
                         if($exist_supported == false || count($supportStreams) == 0){
                             Log::debug('*********** crea supportStreams*************');
                             $support['id'] = $user_streaming->id;
@@ -318,7 +320,7 @@ final class TwichService
                             $streamSupport['supported'] = json_encode($support);
                             $created = $this->streamSupportService->create($streamSupport);
                         }
-                    
+
 
                         $current = Carbon::now();
                         $minute = $current->format('i');
@@ -333,7 +335,7 @@ final class TwichService
                                 $user_support['id'] = $user_streaming->id;
                                 $user_support['name'] = $user_streaming->channel;
                                 //minuto minute == 10
-                              
+
                                     if ($score->points_day < 10) {
                                         // $score->points_day = 0;
                                         $score->points_day =  $score->points_day + 1;
@@ -341,7 +343,7 @@ final class TwichService
                                     //no se suman de una
                                     // if ($score->points_week < 60) {
                                     //     $score->points_week = $score->points_week + 1;
-                                    // } 
+                                    // }
 
                                     $score->neo_coins = $score->neo_coins + 1;
                                     $score->streamer_supported = json_encode($user_support);
@@ -352,10 +354,10 @@ final class TwichService
                                         'date_action' => $score->updated_at,
                                         'message' => 'Usuario:' . $score->user_id . ' Channel: ' .$user_chat->channel
                                     ]);
-                                
+
                             } else {
                                 Log::debug('new score---------------------');
-                               
+
                                 $score_new = [];
                                 $score_new['user_id'] = $user_chat->id;
                                 $score_new['points_day'] = 1;

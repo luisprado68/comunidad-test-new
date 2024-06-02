@@ -32,7 +32,7 @@ class DonationController extends Controller
         if(session()->exists('user')){
             $user = session('user');
 
-            $userModel = $this->userService->userExistsActive($user['display_name'].'@gmail.com',$user['id']);
+            $userModel = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['stream']);
             $currentStreams = $this->scheduleService->getStreamByUser($userModel);
 
             if(count($currentStreams) > 0){

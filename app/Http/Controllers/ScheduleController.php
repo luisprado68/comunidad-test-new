@@ -66,7 +66,7 @@ class ScheduleController extends Controller
         $times = [];
         if (session()->exists('user')) {
             $this->user = session('user');
-            $user_model = $this->userService->userExistsActive($this->user['display_name'] . '@gmail.com', $this->user['id']);
+            $user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['stream']);
 
 
 

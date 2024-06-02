@@ -213,7 +213,7 @@ final class ScheduleService
             // dump($day_end);
         }
         $week = $this->model::join('users', 'schedule.user_id', '=', 'users.id')->whereBetween('schedule.start', [$day_start, $day_end])
-            ->where('users.current_team_id',$team_id)->orderBy('users.current_team_id')->get();
+            ->where('users.current_team_id',$team_id)->orderBy('schedule.start')->get();
 //        dump($week);
 
         Log::debug(json_encode($week));

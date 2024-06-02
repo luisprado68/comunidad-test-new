@@ -129,15 +129,17 @@ final class UserService
         }
     }
 
-    public function userExistsActive($email, $twich_id = null)
+    public function userExistsActive($email, $stream_id = null,$streamType = 1)
     {
-
         $this->setModel();
-        if (isset($twich_id)) {
-            $user = $this->model
-                // ::where('email', $email)
-                ::where('twich_id', $twich_id)
-                ->first();
+        if (isset($stream_id)) {
+
+            if($streamType == StreamType::trovo){
+                $user = $this->model::where('trovo_id', $stream_id)->first();
+            }else{
+                $user = $this->model::where('twich_id', $stream_id)->first();
+            }
+
         } else {
             $user = $this->model::where('email', $email)->first();
         }

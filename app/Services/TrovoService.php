@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\StreamType;
 use App\Models\Log as ModelsLog;
 use App\Models\User;
 use Broobe\Services\Service;
@@ -167,7 +168,7 @@ final class TrovoService
                 $this->user['name'] = $result['userName'];
                 $this->user['display_name'] = $result['nickName'];
                 $this->user['profile_image_url'] = $result['profilePic'];
-
+                $this->user['stream'] = StreamType::trovo;
                 // $img = $this->user['profile_image_url'];
                 session(['user' => $this->user]);
                 return $this->user;
