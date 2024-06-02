@@ -72,30 +72,6 @@ final class TrovoService
 
         $this->url_test = 'http://localhost';
         $this->url = 'https://www.comunidadnc.com/trovo/login_token';
-//        $client = new Client();
-//        $headers = [
-//            'Content-Type' => 'application/x-www-form-urlencoded',
-//            'client-id' => '7c23b5396452b6ade3f848bf8b606e7a',
-////            'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
-//        ];
-//        $options = [
-//            'form_params' => [
-////                'client_id' => '',
-//                'client_secret' => '80ea1ddc012d0186fba1854354560927',
-//                'grant_type' => 'authorization_code',
-//                'redirect_uri' => $this->url,
-//                'code' =>  $code,
-//            ],
-//        ];
-//        $request = new Psr7Request('POST', 'https://open-api.trovo.live/openplatform/exchangetoken', $headers);
-//        $res = $client->sendAsync($request, $options)->wait();
-//        $result = json_decode($res->getBody(), true);
-//        Log::debug("result getToken trovo-------------------------------------------");
-//        Log::debug(json_encode($result));
-//        session(['access_token' => $result['access_token']]);
-//        session(['refresh_token' => $result['refresh_token']]);
-
-
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'client-id' => '7c23b5396452b6ade3f848bf8b606e7a'
@@ -111,6 +87,8 @@ final class TrovoService
             $data = $response->json();
             Log::debug("result getToken trovo-------------------------------------------");
             Log::debug(json_encode($data));
+            session(['access_token' => $data['access_token']]);
+            session(['refresh_token' => $data['refresh_token']]);
             // Do something with $data
         } else {
             // Handle error
@@ -176,25 +154,24 @@ final class TrovoService
             if (!empty(session('access_token'))) {
                 $client = new Client();
                 $headers = [
-                    'Client-Id' => 'vjl5wxupylcsiaq7kp5bjou29solwc',
-                    'Authorization' => 'Bearer ' . session('access_token'),
-                    'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
+                    'Client-ID' => '7c23b5396452b6ade3f848bf8b606e7a',
+                    'Authorization' => 'OAuth '.session('access_token')
                 ];
-                $request = new Psr7Request('GET', 'https://api.twitch.tv/helix/users', $headers);
+                $request = new Psr7Request('GET', 'https://open-api.trovo.live/openplatform/getuserinfo', $headers);
                 $res = $client->sendAsync($request)->wait();
                 $result = json_decode($res->getBody(), true);
-                $this->user = $result['data'][0];
 
-                Log::debug('user twich---------');
-                Log::debug(json_encode($this->user));
+                Log::debug('user TROVO---------');
+                Log::debug(json_encode($result));
+                $this->user = $result;
                 // $img = $this->user['profile_image_url'];
                 session(['user' => $this->user]);
                 return $this->user;
             }
         } catch (\Exception $e) {
             session()->forget('user');
-            return null;
             Log::debug($e->getMessage());
+            return null;
         }
     }
 

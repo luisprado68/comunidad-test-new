@@ -130,6 +130,7 @@ class LoginController extends Controller
     public function getTokenTrovo(Request $request)
     {
         $this->trovoService->getToken($request);
+        $user = $this->trovoService->getUser();
 
 //        return json_encode($request->all());
     }
