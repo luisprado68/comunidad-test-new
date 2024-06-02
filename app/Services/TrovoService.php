@@ -70,28 +70,29 @@ final class TrovoService
         $code = $request->get('code');
 
         $this->url_test = 'http://localhost';
-        $this->url = 'https://www.comunidadnc.com/login_token';
+        $this->url = 'https://www.comunidadnc.com/trovo/login_token';
         $client = new Client();
         $headers = [
             'Content-Type' => 'application/x-www-form-urlencoded',
-            'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
+            'client-id' => '7c23b5396452b6ade3f848bf8b606e7a',
+//            'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
         ];
         $options = [
             'form_params' => [
-                'client_id' => 'vjl5wxupylcsiaq7kp5bjou29solwc',
-                'client_secret' => 'b6jng7psl6bcqztt3huqlj9uwj6txy',
+//                'client_id' => '',
+                'client_secret' => '80ea1ddc012d0186fba1854354560927',
                 'grant_type' => 'authorization_code',
                 'redirect_uri' => $this->url,
                 'code' =>  $code,
             ],
         ];
-        $request = new Psr7Request('POST', 'https://id.twitch.tv/oauth2/token', $headers);
+        $request = new Psr7Request('POST', 'https://open-api.trovo.live/openplatform/exchangetoken', $headers);
         $res = $client->sendAsync($request, $options)->wait();
         $result = json_decode($res->getBody(), true);
-        Log::debug("result getToken-------------------------------------------");
+        Log::debug("result getToken trovo-------------------------------------------");
         Log::debug(json_encode($result));
-        session(['access_token' => $result['access_token']]);
-        session(['refresh_token' => $result['refresh_token']]);
+//        session(['access_token' => $result['access_token']]);
+//        session(['refresh_token' => $result['refresh_token']]);
     }
 
     public function getRefreshToken($user)

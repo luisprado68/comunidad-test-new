@@ -129,7 +129,9 @@ class LoginController extends Controller
 
     public function getTokenTrovo(Request $request)
     {
-        return json_encode($request->all());
+        $this->trovoService->getToken($request);
+
+//        return json_encode($request->all());
     }
     public function logoutTwich()
     {
