@@ -131,16 +131,23 @@ final class UserService
 
     public function userExistsActive($email, $stream_id = null,$streamType = 1)
     {
+        Log::debug(' --- $email ' . $email);
+        Log::debug(' --- $stream_id ' . $stream_id);
+        Log::debug(' --- $streamType ' . $streamType);
+
         $this->setModel();
         if (isset($stream_id)) {
-
+            Log::debug('111');
             if($streamType == StreamType::trovo){
+                Log::debug('222222');
                 $user = $this->model::where('trovo_id', $stream_id)->first();
             }else{
+                Log::debug('33333');
                 $user = $this->model::where('twich_id', $stream_id)->first();
             }
 
         } else {
+            Log::debug('4444');
             $user = $this->model::where('email', $email)->first();
         }
 
