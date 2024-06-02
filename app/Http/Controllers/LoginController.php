@@ -116,6 +116,11 @@ class LoginController extends Controller
         }
         // return redirect('/profile');
     }
+
+    public function getTokenTrovo(Request $request)
+    {
+        return redirect('home');
+    }
     public function logoutTwich()
     {
         session()->forget('user');
