@@ -108,6 +108,7 @@ class LoginController extends Controller
                 // $total = count($user_model_created->supportScores->where('point',1));
             }
         }else{
+            $total = 0;
             if(count($user_model->supportScores)> 0){
                 $total = count($user_model->supportScores->where('point', 1));
             }
@@ -157,6 +158,7 @@ class LoginController extends Controller
                 // $total = count($user_model_created->supportScores->where('point',1));
             }
         }else{
+            $total = 0;
             if(count($user_model->supportScores)> 0){
                 $total = count($user_model->supportScores->where('point', 1));
             }
