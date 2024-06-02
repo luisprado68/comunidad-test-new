@@ -1,6 +1,7 @@
 <?php
 namespace App\Services;
 
+use App\Enums\StreamType;
 use App\Models\User;
 use Broobe\Services\Service;
 use Broobe\Services\Traits\{CreateModel, DestroyModel, ReadModel, UpdateModel};
@@ -236,14 +237,16 @@ final class UserService
      * @param $userArray
      * @return false|mixed
      */
-    public function create($userArray,$teamId = null)
+    public function create($userArray,$teamId = null,$streamType = 1)
     {
         try {
             $user = new User();
             if (isset($userArray['id'])) {
-                $user->twich_id = $userArray['id'];
-            } else {
-                $user->twich_id = Str::random(9);
+                if(StreamType::trovo == $streamType){
+                    $user->trovo_id = $userArray['id'];
+                }else{
+                    $user->twich_id = $userArray['id'];
+                }
             }
             $user->name = isset($userArray['name']) ? $userArray['name'] : $userArray['display_name'];
             if(array_key_exists('email',$userArray)){
