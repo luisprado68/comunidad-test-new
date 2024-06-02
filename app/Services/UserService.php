@@ -237,7 +237,7 @@ final class UserService
      * @param $userArray
      * @return false|mixed
      */
-    public function create($userArray,$teamId = null,$streamType = 1)
+    public function create($userArray,$streamType = 1,$teamId = null)
     {
         try {
             $user = new User();
