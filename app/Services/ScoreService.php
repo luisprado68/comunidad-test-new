@@ -141,7 +141,7 @@ final class ScoreService
                 if ($user->score) {
                     $score = $user->score;
                     if(isset($score)){
-                        if ($user->score->points_week <= 60) {
+                        if ($user->score->points_week >= 60) {
 
 
                                 if ($user->hasRole('streamer') && $user->range_id <= RangeType::hierro ) {

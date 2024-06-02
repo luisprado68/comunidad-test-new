@@ -237,7 +237,6 @@ final class UserService
             }
             //TODO cambiar rango a hierron pero falta imagen
             $user->range_id = 1;
-//            $user->role_id = 2;
             $user->description = $userArray['description'] ?? null;
             $user->channel = $userArray['display_name'];
             $user->password = $userArray['display_name']; //TODO
