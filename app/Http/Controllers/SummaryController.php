@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Services\ScheduleService;
 use App\Services\UserService;
 use Carbon\Carbon;
@@ -26,6 +27,7 @@ class SummaryController extends Controller
         // dd(session('user'));
         if(session()->exists('user')){
             $user = session('user');
+            \Illuminate\Support\Facades\Log::debug(json_encode($user));
             if(array_key_exists('stream',$user)){
                 $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['stream']);
             }else{

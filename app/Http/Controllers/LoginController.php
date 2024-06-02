@@ -132,48 +132,53 @@ class LoginController extends Controller
     {
         $this->trovoService->getToken($request);
         $user = $this->trovoService->getUser();
+        $user_model = false;
+        if(isset($user)){
+            if(array_key_exists('email',$user)){
+                $user_model = $this->userService->userExistsTrovo($user['email'], $user['id']);
+            }else{
+                $user_model = $this->userService->userExistsTrovo($user['id']);
+            }
 
-        if(array_key_exists('email',$user)){
-            $user_model = $this->userService->userExistsTrovo($user['email'], $user['id']);
-        }else{
-            $user_model = $this->userService->userExistsTrovo($user['id']);
-        }
-
-        if ($user_model == false) {
-            // TODO validar y traer el primer equipo que tenga menos de 100 usuarios para asignar
+            if ($user_model == false) {
+                // TODO validar y traer el primer equipo que tenga menos de 100 usuarios para asignar
 //            $team = $this->teamService->getFirstTeamAviable();
-            $user_model_created = $this->userService->create($user,StreamType::trovo);
-            if (session()->exists('support_to_user_id')) {
+                $user_model_created = $this->userService->create($user,StreamType::trovo);
+                if (session()->exists('support_to_user_id')) {
 
-                $support_user['user_id'] = $user_model_created->id;
-                $support_user['channel'] = $user_model_created->channel;
+                    $support_user['user_id'] = $user_model_created->id;
+                    $support_user['channel'] = $user_model_created->channel;
 
-                $supportScoreArray['user_id'] =  session('support_to_user_id');
-                $supportScoreArray['point'] = 0;
-                $supportScoreArray['user'] = json_encode($support_user);
-                $this->supportScoreService->create($supportScoreArray);
-                // Log::debug('crear supportScoreArray');
-                // Log::debug(json_encode($supportScoreArray));
+                    $supportScoreArray['user_id'] =  session('support_to_user_id');
+                    $supportScoreArray['point'] = 0;
+                    $supportScoreArray['user'] = json_encode($support_user);
+                    $this->supportScoreService->create($supportScoreArray);
+                    // Log::debug('crear supportScoreArray');
+                    // Log::debug(json_encode($supportScoreArray));
 
-                // $total = count($user_model_created->supportScores->where('point',1));
+                    // $total = count($user_model_created->supportScores->where('point',1));
+                }
+            }else{
+                $total = 0;
+                if(count($user_model->supportScores)> 0){
+                    $total = count($user_model->supportScores->where('point', 1));
+                }
+
+                if ($total != 0) {
+                    $user_model->points_support = $total;
+                    $user_model->save();
+                }
+
+            }
+            if (isset($user_model->time_zone) && !empty($user_model->time_zone)) {
+                return redirect('summary');
+            } else {
+                return redirect('profile');
             }
         }else{
-            $total = 0;
-            if(count($user_model->supportScores)> 0){
-                $total = count($user_model->supportScores->where('point', 1));
-            }
-
-            if ($total != 0) {
-                $user_model->points_support = $total;
-                $user_model->save();
-            }
-
+            return redirect('home');
         }
-        if (isset($user_model->time_zone) && !empty($user_model->time_zone)) {
-            return redirect('summary');
-        } else {
-            return redirect('profile');
-        }
+
 
 //        return json_encode($request->all());
     }
@@ -214,6 +219,7 @@ class LoginController extends Controller
             } else {
 
                 $user_response['display_name'] = $user_model->channel;
+                $user_response['email'] = $user_model->email;
                 $user_response['id'] = $user_model->twich_id;
                 if (isset($user_model->img_profile) && !empty($user_model->img_profile)) {
                     $user_response['profile_image_url'] = $user_model->img_profile;
