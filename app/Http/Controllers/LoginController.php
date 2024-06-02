@@ -7,6 +7,7 @@ use App\Services\ScheduleService;
 use App\Services\ScoreService;
 use App\Services\SupportScoreService;
 use App\Services\TeamService;
+use App\Services\TrovoService;
 use App\Services\TwichService;
 use App\Services\UserService;
 use GuzzleHttp\Client;
@@ -35,6 +36,7 @@ class LoginController extends Controller
     private $supportScoreService;
     private $scoreService;
     private $teamService;
+    private $trovoService;
 
 
     public function __construct(
@@ -43,13 +45,15 @@ class LoginController extends Controller
         ScheduleService $scheduleService,
         SupportScoreService $supportScoreService,
         ScoreService $scoreService,
-        TeamService $teamService
+        TeamService $teamService,
+        TrovoService $trovoService,
     ) {
         $this->twichService = $twichService;
         $this->userService = $userService;
         $this->supportScoreService = $supportScoreService;
         $this->scoreService = $scoreService;
         $this->teamService = $teamService;
+        $this->trovoService = $trovoService;
     }
 
     public function loginTwich()
@@ -59,7 +63,13 @@ class LoginController extends Controller
         // Log::debug(json_encode($urlToken));
         return redirect($urlToken);
     }
-
+    public function loginTrovo()
+    {
+        $urlToken = $this->trovoService->login();
+        // Log::debug('**************** urlToken ***********************');
+        // Log::debug(json_encode($urlToken));
+        return redirect($urlToken);
+    }
     public function getToken(Request $request)
     {
         $support_user = [];
@@ -119,7 +129,7 @@ class LoginController extends Controller
 
     public function getTokenTrovo(Request $request)
     {
-        return redirect('home');
+        return json_encode($request->all());
     }
     public function logoutTwich()
     {

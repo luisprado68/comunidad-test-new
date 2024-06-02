@@ -63,11 +63,19 @@
                                                     </div>
                                                     <div class="col-lg-4 col-md-4">
                                                         <div class="text-center card-body">
-                                                            <a class="dropdown-item" href="https://trovo.live/" target="_blank"><button type="button" class="btn btn-lg trovo-button"
-                                                                style="">
-                                                                <img src="{{ asset('/img/trovo.png') }}" alt="" width="25px">
-                                                                 Únete con
-                                                                TROVO</button></a>
+                                                            @if (env('APP_ENV') == 'local')
+                                                                <a class="dropdown-item" href="{{ route('login_trovo') }}" target="_blank"><button type="button" class="btn btn-lg trovo-button"
+                                                                                                                                                   style="">
+                                                                        <img src="{{ asset('/img/trovo.png') }}" alt="" width="25px">
+                                                                        Únete con
+                                                                        TROVO</button></a>
+                                                            @else
+                                                                <a class="dropdown-item" href="https://trovo.live/" target="_blank"><button type="button" class="btn btn-lg trovo-button"
+                                                                                                                                            style="">
+                                                                        <img src="{{ asset('/img/trovo.png') }}" alt="" width="25px">
+                                                                        Únete con
+                                                                        TROVO</button></a>
+                                                            @endif
 
 
                                                         </div>

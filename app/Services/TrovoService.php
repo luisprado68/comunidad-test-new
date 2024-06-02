@@ -53,7 +53,7 @@ final class TrovoService
     public function login()
     {
         $this->code = Str::random(10);
-        $this->code_test = 'token';
+        $this->code_test = 'code';
         $this->url_twitch = 'https://open.trovo.live/page/login.html';
         $this->url_test = 'http://localhost';
         $this->url = 'https://www.comunidadnc.com/trovo/login_token';
