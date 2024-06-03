@@ -89,14 +89,17 @@ final class UserService
     public function userExists($email, $twich_id = null)
     {
         $this->setModel();
+        $user = null;
         if (isset($twich_id)) {
             $user = $this->model
                 // ::where('email', $email)
                 ::where('twich_id', $twich_id)
                 ->first();
-        } else {
+        }
+        if(empty($user) && isset($email)){
             $user = $this->model::where('email', $email)->first();
         }
+
         if ($user) {
             $user->token = session('access_token') ?? '';
             $user->refresh_token = session('refresh_token') ?? '';
