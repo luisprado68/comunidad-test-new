@@ -52,8 +52,17 @@ class MyAgendaController extends Controller
         // }
         if (session()->exists('user')) {
             $this->user = session('user');
-            $this->user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['stream']);
 
+            if(array_key_exists('stream',$this->user)){
+                if(array_key_exists('email',$this->user)){
+                    $this->user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['stream']);
+                }else{
+                    $this->user_model = $this->userService->userExistsActive($this->user['display_name'].'@gmail.com',$this->user['id'],$this->user['stream']);
+                }
+
+            }else{
+                $this->user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id']);
+            }
             if ($this->user_model->status) {
 
                 session(['status' => $this->user_model->status]);

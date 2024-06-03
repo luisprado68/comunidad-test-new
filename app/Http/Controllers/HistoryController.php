@@ -37,7 +37,11 @@ class HistoryController extends Controller
         if(session()->exists('user')){
             $user = session('user');
             if(array_key_exists('stream',$user)){
-                $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['stream']);
+                if(array_key_exists('email',$user)){
+                    $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['stream']);
+                }else{
+                    $userModel = $this->userService->userExistsActive($user['display_name'].'@gmail.com',$user['id'],$user['stream']);
+                }
             }else{
                 $userModel = $this->userService->userExistsActive($user['email'],$user['id']);
             }
