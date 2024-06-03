@@ -83,7 +83,7 @@ class LoginController extends Controller
         if(array_key_exists('email',$user)){
             $user_model = $this->userService->userExists($user['email'], $user['id']);
         }else{
-            $user_model = $this->userService->userExists($user['id']);
+            $user_model = $this->userService->userExists($user['display_name'].'@gmail.com',$user['id']);
         }
 
 
