@@ -39,7 +39,7 @@ class UserTopScoresTable extends DataTableComponent
                         if($row->hasRole('administrator')){
                             return '<strong>' . 'admin_lider' . '</strong>';
                         }else{
-                            return '<strong>' . $row->role->name . '</strong>';
+                            return '<strong>' . $row->roles->last()->name . '</strong>';
                         }
 
 
