@@ -36,24 +36,24 @@ class UserTopSchedulersTable extends DataTableComponent
                 Column::make('Rol','role_id')
                 ->format(
                     function ($value,$row) {
-                        
-                        if($row->role->id == RoleType::admin){
+
+                        if($row->hasRole('administrator')){
                             return '<strong>' . 'admin_lider' . '</strong>';
                         }else{
                             return '<strong>' . $row->role->name . '</strong>';
                         }
-                       
-                       
+
+
                     }
                 )
                 ->html(),
                 Column::make('Rango','range_id')
                 ->format(
                     function ($value,$row) {
-                        
+
                         return '<strong>' . $row->range->name . '</strong>';
-                       
-                       
+
+
                     }
                 )
                 ->html(),
@@ -61,7 +61,7 @@ class UserTopSchedulersTable extends DataTableComponent
                 ->sortable(),
             Column::make("Canal", "channel")
                 ->sortable(),
-      
+
             Column::make("Cantidad de dias agendados", "channel")
             ->format(
                 function ($value,$row) {
@@ -69,11 +69,11 @@ class UserTopSchedulersTable extends DataTableComponent
                         Log::debug("sccheduler ssss" . json_encode($row->schedules));
                         return '<strong>' . count($row->schedules) . '</strong>';
                     }
-                   
+
                 }
             )
             ->html(),
-          
+
         ];
     }
 }

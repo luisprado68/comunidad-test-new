@@ -28,7 +28,7 @@ class UserDeletedTable extends DataTableComponent
 
     public function columns(): array
     {
-       
+
         return [
             Column::make("Id", "id")
                 ->sortable(),
@@ -44,24 +44,24 @@ class UserDeletedTable extends DataTableComponent
             Column::make('Rol','role_id')
             ->format(
                 function ($value,$row) {
-                    
-                    if($row->role->id == RoleType::admin){
+
+                    if($row->hasRole('administrator')){
                         return '<strong>' . 'admin_lider' . '</strong>';
                     }else{
                         return '<strong>' . $row->role->name . '</strong>';
                     }
-                   
-                   
+
+
                 }
             )
             ->html(),
             Column::make('Rango','range_id')
             ->format(
                 function ($value,$row) {
-                    
+
                     return '<strong>' . $row->range->name . '</strong>';
-                   
-                   
+
+
                 }
             )
             ->html(),
@@ -82,14 +82,14 @@ class UserDeletedTable extends DataTableComponent
                     else{
                         return ' <i class="bi bi-x-circle-fill text-danger"></i>';
                     }
-                   
+
                 }
             )
             ->html(),
-            
+
             //     ->sortable(),
             // Column::make("Active", "active")
-              
+
             Column::make("Area", "area")
                 ->sortable(),
             Column::make("Phone", "phone")
@@ -98,15 +98,15 @@ class UserDeletedTable extends DataTableComponent
             //     ->sortable(),
             // Column::make("Time zone", "time_zone")
             //     ->sortable(),
-           
+
             Column::make('Accion','phone')
             ->format(
                 function ($value,$row) {
 
-                    
+
                         return view('livewire.admin.delete-modal',['user' => $row]);
-                
-                   
+
+
                 }
             )
             ->html(),
@@ -124,7 +124,7 @@ class UserDeletedTable extends DataTableComponent
             //     ->sortable(),
             // Column::make("Updated at", "updated_at")
             //     ->sortable(),
-            
+
                 ];
     }
 }

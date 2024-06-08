@@ -35,24 +35,24 @@ class UserTopScoresTable extends DataTableComponent
                 Column::make('Rol','role_id')
                 ->format(
                     function ($value,$row) {
-                        
-                        if($row->role->id == RoleType::admin){
+
+                        if($row->hasRole('administrator')){
                             return '<strong>' . 'admin_lider' . '</strong>';
                         }else{
                             return '<strong>' . $row->role->name . '</strong>';
                         }
-                       
-                       
+
+
                     }
                 )
                 ->html(),
                 Column::make('Rango','range_id')
                 ->format(
                     function ($value,$row) {
-                        
+
                         return '<strong>' . $row->range->name . '</strong>';
-                       
-                       
+
+
                     }
                 )
                 ->html(),
@@ -81,7 +81,7 @@ class UserTopScoresTable extends DataTableComponent
                 }
             )
             ->html(),
-          
+
         ];
     }
 }
