@@ -57,7 +57,7 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
     Route::get('summary', [SummaryController::class, 'index'])->name('summary');
     Route::get('summary/{id}', [SummaryController::class, 'summaryByUserId'])->name('summary-user');
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    Route::get('/home', [HomeTestController::class, 'index'])->name('home');
+    Route::get('/home_test', [HomeTestController::class, 'index'])->name('home_test');
     // Route::get('/home', [InitialController::class, 'index'])->name('home');
 
     //Route::get('/', [HomeController::class, 'index'])->name('home');

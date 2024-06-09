@@ -60,10 +60,10 @@ final class TwichService
         $this->url = 'https://www.comunidadnc.com/login_token';
         $this->client_id = 'vjl5wxupylcsiaq7kp5bjou29solwc';
         $this->force_verify = 'true';
-        $this->complete_url = $this->url_twitch . '?response_type=' . $this->code . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
-        $this->test_url = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id . '&force_verify=' . $this->force_verify . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
-        Log::debug('url login formated :' . $this->test_url);
-        return $this->test_url;
+        $this->test_url = $this->url_twitch . '?response_type=' . $this->code . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
+        $this->complete_url = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
+//        Log::debug('url login formated :' . $this->complete_url);
+        return $this->complete_url;
     }
 
     public function loginTest()
