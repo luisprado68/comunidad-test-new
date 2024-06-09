@@ -62,12 +62,30 @@ final class TwichService
         $this->force_verify = 'true';
         $this->complete_url = $this->url_twitch . '?response_type=' . $this->code . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
         $this->test_url = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id . '&force_verify=' . $this->force_verify . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
+        Log::debug('url login formated :' . $this->test_url);
+        return $this->test_url;
+    }
+
+    public function loginTest()
+    {
+        $this->code = Str::random(10);
+        $this->code_test = 'code';
+        $this->url_twitch = 'https://id.twitch.tv/oauth2/authorize';
+        $this->url_test = 'http://localhost';
+        $this->url = 'https://www.comunidadnc.com/login_token_test';
+        $this->client_id = 'vjl5wxupylcsiaq7kp5bjou29solwc';
+        $this->force_verify = 'true';
+        $this->complete_url = $this->url_twitch . '?response_type=' . $this->code . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
+        $this->test_url = 'https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=vjl5wxupylcsiaq7kp5bjou29solwc&redirect_uri='. $this->url . '&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls&state=c3ab8aa609ea11e793ae92361f002671';
+        Log::debug('url login formated :' . $this->test_url);
         return $this->test_url;
     }
 
 
     public function getToken(Request $request)
     {
+        $all = $request->all();
+        Log::debug('request get token: ' . json_encode($all));
         $code = $request->get('code');
 
         $this->url_test = 'http://localhost';
@@ -84,6 +102,35 @@ final class TwichService
                 'grant_type' => 'authorization_code',
                 'redirect_uri' => $this->url,
                 'code' =>  $code,
+            ],
+        ];
+        $request = new Psr7Request('POST', 'https://id.twitch.tv/oauth2/token', $headers);
+        $res = $client->sendAsync($request, $options)->wait();
+        $result = json_decode($res->getBody(), true);
+        Log::debug("result getToken-------------------------------------------");
+        Log::debug(json_encode($result));
+        session(['access_token' => $result['access_token']]);
+        session(['refresh_token' => $result['refresh_token']]);
+    }
+
+    public function getTokenTest(Request $request)
+    {
+        $code = $request->all();
+        Log::debug('request get token: ' . json_encode($code));
+        $this->url_test = 'http://localhost';
+        $this->url = 'https://www.comunidadnc.com/login_token';
+        $client = new Client();
+        $headers = [
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
+        ];
+        $options = [
+            'form_params' => [
+                'client_id' => 'vjl5wxupylcsiaq7kp5bjou29solwc',
+                'client_secret' => 'b6jng7psl6bcqztt3huqlj9uwj6txy',
+                'grant_type' => 'authorization_code',
+                'redirect_uri' => $this->url,
+//                'code' =>  $code,
             ],
         ];
         $request = new Psr7Request('POST', 'https://id.twitch.tv/oauth2/token', $headers);
