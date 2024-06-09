@@ -36,10 +36,10 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
     // });
 
     Route::get('login_twich', [LoginController::class, 'loginTwich'])->name('login_twich');
-    Route::get('login_twich_test', [LoginController::class, 'loginTwichTest'])->name('login_twich');
+    Route::get('login_twich_test', [LoginController::class, 'loginTwichTest'])->name('login_twich-test');
     Route::get('login_trovo', [LoginController::class, 'loginTrovo'])->name('login_trovo');
     Route::get('login_token', [LoginController::class, 'getToken'])->name('getToken');
-    Route::get('login_token_test', [LoginController::class, 'getTokenTest'])->name('getToken');
+    Route::get('login_token_test', [LoginController::class, 'getTokenTest'])->name('getTokenTest');
     Route::get('/trovo/login_token', [LoginController::class, 'getTokenTrovo'])->name('getToken');
 
     Route::get('logout_twich', [LoginController::class, 'logoutTwich'])->name('logout_twich');
