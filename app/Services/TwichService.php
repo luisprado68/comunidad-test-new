@@ -116,8 +116,9 @@ final class TwichService
 
     public function getTokenTest(Request $request)
     {
-        $code = $request->all();
-        Log::debug('request get token: ' . json_encode($code));
+        $all = $request->all();
+        $code = $request->get('code');
+        Log::debug('request get token: --------- ' . json_encode($all));
         $this->url_test = 'http://localhost';
         $this->url = 'https://www.comunidadnc.com/login_token';
         $client = new Client();
@@ -131,7 +132,7 @@ final class TwichService
                 'client_secret' => 'b6jng7psl6bcqztt3huqlj9uwj6txy',
                 'grant_type' => 'authorization_code',
                 'redirect_uri' => $this->url,
-//                'code' =>  $code,
+                'code' =>  $code,
             ],
         ];
         $request = new Psr7Request('POST', 'https://id.twitch.tv/oauth2/token', $headers);
