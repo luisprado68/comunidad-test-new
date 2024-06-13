@@ -31,7 +31,6 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'twich_id',
-        'trovo_id',
         'channel',
         'status',
         'active',
@@ -117,5 +116,9 @@ class User extends Authenticatable
     public function streamSupport()
     {
         return $this->hasMany(StreamSupport::class);
+    }
+    public function platform()
+    {
+        return $this->belongsTo(Platform::class);
     }
 }

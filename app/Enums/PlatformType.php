@@ -9,7 +9,7 @@ use BenSampo\Enum\Enum;
  * @method static static OptionTwo()
  * @method static static OptionThree()
  */
-final class StreamType extends Enum
+final class PlatformType extends Enum
 {
     const twich = 1;
     const trovo = 2;

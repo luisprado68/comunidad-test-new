@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Enums\StreamType;
+use App\Enums\PlatformType;
 use App\Models\Log as ModelsLog;
 use App\Models\User;
 use Broobe\Services\Service;
@@ -36,6 +36,8 @@ final class TwichService
     private $userService;
     private $streamSupportService;
     private $scoreService;
+    private $platformService;
+    public $platform;
     /**
      * Set model class name.
      *
@@ -50,6 +52,7 @@ final class TwichService
         $this->userService = new UserService();
         $this->streamSupportService = new StreamSupportService();
         $this->scoreService = new ScoreService();
+        $this->platformService = new PlatformService();
     }
     public function login()
     {
@@ -66,20 +69,22 @@ final class TwichService
         return $this->complete_url;
     }
 
-    public function loginTest()
+    public function loginTest($id)
     {
+//        dd($platform);
+        $this->platform = $this->platformService->getById($id);
         $this->code = Str::random(10);
         $this->code_test = 'code';
-        $this->url_twitch = 'https://id.twitch.tv/oauth2/authorize';
+        $this->url_twitch = $this->platform->url;
         $this->url_test = 'http://localhost';
         $this->url = 'https://www.comunidadnc.com/login_token_test';
-        $this->client_id = 'vjl5wxupylcsiaq7kp5bjou29solwc';
+        $this->client_id = $this->platform->client_id;
         $this->force_verify = 'true';
-        $this->complete_url = $this->url_twitch . '?response_type=' . $this->code . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
-        $new_url_test = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=user%3Aread%3Aemail+moderator%3Aread%3Achatters&state=c3ab8aa609ea11e793ae92361f002671';
-        $this->test_url = 'https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=vjl5wxupylcsiaq7kp5bjou29solwc'. '&force_verify=' . $this->force_verify .'&redirect_uri='. $this->url . '&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls&state=c3ab8aa609ea11e793ae92361f002671';
-        Log::debug('url login formated :' . $this->test_url);
-        return $new_url_test;
+//        $this->complete_url = $this->url_twitch . '?response_type=' . $this->code . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
+        $this->complete_url = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=user%3Aread%3Aemail+moderator%3Aread%3Achatters&state=c3ab8aa609ea11e793ae92361f002671';
+//        $this->complete_url = 'https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=vjl5wxupylcsiaq7kp5bjou29solwc'. '&force_verify=' . $this->force_verify .'&redirect_uri='. $this->url . '&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls&state=c3ab8aa609ea11e793ae92361f002671';
+        Log::debug('url login formated :' . $this->complete_url);
+        return $this->complete_url;
     }
 
 
@@ -119,7 +124,6 @@ final class TwichService
         $all = $request->all();
         $code = $request->get('code');
         Log::debug('request get token: --------- ' . json_encode($all));
-        $this->url_test = 'http://localhost';
         $this->url = 'https://www.comunidadnc.com/login_token';
         $client = new Client();
         $headers = [
@@ -128,14 +132,14 @@ final class TwichService
         ];
         $options = [
             'form_params' => [
-                'client_id' => 'vjl5wxupylcsiaq7kp5bjou29solwc',
-                'client_secret' => 'b6jng7psl6bcqztt3huqlj9uwj6txy',
+                'client_id' => $this->platform->client_id,
+                'client_secret' => $this->platform->client_secret,
                 'grant_type' => 'authorization_code',
                 'redirect_uri' => $this->url,
                 'code' =>  $code,
             ],
         ];
-        $request = new Psr7Request('POST', 'https://id.twitch.tv/oauth2/token', $headers);
+        $request = new Psr7Request('POST', $this->platform->url_token, $headers);
         $res = $client->sendAsync($request, $options)->wait();
         $result = json_decode($res->getBody(), true);
         Log::debug("result getToken-------------------------------------------");
@@ -207,7 +211,7 @@ final class TwichService
                 $res = $client->sendAsync($request)->wait();
                 $result = json_decode($res->getBody(), true);
                 $this->user = $result['data'][0];
-                $this->user['stream'] = StreamType::twich;
+                $this->user['stream'] = PlatformType::twich;
 
                 Log::debug('user twich---------');
                 Log::debug(json_encode($this->user));

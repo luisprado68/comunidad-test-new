@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\StreamType;
-use App\Services\BillingService;
+use App\Enums\PlatformType;
 use App\Services\ScheduleService;
 use App\Services\ScoreService;
 use App\Services\SupportScoreService;
@@ -64,9 +63,9 @@ class LoginController extends Controller
         // Log::debug(json_encode($urlToken));
         return redirect($urlToken);
     }
-    public function loginTwichTest()
+    public function loginTwichTest($platform)
     {
-        $urlToken = $this->twichService->loginTest();
+        $urlToken = $this->twichService->loginTest($platform);
         // Log::debug('**************** urlToken ***********************');
         // Log::debug(json_encode($urlToken));
         return redirect($urlToken);
@@ -207,7 +206,7 @@ class LoginController extends Controller
             if ($user_model == false) {
                 // TODO validar y traer el primer equipo que tenga menos de 100 usuarios para asignar
 //            $team = $this->teamService->getFirstTeamAviable();
-                $user_model_created = $this->userService->create($user,StreamType::trovo);
+                $user_model_created = $this->userService->create($user,PlatformType::trovo);
                 if (session()->exists('support_to_user_id')) {
 
                     $support_user['user_id'] = $user_model_created->id;

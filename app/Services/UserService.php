@@ -1,7 +1,7 @@
 <?php
 namespace App\Services;
 
-use App\Enums\StreamType;
+use App\Enums\PlatformType;
 use App\Models\User;
 use Broobe\Services\Service;
 use Broobe\Services\Traits\{CreateModel, DestroyModel, ReadModel, UpdateModel};
@@ -135,7 +135,7 @@ final class UserService
     {
         $this->setModel();
         if (isset($stream_id)) {
-            if($streamType == StreamType::trovo){
+            if($streamType == PlatformType::trovo){
                 $user = $this->model::where('trovo_id', $stream_id)->first();
             }else{
                 $user = $this->model::where('twich_id', $stream_id)->first();
@@ -244,7 +244,7 @@ final class UserService
         try {
             $user = new User();
             if (isset($userArray['id'])) {
-                if(StreamType::trovo == $streamType){
+                if(PlatformType::trovo == $streamType){
                     $user->trovo_id = $userArray['id'];
                 }else{
                     $user->twich_id = $userArray['id'];
