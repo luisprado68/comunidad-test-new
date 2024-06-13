@@ -50,14 +50,9 @@
 {{--                                                                            class="fa-brands fa-twitch"></i> Únete--}}
 {{--                                                                        con--}}
 {{--                                                                        TWITCH</button></a>--}}
-                                                                <a class="dropdown-item" href="{{ route('login_twich_test',['platform'=>\App\Enums\PlatformType::twich]) }}"><button
-                                                                        type="button" class="btn btn-lg twich-button"
-                                                                        style=""><i class="fa-brands fa-twitch"></i>
-                                                                        Únete
-                                                                        con
-                                                                        TWITCH</button></a>
+
                                                             @else
-                                                                <a class="dropdown-item" href="{{ route('login_twich_test') }}"><button
+                                                                <a class="dropdown-item" href="{{ route('login_twich_test',['platform'=>\App\Enums\PlatformType::twich]) }}"><button
                                                                         type="button" class="btn btn-lg twich-button"
                                                                         style=""><i class="fa-brands fa-twitch"></i>
                                                                         Únete
