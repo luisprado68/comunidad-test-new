@@ -12,6 +12,7 @@ use DateTimeZone;
 use Error;
 use Exception;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use GuzzleHttp\Client;
@@ -83,8 +84,8 @@ final class TwichService
             $this->client_id = $this->platform->client_id;
             $this->force_verify = 'true';
 //        $this->complete_url = $this->url_twitch . '?response_type=' . $this->code . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
-            $this->complete_url = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=user%3Aread%3Aemail+moderator%3Aread%3Achatters&state=c3ab8aa609ea11e793ae92361f002671';
-//        $this->complete_url = 'https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=vjl5wxupylcsiaq7kp5bjou29solwc'. '&force_verify=' . $this->force_verify .'&redirect_uri='. $this->url . '&scope=channel%3Amanage%3Apolls+channel%3Aread%3Apolls&state=c3ab8aa609ea11e793ae92361f002671';
+            $this->complete_url = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . $this->platform->scope;
+
             Log::debug('url login formated :' . $this->complete_url);
             return $this->complete_url;
         }
@@ -131,19 +132,73 @@ final class TwichService
         Log::debug('request get token: --------- ' . json_encode($all));
         $this->url = 'https://www.comunidadnc.com/login_token';
         $client = new Client();
-        $headers = [
-            'Content-Type' => 'application/x-www-form-urlencoded',
-            'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
-        ];
-        $options = [
-            'form_params' => [
-                'client_id' => $this->platform->client_id,
-                'client_secret' => $this->platform->client_secret,
-                'grant_type' => 'authorization_code',
-                'redirect_uri' => $this->url,
-                'code' =>  $code,
-            ],
-        ];
+        if($this->platform->id == PlatformType::twich){
+
+            $headers = [
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
+            ];
+            $options = [
+                'form_params' => [
+                    'client_id' => $this->platform->client_id,
+                    'client_secret' => $this->platform->client_secret,
+                    'grant_type' => 'authorization_code',
+                    'redirect_uri' => $this->url,
+                    'code' =>  $code,
+                ],
+            ];
+
+//            $request = new Psr7Request('POST', $this->platform->url_token, $headers);
+//            $res = $client->sendAsync($request, $options)->wait();
+//            $result = json_decode($res->getBody(), true);
+//            Log::debug("result getToken-------------------------------------------");
+//            Log::debug(json_encode($result));
+//            session(['access_token' => $result['access_token']]);
+//            session(['refresh_token' => $result['refresh_token']]);
+        }else{
+
+            $headers = [
+                'Accept' => 'application/json',
+                'client-id' => '7c23b5396452b6ade3f848bf8b606e7a'
+            ];
+            $options = [
+                'form_params' => [
+                    'client_id' => $this->platform->client_id,
+                    'client_secret' => $this->platform->client_secret,
+                    'grant_type' => 'authorization_code',
+                    'code' => $code,
+                    'redirect_uri' => $this->url,
+                ],
+            ];
+
+
+
+//            $response = Http::withHeaders([
+//                'Accept' => 'application/json',
+//                'client-id' => '7c23b5396452b6ade3f848bf8b606e7a'
+//            ])->post('https://open-api.trovo.live/openplatform/exchangetoken', [
+//                'client_secret' => '80ea1ddc012d0186fba1854354560927',
+//                'grant_type' => 'authorization_code',
+//                'code' => $code,
+//                'redirect_uri' => $this->url,
+//            ]);
+//
+//            if ($response->successful()) {
+//                // Handle successful response
+//                $data = $response->json();
+//                Log::debug("result getToken trovo-------------------------------------------");
+//                Log::debug(json_encode($data));
+//                session(['access_token' => $data['access_token']]);
+//                session(['refresh_token' => $data['refresh_token']]);
+//                // Do something with $data
+//            } else {
+//                // Handle error
+//                $error = $response->json();
+//                Log::debug("Error getToken trovo-------------------------------------------");
+//                Log::debug(json_encode($error));
+//                // Do something with $error
+//            }
+        }
         $request = new Psr7Request('POST', $this->platform->url_token, $headers);
         $res = $client->sendAsync($request, $options)->wait();
         $result = json_decode($res->getBody(), true);
@@ -151,6 +206,7 @@ final class TwichService
         Log::debug(json_encode($result));
         session(['access_token' => $result['access_token']]);
         session(['refresh_token' => $result['refresh_token']]);
+
     }
 
     public function getRefreshToken($user)

@@ -24,6 +24,7 @@ class Platform extends Authenticatable
         'client_secret',
         'url',
         'url_token',
+        'scope'
     ];
 
     public function users()

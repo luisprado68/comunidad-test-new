@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('client_secret')->nullable();
             $table->string('url')->nullable();
             $table->string('url_token')->nullable();
+            $table->string('scope')->nullable();
             $table->timestamps();
         });
     }
