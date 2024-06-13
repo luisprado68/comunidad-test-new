@@ -72,10 +72,9 @@ final class TwichService
     public function loginTest($id)
     {
 //        dd($platform);
-        $platform = $this->platformService->getById($id);
-        if(isset($platform)){
-            session(['platform' => $platform]);
-            $this->platform = $platform;
+        session(['platform_id' => $id]);
+        $this->platform = $this->platformService->getById($id);
+        if(isset($this->platform)){
             $this->code = Str::random(10);
             $this->code_test = 'code';
             $this->url_twitch = $this->platform->url;
@@ -126,7 +125,7 @@ final class TwichService
 
     public function getTokenTest(Request $request)
     {
-        $this->platform = session('platform');
+        $this->platform = $this->platformService->getById(session('platform_id'));
         $all = $request->all();
         $code = $request->get('code');
         Log::debug('request get token: --------- ' . json_encode($all));

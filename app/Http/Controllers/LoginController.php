@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Enums\PlatformType;
+use App\Services\PlatformService;
 use App\Services\ScheduleService;
 use App\Services\ScoreService;
 use App\Services\SupportScoreService;
@@ -37,6 +38,8 @@ class LoginController extends Controller
     private $scoreService;
     private $teamService;
     private $trovoService;
+    private $platformService;
+    public $platform;
 
 
     public function __construct(
@@ -47,6 +50,7 @@ class LoginController extends Controller
         ScoreService $scoreService,
         TeamService $teamService,
         TrovoService $trovoService,
+        PlatformService $platformService
     ) {
         $this->twichService = $twichService;
         $this->userService = $userService;
@@ -54,6 +58,7 @@ class LoginController extends Controller
         $this->scoreService = $scoreService;
         $this->teamService = $teamService;
         $this->trovoService = $trovoService;
+        $this->platformService = $platformService;
     }
 
     public function loginTwich()
@@ -140,7 +145,13 @@ class LoginController extends Controller
         $supportScoreArray = [];
         $total = 0;
         $this->twichService->getTokenTest($request);
-        $user = $this->twichService->getUser();
+        $this->platform = $this->platformService->getById(session('platform_id'));
+        if($this->platform->id == PlatformType::twich){
+            $user = $this->twichService->getUser();
+        }else{
+            $user = $this->trovoService->getUser();
+        }
+
         Log::debug('get token----------------------');
         Log::debug(json_encode($user));
         if(array_key_exists('email',$user)){
