@@ -83,14 +83,12 @@ final class ScheduleService
                     // dump($time);
                     array_push($new_schedulers,['day' => strtolower($time->format('l')),'time' => $time->format('H:00'),'id' => $scheduler->id]);
 
-                    Log::debug('new_schedulers------------ '. json_encode($new_schedulers));
                 }
 
                 $groupedArray = collect($new_schedulers)->groupBy('day')->toArray();
 
             }
         }
-        Log::debug('groupedArray------------ '. json_encode($groupedArray));
         return $groupedArray;
     }
 

@@ -86,12 +86,11 @@ class MyAgendaController extends Controller
 
                 $groupedArray_two = $this->scheduleService->getSchedulerByUser($this->user_model);
                 // dd($groupedArray_two);
-                Log::debug('groupedArray_two ------------------------ ' . json_encode($groupedArray_two));
+
                 if(count($groupedArray_two) > 0){
                     //valido que tenga una agenda para agregar el punto al referido
                     $supportScore = $this->supportScoreService->getByUserSupportId($this->user_model->id);
 
-                    Log::debug('supportScore ------------------------ ' . json_encode($supportScore));
                     if(isset($supportScore)){
                         $supportScore->point = 1;
                         $supportScore->save();
