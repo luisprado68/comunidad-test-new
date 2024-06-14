@@ -127,6 +127,7 @@ final class TwichService
     public function getTokenTest(Request $request)
     {
         $this->platform = $this->platformService->getById(session('platform_id'));
+        $result = null;
         $all = $request->all();
         $code = $request->get('code');
         Log::debug('request get token: --------- ' . json_encode($all));
@@ -148,60 +149,49 @@ final class TwichService
                 ],
             ];
 
-//            $request = new Psr7Request('POST', $this->platform->url_token, $headers);
-//            $res = $client->sendAsync($request, $options)->wait();
-//            $result = json_decode($res->getBody(), true);
-//            Log::debug("result getToken-------------------------------------------");
-//            Log::debug(json_encode($result));
-//            session(['access_token' => $result['access_token']]);
-//            session(['refresh_token' => $result['refresh_token']]);
+            $request = new Psr7Request('POST', $this->platform->url_token, $headers);
+            $res = $client->sendAsync($request, $options)->wait();
+            $result = json_decode($res->getBody(), true);
+
         }else{
 
-            $headers = [
-                'Accept' => 'application/json',
-                'client-id' => $this->platform->client_secret
-            ];
-            $options = [
-                'form_params' => [
-//                    'client_id' => $this->platform->client_id,
-                    'client_secret' => $this->platform->client_secret,
-                    'grant_type' => 'authorization_code',
-                    'code' => $code,
-                    'redirect_uri' => $this->url,
-                ],
-            ];
-
-
-
-//            $response = Http::withHeaders([
+//            $headers = [
 //                'Accept' => 'application/json',
-//                'client-id' => '7c23b5396452b6ade3f848bf8b606e7a'
-//            ])->post('https://open-api.trovo.live/openplatform/exchangetoken', [
-//                'client_secret' => '80ea1ddc012d0186fba1854354560927',
-//                'grant_type' => 'authorization_code',
-//                'code' => $code,
-//                'redirect_uri' => $this->url,
-//            ]);
+//                'client-id' => $this->platform->client_secret
+//            ];
+//            $options = [
+//                'form_params' => [
+////                    'client_id' => $this->platform->client_id,
+//                    'client_secret' => $this->platform->client_secret,
+//                    'grant_type' => 'authorization_code',
+//                    'code' => $code,
+//                    'redirect_uri' => $this->url,
+//                ],
+//            ];
+            $response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'client-id' => '7c23b5396452b6ade3f848bf8b606e7a'
+            ])->post('https://open-api.trovo.live/openplatform/exchangetoken', [
+                'client_secret' => '80ea1ddc012d0186fba1854354560927',
+                'grant_type' => 'authorization_code',
+                'code' => $code,
+                'redirect_uri' => $this->url,
+            ]);
 //
-//            if ($response->successful()) {
-//                // Handle successful response
-//                $data = $response->json();
-//                Log::debug("result getToken trovo-------------------------------------------");
-//                Log::debug(json_encode($data));
-//                session(['access_token' => $data['access_token']]);
-//                session(['refresh_token' => $data['refresh_token']]);
-//                // Do something with $data
-//            } else {
-//                // Handle error
-//                $error = $response->json();
-//                Log::debug("Error getToken trovo-------------------------------------------");
-//                Log::debug(json_encode($error));
-//                // Do something with $error
-//            }
+            if ($response->successful()) {
+                // Handle successful response
+                $result = $response->json();
+
+                // Do something with $data
+            } else {
+                // Handle error
+                $error = $response->json();
+                Log::debug("Error getToken trovo-------------------------------------------");
+                Log::debug(json_encode($error));
+                // Do something with $error
+            }
         }
-        $request = new Psr7Request('POST', $this->platform->url_token, $headers);
-        $res = $client->sendAsync($request, $options)->wait();
-        $result = json_decode($res->getBody(), true);
+
         Log::debug("result getToken-------------------------------------------");
         Log::debug(json_encode($result));
         session(['access_token' => $result['access_token']]);
