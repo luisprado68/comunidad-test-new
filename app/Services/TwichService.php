@@ -158,12 +158,12 @@ final class TwichService
         }else{
 
             $headers = [
-                'Content-Type' => 'application/json',
-                'client-id' => '7c23b5396452b6ade3f848bf8b606e7a'
+                'Accept' => 'application/json',
+                'client-id' => $this->platform->client_secret
             ];
             $options = [
                 'form_params' => [
-                    'client_id' => $this->platform->client_id,
+//                    'client_id' => $this->platform->client_id,
                     'client_secret' => $this->platform->client_secret,
                     'grant_type' => 'authorization_code',
                     'code' => $code,
