@@ -158,7 +158,7 @@ final class TwichService
         }else{
 
             $headers = [
-                'Accept' => 'application/json',
+                'Content-Type' => 'application/json',
                 'client-id' => '7c23b5396452b6ade3f848bf8b606e7a'
             ];
             $options = [
