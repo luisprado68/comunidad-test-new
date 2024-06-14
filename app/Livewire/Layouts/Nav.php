@@ -3,6 +3,7 @@
 namespace App\Livewire\Layouts;
 
 
+use App\Enums\PlatformType;
 use App\Models\User;
 use Illuminate\Database\Console\DumpCommand;
 use Illuminate\Support\Facades\Log;
@@ -14,11 +15,22 @@ class Nav extends Component
     public $list = [];
     public $show_result = false;
     public $user;
+    public $background;
 
     public function render()
     {
         // Log::debug('text ' . $this->search);
         // dump($this->show_result);
+        if(session('user') && array_key_exists('platform_id',session('user'))){
+            if( session('user')['platform_id'] == PlatformType::trovo){
+                $this->background = 'banner-trovo';
+            }else{
+                $this->background = 'banner-twich';
+            }
+
+        }else{
+            $this->background = 'banner-dark';
+        }
         return view('livewire.layouts.nav');
     }
 

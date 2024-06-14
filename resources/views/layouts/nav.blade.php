@@ -1,17 +1,27 @@
-    <nav class="p-0 mb-5 navbar-dark banner-dark">
-     
+@if (session()->has('user') && array_key_exists('platform_id',session('user')))
+        @if(session('user')['platform_id'] == \App\Enums\PlatformType::trovo)
+        <nav class="p-0 mb-5 navbar-dark banner-trovo">
+        @else
+            <nav class="p-0 mb-5 navbar-dark banner-twich">
+        @endif
+
+@else
+                <nav class="p-0 mb-5 navbar-dark banner-dark">
+@endif
+
+{{--        @dump(session('user'))--}}
         <div class="row">
             <div class="col-lg-2 col-md-auto col-sm-12">
                 @if (session()->has('user'))
                 <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
                     class="logo rounded-circle"></a>
-                
+
                 @else
                     <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
                         class="logo rounded-circle"></a>
                 @endif
             </div>
-            
+
             {{-- <div class="pr-2 mt-4 col-lg-4 col col-md-4 col-sm-10">
                 <div class="dropdown">
                     <div class="row">
@@ -20,22 +30,22 @@
                             @if ($show_result)
                             <ul class="col-7 dropdown-menu show" data-bs-popper="static" style="margin-left: 8%">
                                 @if (count($list))
-                                    
+
                                     @foreach($list as $user_found)
                                     <li><a href="{{route('summary-user',['id' => $user_found->id ])}}" class="dropdown-item">{{ $user_found->channel }}</a></li>
                                     @endforeach
                                 @endif
-                                
+
                             </ul>
                         @endif
                         </div>
-                       
-                 
+
+
                         <div class="col-1">
                             <button class="btn btn-secondary dropdown-toggle" wire:click='setSearch' data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-search"></i>
                             </button>
-                           
+
                         </div>
                     </div>
                 </div>
@@ -53,10 +63,10 @@
                                 @else
                                         <img src="{{ asset('/img/logo.webp') }}" alt="tag" class="profile-img">
                                 @endif
-        
+
                             </a>
                             <ul class="m-0 dropdown-menu menu-nav overlay" aria-labelledby="navbarDropdownMenuLink">
-        
+
                                 @if (session()->has('user'))
                                     <li><a class="dropdown-item item-list" href="{{ route('profile') }}">Perfil</a></li>
                                     <li><a class="dropdown-item item-list" href="{{ route('summary') }}">Resumen</a></li>
@@ -69,16 +79,16 @@
                                 @else
                                     <li><a class="dropdown-item item-list" href="{{ route('home') }}">Inicio</a></li>
                                 @endif
-        
+
                             </ul>
                         </li>
-        
+
                     </ul>
                 </div>
-               
-                
+
+
             </div>
         </div>
-        
-        
+
+
     </nav>
