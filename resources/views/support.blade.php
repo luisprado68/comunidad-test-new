@@ -66,7 +66,7 @@
                                                         {{-- nuevos cambios --}}
                                                         <p id="contador" style="display: none"></p>
                                                         <p id="contadorDos" style="display: none"></p>
-                                                        <p id="{{'twich_id'.$key}}"  style="display: none">{{ $stream['twich_id'] }}</p>
+                                                        <p id="{{'stream_id'.$key}}"  style="display: none">{{ $stream['stream_id'] }}</p>
                                                         <a id="{{'url'.$key}}" style="" href="{{ 'https://www.twitch.tv/' . $stream['login'] }}">
                                                         </a>
                                                         <button class="btn btn-primary"><a

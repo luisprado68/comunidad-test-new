@@ -12,12 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            if (Schema::hasColumn('users', 'trovo_id')) {
-                $table->dropColumn('trovo_id');
-                $table->unsignedBigInteger('platform_id')->index()->nullable();
-                $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
-            }
-
+            $table->dropUnique(['twich_id']);
+            $table->renameColumn('twich_id', 'stream_id');
+            $table->unique(['stream_id', 'platform_id']);
         });
     }
 
@@ -28,7 +25,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
 
-            $table->string('trovo_id')->unique()->nullable();
+            $table->dropUnique(['stream_id', 'platform_id']);
+            $table->renameColumn('stream_id', 'twich_id');
+            $table->unique('twich_id');
         });
     }
 };

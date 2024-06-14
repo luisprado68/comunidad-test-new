@@ -90,7 +90,7 @@ final class RoleService
         if (isset($twich_id)) {
             $user = $this->model
                 // ::where('email', $email)
-                ::where('twich_id', $twich_id)
+                ::where('stream_id', $twich_id)
                 ->first();
         } else {
             $user = $this->model::where('email', $email)->first();
@@ -114,7 +114,7 @@ final class RoleService
         if (isset($twich_id)) {
             $user = $this->model
                 // ::where('email', $email)
-                ::where('twich_id', $twich_id)
+                ::where('stream_id', $twich_id)
                 ->first();
         } else {
             $user = $this->model::where('email', $email)->first();

@@ -23,12 +23,12 @@ class Nav extends Component
     }
 
     public function setSearch(){
-        
+
         $this->show_result = false;
         if(isset($this->search) && $this->search != ''){
             $this->show_result = true;
             $this->list = User::
-            where('twich_id','!=',$this->user['id'])
+            where('stream_id','!=',$this->user['id'])
             ->where('channel', 'like', '%'.$this->search.'%')
             ->where('status',1)
             ->where('deleted',0)->take(5)->get();

@@ -166,7 +166,7 @@ final class TrovoService
                 $this->user['name'] = $result['userName'];
                 $this->user['display_name'] = $result['nickName'];
                 $this->user['profile_image_url'] = $result['profilePic'];
-                $this->user['stream'] = PlatformType::trovo;
+                $this->user['platform_id'] = PlatformType::trovo;
                 // $img = $this->user['profile_image_url'];
                 session(['user' => $this->user]);
                 return $this->user;

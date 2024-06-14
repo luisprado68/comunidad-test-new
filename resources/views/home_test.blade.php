@@ -44,12 +44,12 @@
                                                     <div class="col-lg-4 col-md-4">
                                                         <div class="text-center card-body">
                                                             @if (env('APP_ENV') == 'local')
-{{--                                                                <a class="dropdown-item"--}}
-{{--                                                                    href="{{ route('login-test') }}"><button type="button"--}}
-{{--                                                                        class="btn btn-lg twich-button" style=""><i--}}
-{{--                                                                            class="fa-brands fa-twitch"></i> Únete--}}
-{{--                                                                        con--}}
-{{--                                                                        TWITCH</button></a>--}}
+                                                                <a class="dropdown-item"
+                                                                    href="{{ route('login-test') }}"><button type="button"
+                                                                        class="btn btn-lg twich-button" style=""><i
+                                                                            class="fa-brands fa-twitch"></i> Únete
+                                                                        con
+                                                                        TWITCH</button></a>
 
                                                             @else
                                                                 <a class="dropdown-item" href="{{ route('login_twich_test',['platform'=>\App\Enums\PlatformType::twich]) }}"><button
@@ -65,11 +65,12 @@
                                                     <div class="col-lg-4 col-md-4">
                                                         <div class="text-center card-body">
                                                             @if (env('APP_ENV') == 'local')
-                                                                <a class="dropdown-item" href="{{ route('login_trovo') }}"><button type="button" class="btn btn-lg trovo-button"
-                                                                                                                                                   style="">
-                                                                        <img src="{{ asset('/img/trovo.png') }}" alt="" width="25px">
-                                                                        Únete con
-                                                                        TROVO</button></a>
+                                                                <a class="dropdown-item" href="{{ route('login_twich_test',['platform'=>\App\Enums\PlatformType::trovo]) }}"><button
+                                                                        type="button" class="btn btn-lg trovo-button"
+                                                                        style=""> <img src="{{ asset('/img/trovo.png') }}" alt="" width="25px">
+                                                                        Únete
+                                                                        con
+                                                                        TWITCH</button></a>
                                                             @else
                                                                 <a class="dropdown-item" href="{{ route('login_twich_test',['platform'=>\App\Enums\PlatformType::trovo]) }}"><button
                                                                         type="button" class="btn btn-lg trovo-button"

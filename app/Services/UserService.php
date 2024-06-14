@@ -73,7 +73,7 @@ final class UserService
     public function getByIdandTwichId($twich_id)
     {
         $this->setModel();
-        $user = $this->model::where('twich_id', $twich_id)->first();
+        $user = $this->model::where('stream_id', $twich_id)->first();
         if ($user) {
             return $user;
         } else {
@@ -92,7 +92,7 @@ final class UserService
         $user = null;
         if (isset($twich_id)) {
             $user = $this->model
-                ::where('twich_id', $twich_id)
+                ::where('stream_id', $twich_id)
                 ->first();
         }
         if(empty($user) && isset($email)){
@@ -244,12 +244,10 @@ final class UserService
         try {
             $user = new User();
             if (isset($userArray['id'])) {
-                if(PlatformType::trovo == $streamType){
-                    $user->trovo_id = $userArray['id'];
-                }else{
-                    $user->twich_id = $userArray['id'];
-                }
+                $user->stream_id = $userArray['id'];
             }
+
+            $user->platform_id = $userArray['platform_id'];
             $user->name = isset($userArray['name']) ? $userArray['name'] : $userArray['display_name'];
             if(array_key_exists('email',$userArray)){
                 $user->email = $userArray['email'] ?? $userArray['email'];
@@ -268,11 +266,9 @@ final class UserService
             $user->country_id = $userArray['country_id'] ?? 1;
             $user->img_profile = $userArray['profile_image_url'] ?? null;
             $user->deleted = 0;
-//            $user->current_team_id = null;
             $user->save();
             $user->token = session('access_token') ?? '';
             $user->update();
-
             $user->assignRole('streamer');
             return $user;
         } catch (Error $e) {

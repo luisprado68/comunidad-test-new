@@ -30,7 +30,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'twich_id',
+        'stream_id',
         'channel',
         'status',
         'active',

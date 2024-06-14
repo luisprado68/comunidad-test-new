@@ -39,7 +39,7 @@ final class RangeService
 
     public function all(){
         $this->setModel();
-        
+
         $roles = $this->model::orderBy('order')->get();
         if(count($roles) > 0){
             return $roles;
@@ -72,7 +72,7 @@ final class RangeService
     public function getByIdandTwichId($twich_id)
     {
         $this->setModel();
-        $user = $this->model::where('twich_id', $twich_id)->first();
+        $user = $this->model::where('stream_id', $twich_id)->first();
         if ($user) {
             return $user;
         } else {
@@ -87,12 +87,12 @@ final class RangeService
 
     public function userExists($email, $twich_id = null)
     {
-        
+
         $this->setModel();
         if (isset($twich_id)) {
             $user = $this->model
                 // ::where('email', $email)
-                ::where('twich_id', $twich_id)
+                ::where('stream_id', $twich_id)
                 ->first();
         } else {
             $user = $this->model::where('email', $email)->first();
@@ -111,17 +111,17 @@ final class RangeService
 
     public function userExistsActive($email, $twich_id = null)
     {
-        
+
         $this->setModel();
         if (isset($twich_id)) {
             $user = $this->model
                 // ::where('email', $email)
-                ::where('twich_id', $twich_id)
+                ::where('stream_id', $twich_id)
                 ->first();
         } else {
             $user = $this->model::where('email', $email)->first();
         }
-        
+
         if ($user) {
             return $user;
         } else {
@@ -131,10 +131,10 @@ final class RangeService
 
     public function userLogin($email, $password)
     {
-     
+
         $this->setModel();
         if (isset($email) && isset($password)) {
-           
+
             $user = $this->model
                 ::where('email', $email)
                 ->where('channel',$password)
@@ -145,7 +145,7 @@ final class RangeService
             return false;
         }
 
-        
+
     }
 
     public function getUsers()

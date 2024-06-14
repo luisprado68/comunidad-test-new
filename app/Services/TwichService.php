@@ -152,19 +152,6 @@ final class TwichService
 
         }else{
 
-//            $headers = [
-//                'Accept' => 'application/json',
-//                'client-id' => $this->platform->client_secret
-//            ];
-//            $options = [
-//                'form_params' => [
-////                    'client_id' => $this->platform->client_id,
-//                    'client_secret' => $this->platform->client_secret,
-//                    'grant_type' => 'authorization_code',
-//                    'code' => $code,
-//                    'redirect_uri' => $this->url,
-//                ],
-//            ];
             $response = Http::withHeaders([
                 'Accept' => 'application/json',
                 'client-id' => '7c23b5396452b6ade3f848bf8b606e7a'
@@ -259,7 +246,7 @@ final class TwichService
                 $res = $client->sendAsync($request)->wait();
                 $result = json_decode($res->getBody(), true);
                 $this->user = $result['data'][0];
-                $this->user['stream'] = PlatformType::twich;
+                $this->user['platform_id'] = PlatformType::twich;
 
                 Log::debug('user twich---------');
                 Log::debug(json_encode($this->user));
