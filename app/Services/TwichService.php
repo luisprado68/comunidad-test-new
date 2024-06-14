@@ -39,6 +39,7 @@ final class TwichService
     private $scoreService;
     private $platformService;
     public $platform;
+    public $result;
     /**
      * Set model class name.
      *
@@ -132,9 +133,9 @@ final class TwichService
         $code = $request->get('code');
         Log::debug('request get token: --------- ' . json_encode($all));
         $this->url = 'https://www.comunidadnc.com/login_token';
-        $client = new Client();
-        if($this->platform->id == PlatformType::twich){
 
+        if($this->platform->id == PlatformType::twich){
+            $client = new Client();
             $headers = [
                 'Content-Type' => 'application/x-www-form-urlencoded',
                 'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
@@ -151,7 +152,7 @@ final class TwichService
 
             $request = new Psr7Request('POST', $this->platform->url_token, $headers);
             $res = $client->sendAsync($request, $options)->wait();
-            $result = json_decode($res->getBody(), true);
+            $this->result = json_decode($res->getBody(), true);
 
         }else{
 
@@ -180,7 +181,7 @@ final class TwichService
 //
             if ($response->successful()) {
                 // Handle successful response
-                $result = $response->json();
+                $this->result = $response->json();
 
                 // Do something with $data
             } else {
@@ -193,9 +194,9 @@ final class TwichService
         }
 
         Log::debug("result getToken-------------------------------------------");
-        Log::debug(json_encode($result));
-        session(['access_token' => $result['access_token']]);
-        session(['refresh_token' => $result['refresh_token']]);
+        Log::debug(json_encode($this->result));
+        session(['access_token' => $this->result['access_token']]);
+        session(['refresh_token' => $this->result['refresh_token']]);
 
     }
 
