@@ -97,15 +97,15 @@ final class UserService
                 ->first();
         }
 
-        if (empty($user) && isset($twich_id)) {
-            $user = $this->model
-                ::where('stream_id', $twich_id)
-                ->first();
-        }
-
-        if(empty($user) && isset($email)){
-            $user = $this->model::where('email', $email)->first();
-        }
+//        if (empty($user) && isset($twich_id)) {
+//            $user = $this->model
+//                ::where('stream_id', $twich_id)
+//                ->first();
+//        }
+//
+//        if(empty($user) && isset($email)){
+//            $user = $this->model::where('email', $email)->first();
+//        }
 
         if ($user) {
             $user->token = session('access_token') ?? '';
