@@ -329,7 +329,7 @@ final class TwichService
                     'Authorization' => 'Bearer ' . $user->token,
                     'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
                 ];
-                $request = new Psr7Request('GET', 'https://api.twitch.tv/helix/chat/chatters?broadcaster_id=' . $user->twich_id . '&moderator_id=' . $user->twich_id, $headers);
+                $request = new Psr7Request('GET', 'https://api.twitch.tv/helix/chat/chatters?broadcaster_id=' . $user->stream_id . '&moderator_id=' . $user->stream_id, $headers);
                 $res = $client->sendAsync($request)->wait();
                 $result = json_decode($res->getBody(), true);
                 $users = $result['data'];
