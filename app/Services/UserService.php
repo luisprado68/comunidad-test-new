@@ -86,15 +86,23 @@ final class UserService
      * @return mixed
      */
 
-    public function userExists($email, $twich_id = null)
+    public function userExists($email, $twich_id = null,$platform_id = null)
     {
         $this->setModel();
         $user = null;
-        if (isset($twich_id)) {
+
+        if( isset($twich_id) && isset($platform_id)){
+            $user = $this->model
+                ::where('stream_id', $twich_id)->where('platform_id',$platform_id)
+                ->first();
+        }
+
+        if (empty($user) && isset($twich_id)) {
             $user = $this->model
                 ::where('stream_id', $twich_id)
                 ->first();
         }
+
         if(empty($user) && isset($email)){
             $user = $this->model::where('email', $email)->first();
         }
@@ -134,12 +142,11 @@ final class UserService
     public function userExistsActive($email, $stream_id = null,$streamType = 1)
     {
         $this->setModel();
-        if (isset($stream_id)) {
-            if($streamType == PlatformType::trovo){
+        if (isset($stream_id) && isset($streamType)) {
+            $user = $this->model::where('stream_id', $stream_id)->where('platform_id', $streamType)->first();
+        }
+        if (empty($user) && isset($stream_id)) {
                 $user = $this->model::where('stream_id', $stream_id)->first();
-            }else{
-                $user = $this->model::where('stream_id', $stream_id)->first();
-            }
         }
         if(empty($user)){
             $user = $this->model::where('email', $email)->first();

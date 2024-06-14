@@ -155,7 +155,7 @@ class LoginController extends Controller
         Log::debug('get token----------------------');
         Log::debug(json_encode($user));
         if(array_key_exists('email',$user)){
-            $user_model = $this->userService->userExists($user['email'], $user['id']);
+            $user_model = $this->userService->userExists($user['email'], $user['id'],$user['platform_id']);
         }else{
             $user_model = $this->userService->userExists($user['display_name'].'@gmail.com',$user['id']);
         }

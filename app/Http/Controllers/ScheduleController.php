@@ -66,11 +66,11 @@ class ScheduleController extends Controller
         $times = [];
         if (session()->exists('user')) {
             $this->user = session('user');
-            if(array_key_exists('stream',$this->user)){
+            if(array_key_exists('platform_id',$this->user)){
                 if(array_key_exists('email',$this->user)){
-                    $user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['stream']);
+                    $user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['platform_id']);
                 }else{
-                    $user_model = $this->userService->userExistsActive($this->user['display_name'].'@gmail.com',$this->user['id'],$this->user['stream']);
+                    $user_model = $this->userService->userExistsActive($this->user['display_name'].'@gmail.com',$this->user['id'],$this->user['platform_id']);
                 }
             }else{
                 $user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id']);
