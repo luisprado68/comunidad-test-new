@@ -80,13 +80,9 @@ final class TwichService
             $this->code = Str::random(10);
             $this->code_test = 'code';
             $this->url_twitch = $this->platform->url;
-            $this->url_test = 'http://localhost';
             $this->url = 'https://www.comunidadnc.com/login_token_test';
             $this->client_id = $this->platform->client_id;
-            $this->force_verify = 'true';
-//        $this->complete_url = $this->url_twitch . '?response_type=' . $this->code . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
             $this->complete_url = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . $this->platform->scope;
-
             Log::debug('url login formated :' . $this->complete_url);
             return $this->complete_url;
         }
@@ -132,7 +128,7 @@ final class TwichService
         $all = $request->all();
         $code = $request->get('code');
         Log::debug('request get token: --------- ' . json_encode($all));
-        $this->url = 'https://www.comunidadnc.com/login_token';
+        $this->url = 'https://www.comunidadnc.com/login_token_test';
 
         if($this->platform->id == PlatformType::twich){
             $client = new Client();
