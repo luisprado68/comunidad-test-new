@@ -152,9 +152,10 @@ class LoginController extends Controller
             $user = $this->trovoService->getUser();
         }
 
-        Log::debug('get token----------------------');
+        Log::debug('get token **********************');
         Log::debug(json_encode($user));
         if(array_key_exists('email',$user)){
+            Log::debug('get mail **********************');
             $user_model = $this->userService->userExists($user['email'], $user['id'],$user['platform_id']);
         }else{
             $user_model = $this->userService->userExists($user['display_name'].'@gmail.com',$user['id']);

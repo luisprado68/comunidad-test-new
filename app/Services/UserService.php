@@ -90,8 +90,10 @@ final class UserService
     {
         $this->setModel();
         $user = null;
-
+        Log::debug('$twich_id **********************' . json_encode($twich_id));
+        Log::debug('$platform_id **********************' . json_encode($platform_id));
         if( isset($twich_id) && isset($platform_id)){
+            Log::debug('pasosss **********************');
             $user = $this->model
                 ::where('stream_id', $twich_id)->where('platform_id',$platform_id)
                 ->first();
