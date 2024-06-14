@@ -136,9 +136,9 @@ final class UserService
         $this->setModel();
         if (isset($stream_id)) {
             if($streamType == PlatformType::trovo){
-                $user = $this->model::where('twich_id', $stream_id)->first();
+                $user = $this->model::where('stream_id', $stream_id)->first();
             }else{
-                $user = $this->model::where('twich_id', $stream_id)->first();
+                $user = $this->model::where('stream_id', $stream_id)->first();
             }
         }
         if(empty($user)){
