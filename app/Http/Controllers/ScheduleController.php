@@ -312,6 +312,7 @@ class ScheduleController extends Controller
 
             foreach ($schedulers as $scheduler){
                 if(($scheduler->user->team) !== null){
+                    Log::debug('$scheduler->user->team -------- ' . json_encode($scheduler->user->team));
                     if($scheduler->user->team->id == $user_model->team->id){
                         $cantidad = $cantidad +1;
                     }
