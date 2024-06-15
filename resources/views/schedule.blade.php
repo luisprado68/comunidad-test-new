@@ -3,7 +3,7 @@
 @section('content')
     <div class="container ">
         <div class="row">
-            @if (session()->has('user') && session('status') == 0 && isset($user->team))
+            @if (session()->has('user') && session('status') == 0 && !isset($user->team))
                 @include('link')
             @else
                 @include('status', ['user' => $user])
