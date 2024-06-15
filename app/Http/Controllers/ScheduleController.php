@@ -51,6 +51,7 @@ class ScheduleController extends Controller
     public $diamante;
     public $esmeralda;
     public $lider;
+    public $hasTeam = false;
     public $active_time_zone = false;
 
 
@@ -82,6 +83,10 @@ class ScheduleController extends Controller
                 session(['status' => $user_model->status]);
             } else {
                 session(['status' => 0]);
+            }
+
+            if(isset($user_model->team)){
+                $this->hasTeam = true;
             }
             $this->bronce = $this->getTimeSchedule($user_model, $this->bronce_time);
             $this->plata = $this->getTimeSchedule($user_model, $this->plata_time);
@@ -288,7 +293,9 @@ class ScheduleController extends Controller
                 'times' => $this->times, 'days' => $this->days, 'days_with_time' => $this->days_with_time,
                 'schedule_avaible' => $this->schedule_avaible, 'day_status' => $this->day_status,
                 "user" => $user_model, 'times' => json_encode($times), 'bronce' => $this->bronce,
-                'plata' => $this->plata, 'oro' => $this->oro, 'platino' => $this->platino,'active_time_zone' => $this->active_time_zone
+                'plata' => $this->plata, 'oro' => $this->oro, 'platino' => $this->platino,'active_time_zone' => $this->active_time_zone,
+                'hasTeam' => $this->hasTeam
+
             ]);
         } else {
             return redirect('/');
