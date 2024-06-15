@@ -55,7 +55,7 @@ class DonationController extends Controller
             else{
                 session(['status' => 0]);
             }
-            return view('donation',['times' => json_encode($times)]);
+            return view('donation',['user' => $userModel]);
         }
         // else{
         //     return redirect('/');

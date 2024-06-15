@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            @if (session()->has('user') && session('status') == 0)
+            @if (session()->has('user') && session('status') == 0 || !isset($user->team))
                 @include('link')
             @else
                 @include('status', ['user' => $user])
@@ -38,11 +38,11 @@
                                                     </div>
                                                 </div>
                                                 @endif
-                                            
+
                                         </div>
                                     </div>
                                     @endforeach
-                                    
+
                                     {{-- <div class="mt-2 card bg-dark text-light">
                                         <div class="row">
                                             <div class="col-12">

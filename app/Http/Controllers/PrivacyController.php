@@ -35,7 +35,7 @@ class PrivacyController extends Controller
             else{
                 session(['status' => 0]);
             }
-            return view('privacy');
+            return view('privacy',['user' => $userModel]);
         }
 
 

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container mt-5 ">
         <div class="row">
-            @if (session()->has('user') && session('status') == 0)
+            @if (session()->has('user') && session('status') == 0 || !isset($user->team))
                 @include('link')
             @else
                 <div class="d-flex justify-content-center">
@@ -405,7 +405,7 @@
                                                 class="text-danger position-absolute">{{ trans('user.create.fields.channel') }}</span>
                                         @enderror
                                     </div>
-                                    
+
 
                                     <div class="mt-2 mb-4 col-6" style="display: block;margin-right:105px">
                                         <button type="submit" class="btn btn-primary">Guardar</button>
