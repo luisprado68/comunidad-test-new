@@ -308,7 +308,7 @@ class ScheduleController extends Controller
         $result = '';
         $schedulers = $schedules->where('start', $new_start);
         $cantidad = 0;
-        if(count($schedulers)>0){
+        if(count($schedulers)>0 && isset($user_model->team)){
 
             foreach ($schedulers as $scheduler){
                 if(($scheduler->user->team) !== null){
