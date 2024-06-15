@@ -311,9 +311,12 @@ class ScheduleController extends Controller
         if(count($schedulers)>0){
 
             foreach ($schedulers as $scheduler){
-                if($scheduler->user->team->id == $user_model->team->id){
-                    $cantidad = $cantidad +1;
+                if(($scheduler->user->team) !== null){
+                    if($scheduler->user->team->id == $user_model->team->id){
+                        $cantidad = $cantidad +1;
+                    }
                 }
+
             }
             if($cantidad == 1){
                 $result ='duplicated';
