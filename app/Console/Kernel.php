@@ -62,35 +62,35 @@ class Kernel extends ConsoleKernel
             }
         })->everyMinute();
 
-        $schedule->call(function () {
-
-            $this->twichService = new TwichService();
-            $this->scheduleService = new ScheduleService();
-            $this->scoreService = new ScoreService();
-            $this->userService = new UserService();
-
-            $now =  Carbon::now();
-            $minute = $now->format('i');
-
-            if ($minute == 66  || $minute == 88) {
-
-                Log::debug('---------------[START]  Trovo Chatters ------------');
-
-                $currentStreams = $this->scheduleService->getCurrentStreamKernel();
-                Log::debug('**** currentStreams ******** ');
-                Log::debug(json_encode($currentStreams));
-                if (count($currentStreams) > 0) {
-                    foreach ($currentStreams as $key => $schedule_streaming) {
-
-                        $chatters_schedule =  $this->twichService->getChattersKernel($schedule_streaming);
-
-                    }
-                }
-                Log::debug('---------------[FINISH] END Chatters------------');
-            } else {
-                Log::debug('---------------No esta habilitado------------');
-            }
-        })->everyMinute();
+//        $schedule->call(function () {
+//
+//            $this->twichService = new TwichService();
+//            $this->scheduleService = new ScheduleService();
+//            $this->scoreService = new ScoreService();
+//            $this->userService = new UserService();
+//
+//            $now =  Carbon::now();
+//            $minute = $now->format('i');
+//
+//            if ($minute == 66  || $minute == 88) {
+//
+//                Log::debug('---------------[START]  Trovo Chatters ------------');
+//
+//                $currentStreams = $this->scheduleService->getCurrentStreamKernel();
+//                Log::debug('**** currentStreams ******** ');
+//                Log::debug(json_encode($currentStreams));
+//                if (count($currentStreams) > 0) {
+//                    foreach ($currentStreams as $key => $schedule_streaming) {
+//
+//                        $chatters_schedule =  $this->twichService->getChattersKernel($schedule_streaming);
+//
+//                    }
+//                }
+//                Log::debug('---------------[FINISH] END Chatters------------');
+//            } else {
+//                Log::debug('---------------No esta habilitado------------');
+//            }
+//        })->everyMinute();
 
         $schedule->call(function () {
 
