@@ -52,7 +52,8 @@ class HomeTestController extends Controller
 
 
                 if(array_key_exists('email',$user)){
-                    $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['platform_id']);
+//                    $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['platform_id']);
+                    $userModel = $this->userService->getById(747);
                     if($user['platform_id'] == PlatformType::trovo){
                         $this->trovoService->getUserChatters($userModel);
                     }
