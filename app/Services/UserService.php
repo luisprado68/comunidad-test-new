@@ -255,7 +255,7 @@ final class UserService
             if (isset($userArray['id'])) {
                 $user->stream_id = $userArray['id'];
             }
-
+            $user->username = $userArray['username'];
             $user->platform_id = $userArray['platform_id'];
             $user->name = isset($userArray['name']) ? $userArray['name'] : $userArray['display_name'];
             if(array_key_exists('email',$userArray)){

@@ -31,6 +31,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'stream_id',
+        'username',
         'channel',
         'status',
         'active',

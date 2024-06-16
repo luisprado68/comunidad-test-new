@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PlatformType;
 use App\Livewire\Home;
 use App\Models\Log as ModelsLog;
 use App\Services\ScheduleService;
 use App\Services\StreamSupportService;
+use App\Services\TrovoService;
 use App\Services\TwichService;
 use App\Services\UserService;
 use Carbon\Carbon;
@@ -23,11 +25,13 @@ class HomeTestController extends Controller
     private $userService;
     private $scheduleService;
     private $streamSupportService;
-    public function __construct(TwichService $twichService, UserService $userService,ScheduleService $scheduleService)
+    private $trovoService;
+    public function __construct(TwichService $twichService, UserService $userService,ScheduleService $scheduleService,TrovoService $trovoService)
     {
         $this->twichService = $twichService;
         $this->userService = $userService;
         $this->scheduleService = $scheduleService;
+        $this->trovoService = $trovoService;
     }
     public function index()
     {
@@ -43,9 +47,15 @@ class HomeTestController extends Controller
         // }
         if(session()->exists('user')){
             $user = session('user');
+
             if(array_key_exists('platform_id',$user)){
+
+
                 if(array_key_exists('email',$user)){
                     $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['platform_id']);
+                    if($user['platform_id'] == PlatformType::trovo){
+                        $this->trovoService->getUserChatters($userModel);
+                    }
                 }else{
                     $userModel = $this->userService->userExistsActive($user['display_name'].'@gmail.com',$user['id'],$user['platform_id']);
                 }

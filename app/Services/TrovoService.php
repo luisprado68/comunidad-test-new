@@ -163,7 +163,8 @@ final class TrovoService
                 Log::debug(json_encode($result));
                 $this->user = $result;
                 $this->user['id'] = $result['userId'];
-                $this->user['name'] = $result['userName'];
+                $this->user['name'] = $result['nickName'];
+                $this->user['username'] = $result['userName'];
                 $this->user['display_name'] = $result['nickName'];
                 $this->user['profile_image_url'] = $result['profilePic'];
                 $this->user['platform_id'] = PlatformType::trovo;
@@ -240,26 +241,26 @@ final class TrovoService
         try {
             // https://static-cdn.jtvnw.net/cf_vods/d1m7jfoe9zdc1j/642cc3d8aefda37f1b85_shingineo_42081665833_1701532096//thumb/thumb0-440x248.jpg
             if ($user->token) {
+
                 $client = new Client();
                 $headers = [
-                    'Client-Id' => 'vjl5wxupylcsiaq7kp5bjou29solwc',
-                    'Authorization' => 'Bearer ' . $user->token,
-                    'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
+                    'Client-ID' => '7c23b5396452b6ade3f848bf8b606e7a',
+                    'Authorization' => 'OAuth ' .$user->token
                 ];
-                $request = new Psr7Request('GET', 'https://api.twitch.tv/helix/chat/chatters?broadcaster_id=' . $user->twich_id . '&moderator_id=' . $user->twich_id, $headers);
+                $request = new Psr7Request('POST', 'https://open-api.trovo.live/openplatform/channels/'.$user->stream_id.'/viewers', $headers);
                 $res = $client->sendAsync($request)->wait();
                 $result = json_decode($res->getBody(), true);
-                $users = $result['data'];
-                Log::debug('users chatters------------------');
+                $users = $result['chatters']['all']['viewers'];
+                Log::debug('users chatters trovo ------------------');
                 Log::debug(json_encode($users));
 
                 return $users;
             }
             return $users;
         } catch (\Exception $e) {
-
+            Log::debug('Error getUserChatters trovo ' . $e->getMessage());
             return $users;
-            Log::debug($e->getMessage());
+
         }
     }
 

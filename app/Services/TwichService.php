@@ -247,6 +247,7 @@ final class TwichService
                 $result = json_decode($res->getBody(), true);
                 $this->user = $result['data'][0];
                 $this->user['platform_id'] = PlatformType::twich;
+                $this->user['username'] = $this->user['display_name'];
 
                 Log::debug('user twich---------');
                 Log::debug(json_encode($this->user));
