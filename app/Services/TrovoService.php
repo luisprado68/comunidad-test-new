@@ -213,25 +213,25 @@ final class TrovoService
         try {
 
             if (!empty(session('access_token'))) {
+
                 $client = new Client();
                 $headers = [
-                    'Client-Id' => 'vjl5wxupylcsiaq7kp5bjou29solwc',
-                    'Authorization' => 'Bearer ' . session('access_token'),
-                    'Cookie' => 'twitch.lohp.countryCode=AR; unique_id=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O; unique_id_durable=0JaqWdYXGWGHNufLw7yDUgf6IYGyiI9O',
+                    'Client-ID' => '7c23b5396452b6ade3f848bf8b606e7a',
+                    'Authorization' => 'OAuth '.session('access_token'),
+                    'Content-Type' => 'application/json'
                 ];
-                $request = new Psr7Request('GET', 'https://api.twitch.tv/helix/streams?user_login=' . $user->channel, $headers);
-                $res = $client->sendAsync($request)->wait();
-                $result = json_decode($res->getBody(), true);
-                $video = $result['data'][0];
+                $body = '{
+                  "channel_id": '.$user->stream_id.'
+                }';
 
-                // $img = $this->user['profile_image_url'];
-                // session(['video' => $video]);
-                return $video;
+                $request = new Psr7Request('POST', 'https://open-api.trovo.live/openplatform/channels/id', $headers, $body);
+                $res = $client->sendAsync($request)->wait();
+                return json_decode($res->getBody(), true);
             }
         } catch (\Exception $e) {
-
-            return null;
             Log::debug($e->getMessage());
+            return null;
+
         }
     }
 
