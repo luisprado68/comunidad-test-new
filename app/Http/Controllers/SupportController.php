@@ -55,7 +55,7 @@ class SupportController extends Controller
             else{
                 session(['status' => 0]);
             }
-            $user_model = $this->userService->getByIdandTwichId($this->user['id']);
+//            $user_model = $this->userService->getByIdandTwichId($this->user['id']);
             // dump($user_model);
             $currentStreams = $this->scheduleService->getCurrentStream($user_model);
             $nextHour = $this->scheduleService->getNextStream($user_model);

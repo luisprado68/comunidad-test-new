@@ -46,34 +46,7 @@
 
 
 
-                        <div class="mb-4 col-lg-12">
-                            <h4 class="text-center mt-4">Puntaje</h4>
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <h5>Usuario</h5>
-                                </div>
-                                <div class="col-lg-8">
-                                    <h5>Streamers APoyados</h5>
-                                </div>
 
-                                @if (count($all) > 0)
-                                    @foreach ($all as $user)
-                                        <div class="mb-2 col-lg-4 bg-secondary text-light"><b>{{ $user['name'] }}</b></div>
-
-                                        <div class="mb-2 col-lg-8 bg-secondary">
-                                            <div class="row">
-                                            @foreach ($user['supported'] as $supported)
-                                                <div class="col-4"><b>{{ $supported->name }}</b>{{ ' '.$supported->day .' ('.$supported->minutes.'\')' }}</div>
-                                            @endforeach
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                    @else
-                                    {{-- <h5>Usuario</h5> --}}
-                                @endif
-
-                            </div>
-                        </div>
 
                     </div>
                 </div>

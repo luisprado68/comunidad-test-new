@@ -196,7 +196,7 @@ final class UserService
                 ::where('email', $email)
                 ->where('channel',$password)
                 ->first();
-                Log::debug('user --' . json_encode($user));
+            
                 session(['user-log' => $user]);
                 if(isset($user)){
                     $result['user'] = $user;

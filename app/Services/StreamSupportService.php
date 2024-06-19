@@ -38,14 +38,14 @@ final class StreamSupportService
         $this->model = StreamSupport::class;
     }
 
-    public function getSupportsStreams()
+    public function getSupportsStreams($teamId)
     {
         $this->setModel();
         $supportStreams = $this->model::select('user_id')->groupBy('user_id')
-        ->join('users', 'stream_support.user_id', '=', 'users.id')
+        ->join('users', 'stream_support.user_id', '=', 'users.id')->where('users.current_team_id',$teamId)
         ->where('users.deleted',false)
         ->get();
-        
+
         if (count($supportStreams)) {
             return $supportStreams;
         } else {
@@ -75,7 +75,7 @@ final class StreamSupportService
             return null;
         }
     }
-   
+
     public function getByUserId($user_id)
     {
         $this->setModel();
@@ -160,5 +160,5 @@ final class StreamSupportService
             return null;
         }
     }
-    
+
 }
