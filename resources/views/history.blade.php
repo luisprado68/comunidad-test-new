@@ -77,8 +77,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- <input type="text" class="form-control" aria-label="Default" name="times" id="times"
-                    aria-describedby="inputGroup-sizing-default" value="{{ $times }}" style="display: none"> --}}
             @endif
 
 
