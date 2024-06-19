@@ -218,54 +218,12 @@ class AdminController extends Controller
     }
     public function schedulers()
     {
-        $week_time_zone = [];
-        $new_streams = [];
-        $users = [];
-        $all = [];
         if (Auth::user()) {
             $this->user_model = Auth::user();
             // dump($this->user_model);
             $users = $this->userService->getUsersModel();
             $teams = $this->teamService->all();
-//            $groups = [];
 
-//            foreach ($teams as $team) {
-//                $week = $this->scheduleService->getSchedulerWeek($this->user_model,$team->id);
-//                array_push($groups,$week);
-//            }
-
-
-//            $supports_ids = $this->streamSupportService->getSupportsStreams();
-//            if(isset($supports_ids)){
-//                foreach ($supports_ids as $key => $support) {
-//                    // $test = $support->unique('supported');
-//                    // dd($support);
-//                    $user_obteined = $this->userService->getById($support->user_id);
-//                    if (isset($user_obteined)) {
-//                        $supports = $this->streamSupportService->getStreamSupportsByUserId($user_obteined->id);
-//                        $user['name'] =  $user_obteined->channel;
-//                        $collection = new Collection();
-//                        foreach ($supports as $key => $support_found) {
-//
-//                            $sup = json_decode($support_found->supported);
-//                            $date = new Carbon($support_found->updated_at);
-//                            $date->tz = $this->user_model->time_zone;
-//                            $collection->push((object)[
-//                                'id' => $sup->id,
-//                                'name' => $sup->name,
-//                                'day' => $date->format('d-m-Y'),
-//                                'minutes' => $date->format('i')
-//                            ]);
-//                            // array_push($new_streams,$sup->name);
-//                        }
-//                        $unique = $collection->unique('id');
-//                        $new_streams = $unique->toArray();
-//                        // dump($new_streams);
-//                        $user['supported'] = $new_streams;
-//                        array_push($all, $user);
-//                    }
-//                }
-//            }
             return view('admin.schedulers', ['users' => $users, 'user_model' => $this->user_model,'teams' => $teams]);
         } else {
             return redirect('admin');
@@ -305,7 +263,7 @@ class AdminController extends Controller
                                 'id' => $sup->id,
                                 'name' => $sup->name,
                                 'day' => $date->format('d-m-Y'),
-                                'minutes' => $date->format('i')
+                                'minutes' => $date->format('H:i')
                             ]);
                             // array_push($new_streams,$sup->name);
                         }
