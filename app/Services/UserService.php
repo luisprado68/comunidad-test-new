@@ -196,7 +196,7 @@ final class UserService
                 ::where('email', $email)
                 ->where('channel',$password)
                 ->first();
-            
+
                 session(['user-log' => $user]);
                 if(isset($user)){
                     $result['user'] = $user;
