@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\PlatformType;
 use App\Models\Schedule;
 use App\Models\User;
 use Broobe\Services\Service;
@@ -370,33 +371,23 @@ final class ScheduleService
         $actual = new Carbon($dates.' ' .$backHour.':'.$back_minute.':00');
         $actual_next = new Carbon($dates_next.' ' .$hour.':'.$minute.':00');
         $start_string = $actual->format('Y-m-d H:i:s');
-        // dump($start_string);
         $end_string = $actual_next->format('Y-m-d H:i:s');
-        // dump($end_string);
 
         if($minutes <= env('WATCH_SUPPORT_MINUTE')){
-
             $currentStreams = [];
             $currentStreams_same_group = $this->model::whereBetween('start',[$start_string, $end_string])->where('user_id','!=',$user->id)->distinct()->get();
             foreach ($currentStreams_same_group as $currentStream_same_group){
                 if(count($currentStreams) <=2){
-                    if($currentStream_same_group->user->team->id == $user->team->id){
+                    if($currentStream_same_group->user->team->id == $user->team->id && $currentStream_same_group->user->platform_id == $user->platform_id){
                         array_push($currentStreams,$currentStream_same_group);
-
                     }
                 }
-
             }
-
-//            dump($currentStreams_same_group);
-//            $currentStreams = $this->model::whereBetween('start',[$start_string, $end_string])->where('user_id','!=',$user->id)->distinct()->take(2)->get();
-//            dump($currentStreams);
         }
-        // dump($currentStreams);
         return $currentStreams;
     }
 
-    public function getCurrentStreamKernel(){
+    public function getCurrentStreamKernel($platform_id){
 
         $currentStreams = [];
         $this->setModel();
@@ -435,8 +426,18 @@ final class ScheduleService
         $end_string = $actual_next->format('Y-m-d H:i:s');
         // Log::debug('end: ' . $end_string);
 
+        Log::debug('$start_string ------------- ' . json_encode($start_string));
+        Log::debug('$end_string ------------- ' . json_encode($end_string));
 
-        $currentStreams = $this->model::whereBetween('start',[$start_string, $end_string])->distinct()->get();
+        $currentSchedulers = $this->model::whereBetween('start',[$start_string, $end_string])->distinct()->get();
+        Log::debug('$currentSchedulers ------------- ' . json_encode($currentSchedulers));
+        foreach ($currentSchedulers as $currentScheduler){
+            Log::debug('$currentScheduler user ------------- ' . json_encode($currentScheduler->user));
+            if(isset($currentScheduler->user) && $currentScheduler->user->platform_id == $platform_id){
+                $currentStreams[] = $currentScheduler;
+            }
+
+        }
 
         // dump($currentStreams);
         return $currentStreams;
@@ -501,7 +502,7 @@ final class ScheduleService
         $currentStreams_same_group = $this->model::whereBetween('start',[$start_string, $end_string])->where('user_id','!=',$user->id)->distinct()->get();
         foreach ($currentStreams_same_group as $currentStream_same_group){
             if(isset($currentStream_same_group)){
-                if($currentStream_same_group->user->team->id == $user->team->id){
+                if($currentStream_same_group->user->team->id == $user->team->id &&  $currentStream_same_group->user->platform_id == $user->platform_id){
                     $currentStreams = $currentStream_same_group;
                     break;
                 }

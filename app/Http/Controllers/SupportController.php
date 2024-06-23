@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PlatformType;
 use App\Services\ScheduleService;
+use App\Services\TrovoService;
 use App\Services\TwichService;
 use App\Services\UserService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class SupportController extends Controller
 {
     private $userService;
     private $scheduleService;
     private $twichService;
+    private $trovoService;
 
     public $user;
     public $show_streams = false;
@@ -20,13 +24,15 @@ class SupportController extends Controller
     public function __construct(
         UserService $userService,
         ScheduleService $scheduleService,
-        TwichService $twichService
+        TwichService $twichService,
+        TrovoService $trovoService
         )
     {
 
         $this->userService = $userService;
         $this->scheduleService = $scheduleService;
         $this->twichService = $twichService;
+        $this->trovoService = $trovoService;
     }
     public function index(){
         $active = false;
@@ -77,18 +83,29 @@ class SupportController extends Controller
 
                 foreach ($currentStreams as $key => $currentStream) {
 
-                    $stream = $this->twichService->getStream($currentStream->user);
+                        if($user_model->platform_id == PlatformType::twich){
+                            $stream = $this->twichService->getStream($currentStream->user);
+                        }else{
+                            $stream = $this->trovoService->getStream($currentStream->user);
+                        }
+
                     $size['instagram'] =  $currentStream->user->instagram;
                     $size['facebook'] = $currentStream->user->facebook;
                     $size['youtube'] = $currentStream->user->youtube;
-                    // $userTwich = $this->twichService->getUser($currentStream->user);
+                    //Todo revisar que muestre los camps con los valres devueltos por trovo
                     if(isset($stream) && !empty($stream)){
-                        $size['name'] = $stream['user_name'];
-                        $size['login'] = $stream['user_login'];
-                        // dump($stream['thumbnail_url']);
-                        $size['img'] = str_replace("{width}x{height}", "500x300", $stream['thumbnail_url']);
-                        $size['stream_id'] = $currentStream->user->stream_id;
 
+                        if($user_model->platform_id == PlatformType::twich){
+                            $size['name'] = $stream['user_name'];
+                            $size['login'] = 'https://www.twitch.tv/'. $stream['user_login'] ;
+                            $size['img'] = str_replace("{width}x{height}", "500x300", $stream['thumbnail_url']);
+                            $size['stream_id'] = $currentStream->user->stream_id;
+                        }else{
+                            $size['name'] = $currentStream->user->channel;
+                            $size['login'] = $stream['channel_url'] ;
+                            $size['img'] = !empty($stream['thumbnail']) ? $stream['thumbnail'] : $currentStream->user->img_profile;
+                            $size['stream_id'] = $currentStream->user->stream_id;
+                        }
                         array_push($arrayStream,$size);
                     }else{
                         $size['name'] = $currentStream->user->channel;

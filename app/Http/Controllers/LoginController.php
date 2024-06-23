@@ -278,31 +278,36 @@ class LoginController extends Controller
         // dd($credentials);
 
 
-        $result = $this->userService->userLoginTwich($credentials['email'], $credentials['password']);
-        Log::debug('result-----' . json_encode($result));
-        if(isset($result['user']) && $result['user'] != false){
+        $user_model = $this->userService->userLoginTwich($credentials['email'], $credentials['password']);
+        Log::debug('result  -----' . json_encode($user_model));
+        if(isset($user_model) && $user_model != false){
 
-            $user_model = $result['user'];
+
             Log::debug('login admin------------');
             Log::debug(json_encode($user_model));
             session(['access_token' => $user_model->token]);
 
-            $user_twich = $this->twichService->getUser();
+//            if($user_model->platform_id == PlatformType::twich){
+//                $user_twich = $this->twichService->getUser();
+//            }else{
+//                $this->trovoService->getUser();
+//            }
+
             // dd($user_test);
-            if (isset($user_twich) && !empty($user_twich)) {
-                $user_response = $user_twich;
-            } else {
+//            if (isset($user_twich) && !empty($user_twich)) {
+//                $user_response = $user_twich;
+//            } else {
 
                 $user_response['display_name'] = $user_model->channel;
                 $user_response['email'] = $user_model->email;
-                $user_response['id'] = $user_model->twich_id;
+                $user_response['id'] = $user_model->stream_id;
                 if (isset($user_model->img_profile) && !empty($user_model->img_profile)) {
                     $user_response['profile_image_url'] = $user_model->img_profile;
                 } else {
                     $user_response['profile_image_url'] = 'https://static-cdn.jtvnw.net/jtv_user_pictures/6471351b-ea90-4cd2-828b-406a7dea08e1-profile_image-300x300.png';
                 }
                 session(['user' => $user_response]);
-            }
+//            }
         }
 
         // $user_response['profile_image_url'] = 'https://static-cdn.jtvnw.net/jtv_user_pictures/6471351b-ea90-4cd2-828b-406a7dea08e1-profile_image-300x300.png';

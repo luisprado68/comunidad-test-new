@@ -312,7 +312,7 @@ class ScheduleController extends Controller
 
             foreach ($schedulers as $scheduler){
                 if(($scheduler->user->team) !== null){
-                    Log::debug('$scheduler->user->team -------- ' . json_encode($scheduler->user->current_team_id));
+//                    Log::debug('$scheduler->user->team -------- ' . json_encode($scheduler->user->current_team_id));
                     if($scheduler->user->team->id == $user_model->team->id){
                         $cantidad = $cantidad +1;
                     }
@@ -345,13 +345,9 @@ class ScheduleController extends Controller
         $hourDuplicated = false;
 
         $this->user = session('user');
+        Log::debug('user -----------' . json_encode($this->user));
 
-        // if(env('APP_ENV') == 'local'){
-        //     $user_model = $this->userService->getById(env('USER_TEST'));
-
-        // }else{
         $user_model = $this->userService->getByIdandTwichId($this->user['id']);
-        // }
 
         $schedules_by_user = $this->scheduleService->getScheduleorThisWeekByUser($user_model);
         if (!isset($schedules_by_user)) {

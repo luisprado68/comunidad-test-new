@@ -67,10 +67,10 @@
                                                         <p id="contador" style="display: none"></p>
                                                         <p id="contadorDos" style="display: none"></p>
                                                         <p id="{{'stream_id'.$key}}"  style="display: none">{{ $stream['stream_id'] }}</p>
-                                                        <a id="{{'url'.$key}}" style="" href="{{ 'https://www.twitch.tv/' . $stream['login'] }}">
+                                                        <a id="{{'url'.$key}}" style="" href="{{ $stream['login'] }}">
                                                         </a>
                                                         <button class="btn btn-primary"><a
-                                                                href="{{ 'https://www.twitch.tv/' . $stream['login'] }}"
+                                                                href="{{ $stream['login'] }}"
                                                                 target="_blank"
                                                                 style="text-decoration: none;color:white">Ver
                                                                 Stream</a></button>

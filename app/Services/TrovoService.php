@@ -209,7 +209,6 @@ final class TrovoService
 
     public function getStream($user)
     {
-        // https://static-cdn.jtvnw.net/cf_vods/d1m7jfoe9zdc1j/642cc3d8aefda37f1b85_shingineo_42081665833_1701532096//thumb/thumb0-440x248.jpg
         try {
 
             if (!empty(session('access_token'))) {
@@ -279,8 +278,8 @@ final class TrovoService
         Log::debug('*********** user_streaming*************');
         Log::debug(json_encode($user_streaming));
         if ($user_streaming) {
-
-            $this->getRefreshToken($user_streaming);
+                //TODO revisar
+//            $this->getRefreshToken($user_streaming);
 
 
             $users_chatters = $this->getUserChatters($user_streaming);
@@ -290,8 +289,8 @@ final class TrovoService
                 $users['chaters'] = $users_chatters;
                 $users['status'] = 'success';
                 $users['message'] = 'success';
-                foreach ($users_chatters as $key => $item) {
-                    $user_chat  = $this->userService->getByIdandTwichId($item['user_id']);
+                foreach ($users_chatters as $key => $username) {
+                        $user_chat  = $this->userService->getByUsername($username,PlatformType::trovo);
 
                     if (!empty($user_chat) && $user_chat->id != $user_streaming->id) {
 
@@ -331,7 +330,7 @@ final class TrovoService
                         $current = Carbon::now();
                         $minute = $current->format('i');
 
-                        if ($minute >= 56 && $minute <= 59 ) {
+                        if ($minute >= 54 && $minute <= 57 ) {
                             $score = $user_chat->score;
                             Log::debug('score---------------------');
                             Log::debug($score);
@@ -387,7 +386,7 @@ final class TrovoService
                         }
                     }else{
                         Log::debug("Usuario no existe en la comunidad ***********");
-                        Log::debug(json_encode($item['user_login']));
+                        Log::debug(json_encode($username));
                     }
                 }
 

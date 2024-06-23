@@ -80,6 +80,16 @@ final class UserService
             return null;
         }
     }
+    public function getByUsername($username,$platform_id)
+    {
+        $this->setModel();
+        $user = $this->model::where('username', $username)->where('platform_id',$platform_id)->first();
+        if ($user) {
+            return $user;
+        } else {
+            return null;
+        }
+    }
 
     /**
      * @param $accountId
@@ -187,35 +197,23 @@ final class UserService
 
     public function userLoginTwich($email, $password)
     {
-     $result['user'] = false;
-     $result['message'] = '';
+        $user = false;
         $this->setModel();
         if (isset($email) && isset($password)) {
 
             $user = $this->model
                 ::where('email', $email)
-                ->where('channel',$password)
+                ->where('channel', $password)
                 ->first();
 
-                session(['user-log' => $user]);
-                if(isset($user)){
-                    $result['user'] = $user;
-                    return  $result;
-                    // if($user->role_id == 1){
-                    //     $result['user'] = $user;
-                    //     return  $result;
-                    // }else{
-                    //     $result['message'] = 'No tiene permiso para acceder';
-                    //     return $result;
-                    // }
-                }
+            session(['user' => $user]);
+            if (isset($user)) {
+                return $user;
+            }
 
 
-        } else {
-            return $result;
         }
-
-
+        return $user;
     }
 
     public function getUsers()

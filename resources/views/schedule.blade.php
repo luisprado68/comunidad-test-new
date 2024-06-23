@@ -418,8 +418,6 @@
             } else {
                 alert('Debe agregar horas');
             }
-
-
         }
     </script>
 @endpush
