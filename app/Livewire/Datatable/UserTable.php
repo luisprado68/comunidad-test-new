@@ -131,7 +131,7 @@ class UserTable extends DataTableComponent
                 function ($value,$row) {
 
 
-                        return view('livewire.admin.delete-modal',['user' => $row]);
+                        return $value->format('d-m-Y');
 
 
                 }
