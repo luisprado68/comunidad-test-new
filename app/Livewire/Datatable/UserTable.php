@@ -131,7 +131,7 @@ class UserTable extends DataTableComponent
             ->format(
                 function ($value,$row) {
 
-                    $data = new Carbon($value);
+                    $data =  Carbon::parse($value);
                         return $data->format('d-m-Y');
 
 
