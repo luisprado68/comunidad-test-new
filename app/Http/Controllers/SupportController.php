@@ -108,8 +108,12 @@ class SupportController extends Controller
                         }
                         array_push($arrayStream,$size);
                     }else{
+                        if($user_model->platform_id == PlatformType::twich){
+                            $size['login'] = 'https://www.twitch.tv/'. $currentStream->user->channel ;
+                        }else{
+                            $size['login'] = 'https://trovo.live/s/'. $currentStream->user->username ;
+                        }
                         $size['name'] = $currentStream->user->channel;
-                        $size['login'] =  $currentStream->user->channel;
                         $size['img'] =  $currentStream->user->img_profile;
                         $size['stream_id'] = $currentStream->user->stream_id;
                         array_push($arrayStream,$size);
