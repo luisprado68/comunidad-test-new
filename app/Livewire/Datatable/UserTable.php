@@ -125,19 +125,20 @@ class UserTable extends DataTableComponent
             // Column::make("Points support", "points_support")
             //     ->sortable(),
              Column::make("Creado", "created_at")
-                 ->sortable(),
+                 ->sortable()
+             ->format(
+            function ($value,$row) {
+
+                $data =  Carbon::parse($value);
+                return $data->format('d-m-Y');
+
+
+            }
+    )
+        ->html(),
 
             Column::make('Accion','phone')
-            ->format(
-                function ($value,$row) {
 
-                    $data =  Carbon::parse($value);
-                        return $data->format('d-m-Y');
-
-
-                }
-            )
-            ->html(),
             // Column::make("Hours buyed", "hours_buyed")
             //     ->sortable(),
             // Column::make("Img profile", "img_profile")
