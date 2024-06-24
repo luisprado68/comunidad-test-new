@@ -126,19 +126,28 @@ class UserTable extends DataTableComponent
             //     ->sortable(),
              Column::make("Creado", "created_at")
                  ->sortable()
-             ->format(
-            function ($value,$row) {
+               ->format(
+                function ($value,$row) {
 
-                $data =  Carbon::parse($value);
-                return $data->format('d-m-Y');
+                    $data =  Carbon::parse($value);
+                    return $data->format('d-m-Y');
 
 
-            }
-    )
-        ->html(),
+                }
+            )
+                ->html(),
 
             Column::make('Accion','phone')
+            ->format(
+                function ($value,$row) {
 
+
+                        return view('livewire.admin.delete-modal',['user' => $row]);
+
+
+                }
+            )
+            ->html(),
             // Column::make("Hours buyed", "hours_buyed")
             //     ->sortable(),
             // Column::make("Img profile", "img_profile")
