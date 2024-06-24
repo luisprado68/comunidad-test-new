@@ -4,6 +4,7 @@ namespace App\Livewire\Datatable;
 
 use App\Enums\RoleType;
 use App\Models\Team;
+use Carbon\Carbon;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\User;
@@ -130,8 +131,8 @@ class UserTable extends DataTableComponent
             ->format(
                 function ($value,$row) {
 
-
-                        return $value->format('d-m-Y');
+                    $data = new Carbon($value);
+                        return $data->format('d-m-Y');
 
 
                 }
