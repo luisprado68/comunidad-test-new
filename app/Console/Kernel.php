@@ -227,7 +227,11 @@ class Kernel extends ConsoleKernel
             $allUsers = $this->userService->getUsersModel();
 
             foreach ($allUsers as $key => $user) {
-                $this->twichService->getRefreshToken($user);
+                if($user->platform_id == PlatformType::twich){
+                    $this->twichService->getRefreshToken($user);
+                }else{
+                    $this->trovoService->getRefreshToken($user);
+                }
             }
 
         Log::debug('---------------[FINISH] END Update Refresh Tokens---------------');

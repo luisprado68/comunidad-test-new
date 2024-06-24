@@ -123,8 +123,8 @@ class UserTable extends DataTableComponent
                 ->sortable(),
             // Column::make("Points support", "points_support")
             //     ->sortable(),
-            // Column::make("Time zone", "time_zone")
-            //     ->sortable(),
+             Column::make("Creado", "created_at")
+                 ->sortable(),
 
             Column::make('Accion','phone')
             ->format(
