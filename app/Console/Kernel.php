@@ -75,7 +75,7 @@ class Kernel extends ConsoleKernel
             $now =  Carbon::now();
             $minute = $now->format('i');
 
-            if ($minute >= 11  || $minute == 55) {
+            if ($minute >= 10  || $minute == 55) {
 
                 Log::debug('---------------[START]  Trovo Chatters ------------');
 
@@ -93,7 +93,7 @@ class Kernel extends ConsoleKernel
             } else {
                 Log::debug('---------------No esta habilitado------------');
             }
-        })->everyMinute();
+        })->everyFiveMinutes();
 
         $schedule->call(function () {
 
