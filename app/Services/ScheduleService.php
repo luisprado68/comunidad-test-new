@@ -426,13 +426,9 @@ final class ScheduleService
         $end_string = $actual_next->format('Y-m-d H:i:s');
         // Log::debug('end: ' . $end_string);
 
-        Log::debug('$start_string ------------- ' . json_encode($start_string));
-        Log::debug('$end_string ------------- ' . json_encode($end_string));
-
         $currentSchedulers = $this->model::whereBetween('start',[$start_string, $end_string])->distinct()->get();
-        Log::debug('$currentSchedulers ------------- ' . json_encode($currentSchedulers));
+
         foreach ($currentSchedulers as $currentScheduler){
-            Log::debug('$currentScheduler user ------------- ' . json_encode($currentScheduler->user));
             if(isset($currentScheduler->user) && $currentScheduler->user->platform_id == $platform_id){
                 $currentStreams[] = $currentScheduler;
             }
