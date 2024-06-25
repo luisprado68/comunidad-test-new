@@ -22,11 +22,12 @@ class Score extends Authenticatable
         'user_id',
         'points_day',
         'points_week',
+        'points_week_old',
         'neo_coins',
         'points_support',
         'users_data',
         'count_users',
-     
+
     ];
 
     /**
@@ -49,7 +50,7 @@ class Score extends Authenticatable
         'password' => 'hashed',
     ];
 
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
