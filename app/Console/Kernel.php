@@ -60,8 +60,6 @@ class Kernel extends ConsoleKernel
                     }
                 }
                 Log::debug('---------------[FINISH] END Chatters------------');
-            } else {
-                Log::debug('---------------No esta habilitado------------');
             }
         })->everyMinute();
 
@@ -90,8 +88,6 @@ class Kernel extends ConsoleKernel
                     }
                 }
                 Log::debug('---------------[FINISH] END Chatters------------');
-            } else {
-                Log::debug('---------------No esta habilitado------------');
             }
         })->everyFiveMinutes();
 
