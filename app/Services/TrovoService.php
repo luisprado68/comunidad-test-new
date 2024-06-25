@@ -324,7 +324,7 @@ final class TrovoService
                         $current = Carbon::now();
                         $minute = $current->format('i');
 
-                        if ($minute >= 54 && $minute <= 57 ) {
+                        if ($minute >= 50 && $minute <= 52 ) {
                             $score = $user_chat->score;
                             Log::debug('score---------------------');
                             Log::debug($score);
