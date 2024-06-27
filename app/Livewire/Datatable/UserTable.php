@@ -60,7 +60,6 @@ class UserTable extends DataTableComponent
                 ->sortable(),
             Column::make("Nombre", "Name")
             ->sortable()
-            ->searchable()
             ->format(
                 function ($value) {
                     return '<strong>' . $value . '</strong>';

@@ -158,20 +158,20 @@
                                         </div>
                                         @csrf
 
-                                        <h6>Punteje Dia</h6>
+                                        <h6>Puntaje Dia</h6>
                                         <div class="mt-3 mb-3 col-3">
                                             {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
                                             <input type="number" class="form-control" aria-label="Default" name="points_day"  min="0" max="60"
                                                    aria-describedby="inputGroup-sizing-default" value="{{ isset($user->score->points_day) ? $user->score->points_day :'0' }}">
                                         </div>
-                                        <h6>Punteje Semanal</h6>
+                                        <h6>Puntaje Semanal</h6>
 
                                             <div class="mt-3 mb-3 col-3">
                                                 {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
                                                 <input type="number" class="form-control" aria-label="Default" name="points_week"  min="0" max="60"
                                                     aria-describedby="inputGroup-sizing-default" value="{{ isset($user->score->points_week) ? $user->score->points_week :'0' }}">
                                             </div>
-                                        <h6>Punteje Semanal Anterior</h6>
+                                        <h6>Puntaje Semanal Anterior</h6>
 
                                         <div class="mt-3 mb-3 col-3">
                                             {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
