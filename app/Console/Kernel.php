@@ -160,7 +160,7 @@ class Kernel extends ConsoleKernel
 
                 }
             Log::debug('---------------[FINISH] END Reset Calendar---------------');
-        })->weeklyOn(7, '10:00');
+        })->weeklyOn(0, '10:00');
 
 
         $schedule->call(function () {
