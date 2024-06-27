@@ -79,6 +79,14 @@
     background-image: url('../img/streamer_dos.jpg');
     background-size: cover;
   }
+.trovo-uno{
+    background-image: url('../img/trovo_uno.jpg');
+    background-size: cover;
+}
+.trovo-dos{
+    background-image: url('../img/trovo_dos.jpg');
+    background-size: cover;
+}
   .logo {
     width: 100px;
   }

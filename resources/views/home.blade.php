@@ -75,7 +75,7 @@
                                                                         style=""> <img src="{{ asset('/img/trovo.png') }}" alt="" width="25px">
                                                                         Únete
                                                                         con
-                                                                        TWITCH</button></a>
+                                                                        TROVO</button></a>
                                                             @endif
 
 
@@ -124,13 +124,13 @@
 
                                             <div class="row">
                                                 <div class="p-3 col-md-12">
-                                                    <div class="card under" style="height: 150px">
-                                                        <div class="w-50"></div>
+                                                    <div class="card trovo-uno" style="height: 150px; background-color: #76d86c">
+                                                        {{-- <div class="w-50"></div> --}}
                                                     </div>
                                                 </div>
                                                 <div class="p-3 col-md-12">
-                                                    <div class="card under" style="height: 150px">
-                                                        <div class="w-50"></div>
+                                                    <div class="card trovo-dos" style="height: 150px; background-color: #76d86c">
+                                                        {{-- <div class="w-50"></div> --}}
                                                     </div>
                                                 </div>
                                             </div>
