@@ -360,8 +360,9 @@ class AdminController extends Controller
             $this->user_model = Auth::user();
             Log::debug('user **** ---------------------------------- ' . json_encode($this->user_model));
             $ranges = $this->rangeService->all();
-            $teams = $this->teamService->all();
+
             $user = $this->userService->getById($id);
+            $teams = $this->teamService->getByPlatform($user->platform_id);
             $userRoles = $user->roles->pluck('name')->toArray();
 //            Log::debug('userRoles -------- ' . json_encode($userRoles));
             $roles = $this->rolesService->getRoles($this->user_model->roles->last()->id);

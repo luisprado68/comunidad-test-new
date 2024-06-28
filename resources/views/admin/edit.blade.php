@@ -103,13 +103,13 @@
                                             <div class="mt-2 mb-4 col-6" style="display: block;margin-right:105px">
                                                 <button type="submit" class="btn btn-success">Guardar</button>
                                                 @if(!isset($user->current_team_id))
-                                                    <a href="{{ route('actions-teams')  }}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                                                    <a href="{{ url()->previous()  }}"><button type="button" class="btn btn-danger">Cancel</button></a>
                                                 @else
                                                     <a href="{{ route('team-show', $user->current_team_id) }}"><button type="button" class="btn btn-danger">Cancel</button></a>
                                                 @endif
-                                                @if(auth()->user()->can('users-pass'))
-                                                    <a href="{{ route('user-update-pass', $user->id) }}"><button type="button" class="btn btn-primary">Actualizar Pass</button></a>
-                                                @endif
+{{--                                                @if(auth()->user()->can('users-pass'))--}}
+{{--                                                    <a href="{{ route('user-update-pass', $user->id) }}"><button type="button" class="btn btn-primary">Actualizar Pass</button></a>--}}
+{{--                                                @endif--}}
 
 
                                             </div>

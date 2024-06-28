@@ -8,11 +8,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12">
-                {{-- @dump(Auth::user()->team->getRoleNames()) --}}
-
-                {{-- @dump(Auth::user()->getRoleNames()) --}}
-
-                @livewire('datatable.team-table', ["model" => Team::class, "userService" => null])
+                @livewire('datatable.team-table', ["model" => Team::class, "userService" => null,"platform_id" => $platform_id])
 
             </div>
         </div>

@@ -76,8 +76,8 @@ class TeamController extends Controller
         // $location = Location::get(request()->ip());
         // dump($location);
         // $this->validateDates($location);
-    
-      
+
+
         return view('admin.adminLogin');
     }
 
@@ -97,7 +97,7 @@ class TeamController extends Controller
         }
             dump($currentDateTime);
             dump($otherDateTime);
-            
+
         if($currentDateTime->gt($otherDateTime)){
             dump('finished');
         }elseif ($currentDateTime->lt($otherDateTime)) {
@@ -106,7 +106,7 @@ class TeamController extends Controller
     }
     public function login(Request $request)
     {
-        
+
         Log::debug('login-----');
         $credentials = $request->all();
         // dd($credentials);
@@ -129,7 +129,7 @@ class TeamController extends Controller
 
         if (Auth::user()) {
             $this->route = FacadesRoute::current();
-            
+
             $this->user_model = Auth::user();
             $users = $this->userService->getUsersModel();
             // dd($users);
@@ -154,7 +154,7 @@ class TeamController extends Controller
         }
     }
     public function deleteSchedulerUser($id){
-        
+
         $streamers_supported = [];
         $test = null;
         if (Auth::user()) {
@@ -188,7 +188,7 @@ class TeamController extends Controller
     }
 
     public function usersDeleted(){
-      
+
         if (Auth::user()) {
             $this->route = FacadesRoute::current();
             $this->user_model = Auth::user();
@@ -205,13 +205,13 @@ class TeamController extends Controller
         if (Auth::user()) {
             $this->user_model = Auth::user();
             $user = $this->userService->getById($id);
-          
+
             $user->deleted = false;
             // $user->status = false;
-           
+
             $user->save();
             Log::debug('user updated' . json_encode($user));
-      
+
             return redirect('dashboard');
         }
     }
@@ -238,7 +238,7 @@ class TeamController extends Controller
                         $user['name'] =  $user_obteined->channel;
                         $collection = new Collection();
                         foreach ($supports as $key => $support_found) {
-    
+
                             $sup = json_decode($support_found->supported);
                             $date = new Carbon($support_found->updated_at);
                             $date->tz = $this->user_model->time_zone;
@@ -278,10 +278,10 @@ class TeamController extends Controller
     }
 
     public function rankingsPoints(){
-       
+
         if (Auth::user()) {
             $this->route = FacadesRoute::current();
-            
+
             $this->user_model = Auth::user();
             $users = $this->userService->getUsersTop();
             // dd($users);
@@ -294,7 +294,7 @@ class TeamController extends Controller
     public function rankingsSchedulers(){
         if (Auth::user()) {
             $this->route = FacadesRoute::current();
-            
+
             $this->user_model = Auth::user();
             $users = $this->userService->getUsersSchedulers();
             // dd($users);
@@ -314,17 +314,17 @@ class TeamController extends Controller
         if(isset($schedulers)){
             if(count($schedulers) > 0){
                 foreach ($schedulers as $key => $scheduler_by_user) {
-                   
+
                         $this->scheduleService->delete($scheduler_by_user->id);
-                    
+
                 }
             }
-          
+
         }
         // dd($schedulers);
         $allUsers = $this->userService->all();
         foreach ($allUsers as $key => $user) {
-          
+
             $user_array['user_id'] = $user->id;
             $user_array['points_day'] = 0;
             $user_array['points_week'] = 0;
@@ -344,7 +344,7 @@ class TeamController extends Controller
             //     }
             //     Log::debug('result:  ---' . json_encode($result));
             // }
-            
+
         }
         return redirect('dashboard');
     }
@@ -354,63 +354,33 @@ class TeamController extends Controller
         if (Auth::user() && intval($id) != 0) {
             $this->team = $this->teamService->getById($id);
             Log::debug('teeeam **** ---------------------------------- ' . json_encode($this->team));
-        
-           
-          
+
+
+
             return view('admin.team-edit', ['team' => $this->team]);
         } else {
             return redirect('admin');
         }
     }
+
+    public function listByPlatform($platform_id)
+    {
+        return view('actions.teams',['platform_id' => $platform_id]);
+    }
     public function show($id)
     {
         $users = null;
-     
+
         if (Auth::user()) {
             $this->team = $this->teamService->getById($id);
-             
+
             return view('admin.team-show', ['team' => $this->team]);
         } else {
             return redirect('admin');
         }
     }
-    public function getCalendarios(){
-
-    }
-
-    public function editScheduler(){
-
-    }
-    public function getDays($user)
-    {
-
-        $agenda = [];
-        if (count($this->getDateAndTime($this->scheduleService->getSchedulerDayByUser($user, Carbon::MONDAY))) > 0) {
-            $agenda['monday'] = $this->getDateAndTime($this->scheduleService->getSchedulerDayByUser($user, Carbon::MONDAY));
-        }
-        if (count($this->getDateAndTime($this->scheduleService->getSchedulerDayByUser($user, Carbon::TUESDAY))) > 0) {
-            $agenda['tuesday'] = $this->getDateAndTime($this->scheduleService->getSchedulerDayByUser($user, Carbon::TUESDAY));
-        }
-        if (count($this->getDateAndTime($this->scheduleService->getSchedulerDayByUser($user, Carbon::WEDNESDAY))) > 0) {
-            $agenda['wednesday'] = $this->getDateAndTime($this->scheduleService->getSchedulerDayByUser($user, Carbon::WEDNESDAY));
-        }
-        if (count($this->getDateAndTime($this->scheduleService->getSchedulerDayByUser($user, Carbon::THURSDAY))) > 0) {
-            $agenda['thursday'] = $this->getDateAndTime($this->scheduleService->getSchedulerDayByUser($user, Carbon::THURSDAY));
-        }
-        if (count($this->getDateAndTime($this->scheduleService->getSchedulerDayEndByUser($user, Carbon::FRIDAY))) > 0) {
-            $agenda['friday'] = $this->getDateAndTime($this->scheduleService->getSchedulerDayEndByUser($user, Carbon::FRIDAY));
-        }
-        if (count($this->getDateAndTime($this->scheduleService->getSchedulerDayEndByUser($user, Carbon::SATURDAY))) > 0) {
-            $agenda['saturday'] = $this->getDateAndTime($this->scheduleService->getSchedulerDayEndByUser($user, Carbon::SATURDAY));
-        }
 
 
-        // $current_time = Carbon::now();
-        // $current_time->tz = $user->time_zone;
-
-        // dump($agenda);
-        return $agenda;
-    }
 
     public function getDateAndTime($days)
     {
@@ -430,7 +400,7 @@ class TeamController extends Controller
                 // return $list_day;
             }
         }
-        
+
         return $list_day;
         // dump($list_day);
 
@@ -442,8 +412,8 @@ class TeamController extends Controller
             $team = $this->teamService->getById($id);
             Log::debug('user to delete' . json_encode($team));
             $team->delete();
-            
-            
+
+
             // $users = $this->userService->getUsersModel();
             // return view('admin.list', ['users' => $users]);
             return view('actions/teams');
@@ -459,99 +429,15 @@ class TeamController extends Controller
         $this->user_model = Auth::user();
         $validated = $request->validate([
             'name' => 'required',
-           
+
         ]);
         $team = $this->teamService->update($team);
+        $team->users[0]->platform_id;
 
-        $users = $this->userService->getUsersModel();
-        // dd($users);
-        // return view('admin.list', ['users' => $users, 'user_model' => $this->user_model]);
-        return view('actions/teams');
+        return view('actions.teams',['platform_id' =>  $team->users[0]->platform_id]);
     }
-    public function logoutAdmin()
-    {
-        dd(Auth::user());
-        Log::debug('user ********************* : ');
-        // session()->forget('user-log');
-        // return redirect('/admin');
-    }
-    public function getToken(Request $request)
-    {
-        $this->twichService->getToken($request);
-        $user = $this->twichService->getUser();
-        $exist = $this->userService->userExists($user['display_name'] . '@gmail.com', $user['id']);
-        if ($exist == false) {
-            $this->userService->create($user);
-        }
 
-        return redirect('/');
-    }
-    public function updatePoints(Request $request){
-        $new_date = null;
-        $streamers_supported = [];
-        if (Auth::user()) {
-            $this->route = FacadesRoute::current();
-            $data = $request->all();
-            // dump($data);
-            $this->user_model = Auth::user();
-            $user = $this->userService->getById(intval($data['user_id']));
-            if(isset($user)){
-                if(array_key_exists('calendar_enabled',$data)){
-                    $status = true;
-                }else{
-                    $status = false;
-                }
-                $user->calendar_enabled = $status;
-                    $user->save();
 
-                $score = $user->score;
-                if(isset($score)){
-                    $score->points_week = intval($data['points']);
-                    $score->neo_coins = intval($data['neo_coins']);
-                    $score->save();
-                }else{
-                    $score_new['user_id'] = $user->id;
-                    $score_new['points_day'] = 0;
-                    $score_new['points_week'] = intval($data['points']);
-                    $score_new['neo_coins'] = intval($data['neo_coins']);
-                    $created = $this->scoreService->create($score_new);
-                }
-               
-            }
-           
 
-            // dump($score);
-            if (isset($user->score)) {
-                $date = new Carbon($user->score->updated_at);
-                $date->tz = $user->time_zone;
-                $new_date = $date->format('d-m-Y H:i:s');
-            }
 
-            if (isset($user->streamSupport)) {
-                // dd($user->streamSupport);
-                foreach ($user->streamSupport as $streamer) {
-                    $supported = json_decode($streamer->supported);
-                    // dd($supported->name);
-                    array_push($streamers_supported, ['name' => $supported->name, 'time' => $streamer->updated_at]);
-                }
-            }
-
-            $groupedArray = $this->scheduleService->getSchedulerByUser($user);
-            
-            
-            return view('admin.show', ['user' => $user, 'week' => $groupedArray, 'date' => $new_date, 'streamers_supported' => $streamers_supported]);
-      
-        } else {
-            return redirect('admin');
-        }
-    }
-    public function logout()
-    {
-        // session()->forget('user');
-        session()->forget('user-log');
-        // session()->forget('points_day');
-        // session()->forget('points_week');
-        // session()->forget('status');
-        return redirect('/');
-    }
 }

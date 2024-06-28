@@ -104,7 +104,8 @@ Route::middleware([
     Route::get('admin/schedulers', [AdminController::class, 'schedulers'])->name('admin-schedulers');
     Route::get('admin/schedulers/{teamId}', [AdminController::class, 'schedulersTeam'])->name('admin-schedulers-teams');
 
-    Route::get('admin/teams/list', function () {return view('actions/teams');})->name('actions-teams');
+//    Route::get('admin/teams/list', function () {return view('actions/teams');})->name('actions-teams');
+    Route::get('admin/teams/list/{platform_id}',  [TeamController::class, 'listByPlatform'])->name('actions-teams-platform');
     Route::get('admin/team/{id}', [TeamController::class, 'edit'])->name('team-edit');
     Route::post('admin/team/post', [TeamController::class, 'post'])->name('team-post');
     Route::get('admin/team/delete/{id}', [TeamController::class, 'delete'])->name('team-delete');

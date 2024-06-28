@@ -35,7 +35,7 @@
                         @if(isset($user->current_team_id))
                             <a href="{{ route('team-show', $user->current_team_id) }}"><button type="button" class="btn btn-danger">Cancel</button></a>
                         @else
-                            <a href="{{ route('actions-teams')}}"><button type="button"
+                            <a href="{{ url()->previous()}}"><button type="button"
                                                                           class="btn btn-dark">Volver</button></a>
                         @endif
 

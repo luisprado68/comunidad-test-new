@@ -30,7 +30,7 @@
 
                 <div class="container mt-5 ">
                     <div class="row">
-                      
+
                         <form action="{{ route('team-post') }}" method="POST">
                             @csrf
                             <div class="d-flex justify-content-center">
@@ -44,7 +44,7 @@
                                         <div class="row justify-content-center">
 
                                             <div class="mt-3 mb-3 col-8">
-                                    
+
                                                 <input type="text" class="form-control" aria-label="Default" name="id"
                                                     aria-describedby="inputGroup-sizing-default" value="{{ $team->id }}" style="display: none">
                                             </div>
@@ -53,22 +53,22 @@
                                                 <input type="text" class="form-control" aria-label="Default" name="name"
                                                     aria-describedby="inputGroup-sizing-default" value="{{ $team->name }}">
                                             </div>
-                                         
-                                          
-                                           
-                                           
+
+
+
+
                                             <div class="mt-2 mb-4 col-6" style="display: block;margin-right:105px">
                                                 <button type="submit" class="btn btn-success">Guardar</button>
-                                                <a href="{{ route('actions-teams') }}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                                                <a href="{{ url()->previous() }}"><button type="button" class="btn btn-danger">Cancel</button></a>
                                             </div>
-                                            
+
                                         </div>
 
                                     </div>
                                 </div>
                             </div>
                         </form>
-                      
+
                     </div>
                 </div>
 

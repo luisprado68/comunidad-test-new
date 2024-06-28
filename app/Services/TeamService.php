@@ -40,7 +40,7 @@ final class TeamService
 
     public function all(){
         $this->setModel();
-        
+
         $users = $this->model::all();
         if(count($users) > 0){
             return $users;
@@ -94,8 +94,30 @@ final class TeamService
             return false;
         }
     }
+    public function TableQueryByPlatform($platform_id)
+    {
+        $this->setModel();
+        $query = $this->model::query()
+            ->join('users', 'teams.id', '=', 'users.current_team_id')
+            ->where('users.platform_id', $platform_id)
+            ->groupBy('teams.id');
+        return $query;
+    }
 
-   
+    public function getByPlatform($platform_id)
+    {
+        $this->setModel();
+        $teams = $this->model::query()->select('teams.id','teams.name')
+            ->join('users', 'teams.id', '=', 'users.current_team_id')
+            ->where('users.platform_id', $platform_id)
+            ->groupBy('teams.id')->get();
+//        dd($teams);
+        $teams_with_no_users = $this->model::doesntHave('users')->get();
+        $teams = $teams->merge($teams_with_no_users);
+//        dd($teams_with_no_users);
+        return $teams;
+    }
+
     /**
      * @param $userArray
      * @return false|mixed
@@ -130,7 +152,7 @@ final class TeamService
             $team->personal_team = 1;
             $team->save();
             // $user->active = $userArray['active'];
-            return $team->id;
+            return $team;
         } catch (Error $e) {
             return false;
         }
@@ -239,9 +261,9 @@ final class TeamService
         $this->setModel();
 
         $query = $this->model::query()->select('*')->where('deleted',true)
-        
+
         ->limit(10);
-      
+
         $list = $query->get();
         // Log::debug(json_encode($list));
         return $query;

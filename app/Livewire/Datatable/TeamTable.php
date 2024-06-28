@@ -2,6 +2,9 @@
 
 namespace App\Livewire\Datatable;
 
+use App\Services\TeamService;
+use App\Services\UserService;
+use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\Team;
@@ -9,7 +12,14 @@ use App\Models\Team;
 class TeamTable extends DataTableComponent
 {
     protected $model = Team::class;
+    public $platform_id;
 
+    public function builder(): Builder
+    {
+        $teamService = new TeamService();
+        $query = $teamService->TableQueryByPlatform($this->platform_id);
+        return $query;
+    }
     public function configure(): void
     {
         $this->setPrimaryKey('id');
