@@ -420,7 +420,7 @@
             @endif
         </div>
     </div>
-    @include('layouts.footer')
+
 @endsection
 @push('chatters')
     {{-- @if (env('APP_ENV') == 'local')

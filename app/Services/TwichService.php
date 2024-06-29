@@ -245,6 +245,7 @@ final class TwichService
                 $this->user = $result['data'][0];
                 $this->user['platform_id'] = PlatformType::twich;
                 $this->user['username'] = $this->user['display_name'];
+                $this->user['class_nav'] = 'banner-twich';
 
                 Log::debug('user twich---------');
                 Log::debug(json_encode($this->user));

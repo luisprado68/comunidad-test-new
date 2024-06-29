@@ -138,7 +138,6 @@
 
             @endif
 
-            @include('layouts.footer')
         </div>
     </div>
 @endsection

@@ -117,10 +117,11 @@
 
             @endif
         </div>
-    </div>
 
-    @include('layouts.footer')
+
+
 @endsection
+
 @push('schedule')
     <script>
         let sites = {!! json_encode($days_with_time) !!};

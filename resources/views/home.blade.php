@@ -19,7 +19,7 @@
                             <div class="row">
 
                                 <div class="col-12">
-                                    <div class="col-md-12 w-100">
+                                    <div class="col-md-12 ">
                                         <div class="card ">
                                             {{-- <div class="card-header">{{ __('Dashboard') }}</div> --}}
 
@@ -172,7 +172,7 @@
                                 </div>
                                 <div class="pt-3 col-12">
 
-                                    <div class="col-md-12 w-100">
+                                    <div class="col-md-12">
                                         <div class="card" style="background-color: #031633">
                                             {{-- <div class="card-header">{{ __('Dashboard') }}</div> --}}
 
@@ -263,13 +263,6 @@
 
         </div>
     </div>
-    @include('layouts.footer')
-@endsection
-@push('chatters')
-    {{-- @if (env('APP_ENV') == 'local')
-        <script src="{{ asset('/js/setTime.js') }}"></script>
-    @else
-        <script src="./public/js/setTime.js"></script>
-    @endif --}}
 
-@endpush
+@endsection
+

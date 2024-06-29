@@ -1,12 +1,22 @@
 
 .fondo_general{
-  width: 100vw;
+  /*width: 99.2%;*/
   height: 100vh;
-  background-position: center;
+  /*background-position: center;*/
   background-image: url("../img/gabinete.jpg");
   /* background: rgba(0, 0, 0, 0.137); */
   /* opacity: 0.6; */
   background-size: cover;
+
+
+}
+
+.m-0.dropdown-menu.menu-nav.overlay.show{
+    position: absolute;
+    inset: 0px auto auto 0px;
+    margin: 0px;
+    transform: translate(8px, 78px);
+    left: -90% !important;
 
 }
 .nav-item {
@@ -275,6 +285,14 @@ div.avaibleInput{
   .section-home{
     padding-top:0px !important;
   }
+    .m-0.dropdown-menu.menu-nav.overlay.show{
+        position: absolute;
+        inset: 0px auto auto 0px;
+        margin: 0px;
+        transform: translate(8px, 78px);
+        left: 10% !important;
+
+    }
   /* perfil */
 }
 

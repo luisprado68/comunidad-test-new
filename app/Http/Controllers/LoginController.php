@@ -301,6 +301,12 @@ class LoginController extends Controller
                 $user_response['display_name'] = $user_model->channel;
                 $user_response['email'] = $user_model->email;
                 $user_response['id'] = $user_model->stream_id;
+                $user_response['platform_id'] = $user_model->platform_id;
+                if($user_model->platform_id == PlatformType::twich){
+                    $user_response['class_nav'] = 'banner-twich';
+                }else{
+                    $user_response['class_nav'] = 'banner-trovo';
+                }
                 if (isset($user_model->img_profile) && !empty($user_model->img_profile)) {
                     $user_response['profile_image_url'] = $user_model->img_profile;
                 } else {
