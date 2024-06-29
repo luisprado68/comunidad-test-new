@@ -1,13 +1,15 @@
 <div>
     {{-- {{auth()->user()->getAllPermissions()}} --}}
+    <button type="submit" class="btn btn-warning"><a class="dropdown-item"
+                                                     href="{{ route('admin-schedulers-teams', $team->id) }}"><i class="bi bi-journal-arrow-up"></i></a></button>
     @if(auth()->user()->can('teams-edit'))
-  
+
     <button type="submit" class="btn btn-primary"><a class="dropdown-item"
         href="{{ route('team-edit', $team->id) }}"><i class="bi bi-pencil-square"></i></a></button>
 
     @endif
-    
-    
+
+
 
         <button type="submit" class="btn btn-success"><a class="dropdown-item"
         href="{{ route('team-show', $team->id) }}"><i class="bi bi-people-fill"></i></a></button>

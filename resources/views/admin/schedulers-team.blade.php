@@ -32,7 +32,7 @@
                     <div class="row">
                         <h4 class="text-center">Agenda Semanal</h4>
                         <div class="mb-4">
-                            <a href="{{ route('admin-schedulers') }}"><button type="button"
+                            <a href="{{ url()->previous() }}"><button type="button"
                                 class="btn btn-dark">Volver</button></a>
                         </div>
 {{--                        @dump($groups)--}}

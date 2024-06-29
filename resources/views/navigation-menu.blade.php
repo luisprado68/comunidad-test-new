@@ -172,10 +172,10 @@
                                 @endif
 
 
-                                <div class="border-t border-gray-200"></div>
-                                <x-dropdown-link href="{{ route('admin-schedulers') }}">
-                                    {{ __('Calendarios') }}
-                                </x-dropdown-link>
+{{--                                <div class="border-t border-gray-200"></div>--}}
+{{--                                <x-dropdown-link href="{{ route('admin-schedulers') }}">--}}
+{{--                                    {{ __('Calendarios') }}--}}
+{{--                                </x-dropdown-link>--}}
                                 @if(auth()->user()->can('users-edit'))
 
                                 <x-dropdown-link href="{{ route('admin-users-new') }}">
