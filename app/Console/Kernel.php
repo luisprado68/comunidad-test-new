@@ -105,10 +105,13 @@ class Kernel extends ConsoleKernel
                     foreach ($users as $key => $user) {
                         $this->scoreService->evaluatePoint($user);
                         //reseteo de puntos TODO bulk update
+                        if(isset($user->score)){
+                            $score = $user->score;
+                            $points_week_old = $user->score->points_week;
+                            $score->points_week_old = $points_week_old;
+                            $score->save();
+                        }
 
-                        $points_week_old = $user->points_week;
-                        $user->points_week_old = $points_week_old;
-                        $user->save();
                         $user_array['user_id'] = $user->id;
                         $user_array['points_day'] = 0;
                         $user_array['points_week'] = 0;
