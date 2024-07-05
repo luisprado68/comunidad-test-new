@@ -39,13 +39,13 @@
         @endif
 
         <main >
-            <div class="" style="margin-bottom: 200px">
+            <div class="container" style="margin-bottom: 200px">
                 <div class="row">
                     <div class="col" >
                         <iframe
                             src="https://player.twitch.tv/?channel=aquino&parent=www.comunidadnc.com"
-                            height="720"
-                            width="1280"
+                            height="600"
+                            width="800"
                             allowfullscreen>
                         </iframe>
                     </div>
