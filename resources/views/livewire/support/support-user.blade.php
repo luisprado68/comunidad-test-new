@@ -41,7 +41,7 @@
         <main >
             <div class="container">
                 <div class="row">
-                    <div class="col">
+                    <div class="col" style="margin-bottom: 200px">
                         <iframe
                             src="https://player.twitch.tv/?channel=aquino&parent=www.comunidadnc.com"
                             height="720"
