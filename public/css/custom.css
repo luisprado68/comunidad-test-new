@@ -117,6 +117,14 @@
     color:white;
   }
 
+  .link_logo{
+      width: 200px; /* Original size */
+      transition: transform 0.3s ease; /* Smooth transition */
+  }
+  .link_logo:hover{
+      transform: scale(1.5); /* Scale up the image on hover */
+  }
+
   button.kick-button{
     background-color: #53fc16;
     color:white;

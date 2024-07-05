@@ -133,4 +133,9 @@ class SupportController extends Controller
         }
 
     }
+
+    public function currentStream(){
+
+        return view('support_stream');
+    }
 }

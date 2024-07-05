@@ -154,7 +154,7 @@ final class ScoreService
                                         'date_action' => $user->updated_at,
                                         'message' => 'Usuario: '.$user->id . ' Channel: '.$user->channel.' Subio de rango puntaje semanal: '.$user->score->points_week,
                                     ]);
-                                    Log::debug('Subio de rango*********');
+
                                 }elseif($user->hasRole('streamer') && $user->range_id <= RangeType::oro && $user->points_support == 25){
 
                                     $range_id = $range_current + 1;
