@@ -39,9 +39,9 @@
         @endif
 
         <main >
-            <div class="container">
+            <div class="container" style="margin-bottom: 200px">
                 <div class="row">
-                    <div class="col" style="margin-bottom: 200px">
+                    <div class="col" >
                         <iframe
                             src="https://player.twitch.tv/?channel=aquino&parent=www.comunidadnc.com"
                             height="720"
