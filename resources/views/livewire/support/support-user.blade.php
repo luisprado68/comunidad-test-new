@@ -39,7 +39,7 @@
         @endif
 
         <main >
-            <div class="container" style="margin-bottom: 200px">
+            <div class="" style="margin-bottom: 200px">
                 <div class="row">
                     <div class="col" >
                         <iframe
