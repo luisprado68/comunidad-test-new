@@ -49,7 +49,7 @@
                             allowfullscreen>
                         </iframe>
                     </div>
-                    <div class="col">
+                    <div class="col" style="margin-top: 100px !important;">
                         <iframe id="twitch-chat-embed"
                                 src="https://www.twitch.tv/embed/aquino/chat?parent=www.comunidadnc.com"
                                 height="500"
