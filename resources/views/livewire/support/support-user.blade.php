@@ -43,9 +43,9 @@
                 <div class="row">
                     <div class="col">
                         <iframe
-                            src="https://player.twitch.tv/?channel=aquino&parent=comunidadnc.com"
-                            height="<300%>"
-                            width="<100%>"
+                            src="https://player.twitch.tv/?channel=aquino&parent=https://www.comunidadnc.com"
+                            height="720"
+                            width="1280"
                             allowfullscreen>
                         </iframe>
                     </div>
