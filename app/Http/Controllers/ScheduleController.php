@@ -95,14 +95,14 @@ class ScheduleController extends Controller
             $this->diamante = $this->getTimeSchedule($user_model, $this->diamante_time);
             $this->esmeralda = $this->getTimeSchedule($user_model, $this->esmeralda_time);
             $this->lider = $this->getTimeSchedule($user_model, $this->lider_time);
-
+//            dump($this->bronce);
             if (!empty($user_model)) {
 
 
                 if (isset($user_model->time_zone)) {
                     $this->active_time_zone = true;
                     $schedules_by_user = $this->scheduleService->getScheduleorThisWeekByUser($user_model);
-                    // dump($schedules_by_user);
+//                    dump($schedules_by_user);
                     $current_t = Carbon::now();
                     $current_t->tz = $user_model->time_zone;
                     $day = $current_t->format('l');
@@ -129,7 +129,7 @@ class ScheduleController extends Controller
                                 $hour >= $this->esmeralda && $user_model->range_id == 5 ||
                                 $hour >= $this->lider && $user_model->range_id == 8
                             ) {
-                                // dump('paasaa');
+//                                dump($user_model->range->hours_for_week);
                                 if (!isset($schedules_by_user)) {
                                     $this->schedule_avaible = true;
                                 } elseif ($user_model->range->hours_for_week > count($schedules_by_user)) {
