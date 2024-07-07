@@ -107,9 +107,9 @@
                                                 @else
                                                     <a href="{{ route('team-show', $user->current_team_id) }}"><button type="button" class="btn btn-danger">Cancel</button></a>
                                                 @endif
-{{--                                                @if(auth()->user()->can('users-pass'))--}}
-{{--                                                    <a href="{{ route('user-update-pass', $user->id) }}"><button type="button" class="btn btn-primary">Actualizar Pass</button></a>--}}
-{{--                                                @endif--}}
+                                                @if(auth()->user()->can('users-pass'))
+                                                    <a href="{{ route('user-update-pass', $user->id) }}"><button type="button" class="btn btn-primary">Actualizar Pass</button></a>
+                                                @endif
 
 
                                             </div>
