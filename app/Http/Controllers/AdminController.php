@@ -383,7 +383,7 @@ class AdminController extends Controller
 
             $user = $this->userService->getById($id);
 //            dd($user);
-            $user->password = Hash::make('comunidad24@');
+            $user->password = Hash::make('Comunidad24$$@@');
             $user->save();
             return redirect()->route('team-show', $user->current_team_id);
         }
