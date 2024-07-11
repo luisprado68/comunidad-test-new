@@ -467,7 +467,6 @@ a:hover {
     height: 0;
     overflow: hidden;
 }
-
 .iframe-container iframe {
     position: absolute;
     top: 0;
@@ -476,3 +475,16 @@ a:hover {
     height: 100%;
     border: 0;
 }
+
+iframe-container-chat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full height of the viewport */
+    width: 100%;
+}
+iframe-container-chat iframe {
+    border: 0;
+}
+
+
