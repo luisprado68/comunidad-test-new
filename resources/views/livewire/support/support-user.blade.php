@@ -41,7 +41,17 @@
         <main >
             <div class="container" style="margin-bottom: 200px">
                 <div class="row">
-                <div class="col-lg-8 col-sm-12 ">
+                <div class="col-lg-8 col-sm-12 mt-4">
+                    <div class="text-center">
+                        <h4>Streamer Name</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-12 mt-4">
+                    <div class="text-center">
+                        <h4>Cantidad de tiempo</h4>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-sm-12 mt-4">
                     <div class="iframe-container">
                         <iframe
                             src="https://player.twitch.tv/?channel=aquino&parent=www.comunidadnc.com"
@@ -49,7 +59,7 @@
                         </iframe>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-12">
+                <div class="col-lg-4 col-sm-12 mt-4 px-4">
                     <div class="iframe-container-chat">
                         <iframe id="twitch-chat-embed"
                                 src="https://www.twitch.tv/embed/aquino/chat?parent=www.comunidadnc.com"
