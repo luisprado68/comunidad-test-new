@@ -41,17 +41,16 @@
         <main >
             <div class="container" style="margin-bottom: 200px">
                 <div class="row">
-{{--                    <div class="col">--}}
-{{--                        <iframe--}}
-{{--                            src="https://player.twitch.tv/?channel=aquino&parent=www.comunidadnc.com"--}}
-{{--                            height="600"--}}
-{{--                            width="800"--}}
-{{--                            allowfullscreen>--}}
-{{--                        </iframe>--}}
-{{--                    </div>--}}
+
                     <div class="iframe-container">
                         <iframe
                             src="https://player.twitch.tv/?channel=aquino&parent=www.comunidadnc.com"
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="iframe-container">
+                        <iframe id="twitch-chat-embed"
+                            src="https://www.twitch.tv/embed/aquino/chat?parent=www.comunidadnc.com"
                             allowfullscreen>
                         </iframe>
                     </div>
