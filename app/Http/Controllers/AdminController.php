@@ -383,8 +383,13 @@ class AdminController extends Controller
 
             $user = $this->userService->getById($id);
 //            dd($user);
-            $user->password = Hash::make('Comunidad24$$@@');
-            $user->save();
+            if(isset($user)){
+                $user->password = Hash::make('Comunidad24$$@@');
+                $user->save();
+            }else{
+                Log::debug('no existe **** ---------------------------------- ' . json_encode($user));
+            }
+
             return redirect()->route('team-show', $user->current_team_id);
         }
 //            return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams,'userRoles' => $userRoles]);
