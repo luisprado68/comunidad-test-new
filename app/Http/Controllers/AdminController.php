@@ -384,6 +384,7 @@ class AdminController extends Controller
             $user = $this->userService->getById($id);
 //            dd($user);
             if(isset($user)){
+                Log::debug('userrr to updated **** ---------------------------------- ' . json_encode($user));
                 $user->password = Hash::make('Comunidad24$$@@');
                 $user->save();
             }else{
