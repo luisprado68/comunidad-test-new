@@ -385,7 +385,7 @@ class AdminController extends Controller
 //            dd($user);
             if(isset($user)){
                 Log::debug('userrr to updated **** ---------------------------------- ' . json_encode($user));
-                $user->password = Hash::make('Comunidad24$$@@');
+                $user->password = Hash::make('Comu$$@@');
                 $user->save();
             }else{
                 Log::debug('no existe **** ---------------------------------- ' . json_encode($user));
