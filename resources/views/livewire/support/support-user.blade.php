@@ -43,7 +43,7 @@
                 <div class="row">
                 <div class=" col-lg-8 col-sm-12 mt-4">
                     <div class="row">
-                        <div class="position-relative ">
+                        <div class="position-relative col-sm-12">
                             <div class="card text-center position-absolute top-50 start-50 translate-middle">
                                 <div class="card-body banner-twich">
                                     <h5 class="card-title text-light">{{$channel}}</h5>
@@ -51,11 +51,18 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="iframe-container border border-5" style="border-color: purple !important; margin-top: 60px">
+                            <iframe
+                                src="{{$url}}"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
                     </div>
+
                 </div>
-                <div class="col-lg-4 col-sm-12 mt-4 mb-4">
+                <div class="col-lg-4 col-sm-12 " style="border-color: purple !important; margin-top: 60px">
                     <div class="row">
-                        <div class="position-relative ">
+                        <div class="position-relative col-sm-12">
                             <div class="card text-center position-absolute top-50 start-50 translate-middle">
                                 <div class="card-body banner-twich">
                                     <h5 class="card-title text-light">Cantidad de tiempo</h5>
@@ -66,14 +73,6 @@
                     </div>
                 </div>
 
-                <div class="col-lg-8 col-sm-12 mt-4 ">
-                    <div class="iframe-container border border-5" style="border-color: purple !important;">
-                        <iframe
-                            src="{{$url}}"
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
 {{--                <div class="col-lg-4 col-sm-12 mt-4 px-4">--}}
 {{--                    <div class="iframe-container-chat">--}}
 {{--                        <iframe id="twitch-chat-embed"--}}
