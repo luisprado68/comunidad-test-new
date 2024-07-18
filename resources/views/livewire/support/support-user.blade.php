@@ -41,41 +41,48 @@
         <main >
             <div class="container" style="margin-bottom: 200px">
                 <div class="row">
-                <div class="col-lg-8 col-sm-12 mt-4">
-                    <div class="text-center">
-                        <h4>Streamer Name</h4>
+                <div class=" col-lg-8 col-sm-12 mt-4">
+                    <div class="row">
+                        <div class="position-relative ">
+                            <div class="card text-center position-absolute top-50 start-50 translate-middle">
+                                <div class="card-body banner-twich">
+                                    <h5 class="card-title text-light">{{$channel}}</h5>
+                                    <h6 class="card-subtitle mb-2 text-light">Streamer</h6>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-12 mt-4">
-                    <div class="text-center">
-                        <h4>Cantidad de tiempo</h4>
+                <div class="col-lg-4 col-sm-12 mt-4 mb-4">
+                    <div class="row">
+                        <div class="position-relative ">
+                            <div class="card text-center position-absolute top-50 start-50 translate-middle">
+                                <div class="card-body banner-twich">
+                                    <h5 class="card-title text-light">Cantidad de tiempo</h5>
+                                    <h6 class="card-subtitle mb-2  text-light">00:00</h6>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-sm-12 mt-4">
-                    <div class="iframe-container">
+
+                <div class="col-lg-8 col-sm-12 mt-4 ">
+                    <div class="iframe-container border border-5" style="border-color: purple !important;">
                         <iframe
-                            src="https://player.twitch.tv/?channel=aquino&parent=www.comunidadnc.com"
+                            src="{{$url}}"
                             allowfullscreen>
                         </iframe>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-12 mt-4 px-4">
-                    <div class="iframe-container-chat">
-                        <iframe id="twitch-chat-embed"
-                                src="https://www.twitch.tv/embed/aquino/chat?parent=www.comunidadnc.com"
-                                height="500"
-                                allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-
-{{--                    <div class="col" style="margin-top: 50px !important;">--}}
+{{--                <div class="col-lg-4 col-sm-12 mt-4 px-4">--}}
+{{--                    <div class="iframe-container-chat">--}}
 {{--                        <iframe id="twitch-chat-embed"--}}
 {{--                                src="https://www.twitch.tv/embed/aquino/chat?parent=www.comunidadnc.com"--}}
 {{--                                height="500"--}}
-{{--                                width="350">--}}
+{{--                                allowfullscreen>--}}
 {{--                        </iframe>--}}
 {{--                    </div>--}}
+{{--                </div>--}}
                 </div>
             </div>
         </main>
