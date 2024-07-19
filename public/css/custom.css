@@ -302,6 +302,10 @@ div.avaibleInput{
 
     }
   /* perfil */
+
+    .chat-size{
+        border-color: purple !important; margin-top: 0 !important;margin-left:0 !important;
+    }
 }
 
 @media (max-width: 750px) {
@@ -487,4 +491,6 @@ iframe-container-chat iframe {
     border: 0;
 }
 
-
+.chat-size{
+    border-color: purple !important; margin-top: 60px;margin-left: 0px;
+}
