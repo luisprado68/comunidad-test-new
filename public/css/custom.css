@@ -304,7 +304,10 @@ div.avaibleInput{
   /* perfil */
 
     .chat-size{
-        border-color: purple !important; margin-top: 0 !important;margin-left:0 !important;
+        border-color: purple !important; margin-top: 0 !important;
+    }
+    .chat-right{
+        margin-left:0 !important;
     }
 }
 
@@ -492,5 +495,8 @@ iframe-container-chat iframe {
 }
 
 .chat-size{
-    border-color: purple !important; margin-top: 60px;margin-left: 0px;
+    border-color: purple !important; margin-top: 20px;margin-left: 0px;
+}
+.chat-right{
+   margin-left: 50px;
 }
