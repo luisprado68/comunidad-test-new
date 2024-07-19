@@ -73,15 +73,15 @@
                     </div>
                 </div>
 
-{{--                <div class="col-lg-4 col-sm-12 mt-4 px-4">--}}
-{{--                    <div class="iframe-container-chat">--}}
-{{--                        <iframe id="twitch-chat-embed"--}}
-{{--                                src="https://www.twitch.tv/embed/aquino/chat?parent=www.comunidadnc.com"--}}
-{{--                                height="500"--}}
-{{--                                allowfullscreen>--}}
-{{--                        </iframe>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
+                <div class="col-lg-4 col-sm-12 mt-4 px-4">
+                    <div class="iframe-container-chat">
+                        <iframe id="twitch-chat-embed"
+                                src="https://www.twitch.tv/embed/aquino/chat?parent=www.comunidadnc.com"
+                                height="500"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
                 </div>
             </div>
         </main>
