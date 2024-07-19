@@ -67,6 +67,7 @@
                                 <div class="card-body banner-twich">
                                     <h5 class="card-title text-light">Cantidad de tiempo</h5>
                                     <h6 class="card-subtitle mb-2  text-light">00:00</h6>
+{{--                                    <h6 class="card-subtitle mb-2  text-light" id="timer">00:00</h6>--}}
                                 </div>
                             </div>
                         </div>
@@ -101,11 +102,24 @@
     </script> --}}
     <script src="https://kit.fontawesome.com/252b802fc2.js" crossorigin="anonymous"></script>
     <script>
-        window.INIT_MIN_MINUTE_CHATTER = `{{ env('INIT_MIN_MINUTE_CHATTER') }}`;
-        window.INIT_MAX_MINUTE_CHATTER = `{{ env('INIT_MAX_MINUTE_CHATTER') }}`;
-        window.SECOND_MIN_MINUTE_CHATTER = `{{ env('SECOND_MIN_MINUTE_CHATTER') }}`;
-        window.SECOND_MAX_MINUTE_CHATTER = `{{ env('SECOND_MAX_MINUTE_CHATTER') }}`;
+        document.addEventListener('DOMContentLoaded', (event) => {
+            var countDownDate = new Date().getTime() + 5 * 60 * 1000;
 
+            var x = setInterval(function() {
+                var now = new Date().getTime();
+                var distance = countDownDate - now;
+
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
+
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("timer").innerHTML = "EXPIRED";
+                }
+            }, 1000);
+        });
     </script>
     {{-- @if (env('APP_ENV') == 'local') --}}
 
