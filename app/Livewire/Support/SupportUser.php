@@ -10,6 +10,7 @@ class SupportUser extends Component
     public $userId;
     public $user;
     public $url;
+    public $url_chat;
     public $channel;
     private $userService;
 
@@ -21,10 +22,12 @@ class SupportUser extends Component
     public function render()
     {
         $this->url = 'https://player.twitch.tv/?channel=lucho952000&parent=www.comunidadnc.com';
+        $this->url_chat = 'https://www.twitch.tv/embed/lucho952000/chat?parent=www.comunidadnc.com';
         $this->channel = 'lucho952000';
         $this->user = $this->userService->getById($this->userId);
         if(isset($this->user)){
             $this->url = 'https://player.twitch.tv/?channel='.$this->user->channel.'&parent=www.comunidadnc.com';
+            $this->url_chat = 'https://www.twitch.tv/embed/'.$this->user->channel.'/chat?parent=www.comunidadnc.com';
             $this->channel = $this->user->channel;
         }
 
