@@ -73,7 +73,7 @@
                         </div>
                         <div class="iframe-container-chat col-sm-12 chat-size chat-right">
                             <iframe id="twitch-chat-embed"
-                                    src="https://www.twitch.tv/embed/aquino/chat?parent=www.comunidadnc.com"
+                                    src="{{$url_chat}}"
                                     height="500"
                                     allowfullscreen>
                             </iframe>
