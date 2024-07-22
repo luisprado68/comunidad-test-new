@@ -138,4 +138,31 @@ class SupportController extends Controller
 
         return view('support_stream');
     }
+
+
+    public function support_user($user_id){
+        $id = $user_id;
+        if(session()->exists('user')) {
+            $this->user = session('user');
+
+            if(array_key_exists('platform_id',$this->user)){
+                if(array_key_exists('email',$this->user)){
+                    $user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id'],$this->user['platform_id']);
+                }else{
+                    $user_model = $this->userService->userExistsActive($this->user['display_name'].'@gmail.com',$this->user['id'],$this->user['platform_id']);
+                }
+
+            }else{
+                $user_model = $this->userService->userExistsActive($this->user['email'],$this->user['id']);
+            }
+            if(isset($user_model) && $user_model->status){
+
+                session(['status' => $user_model->status]);
+            }
+            else{
+                session(['status' => 0]);
+            }
+        }
+        return view('support_user',compact('id','user_model'));
+    }
 }

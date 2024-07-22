@@ -257,7 +257,7 @@ final class UserService
             $user->platform_id = $userArray['platform_id'];
             $user->name = isset($userArray['name']) ? $userArray['name'] : $userArray['display_name'];
             if(array_key_exists('email',$userArray)){
-                $user->email = $userArray['email'] ?? $userArray['email'];
+                $user->email = $userArray['email'] ?? $userArray['display_name'] . '@gmail.com';
             }else{
                 $user->email = $userArray['display_name'].'@gmail.com';
             }

@@ -8,7 +8,7 @@ use Livewire\Component;
 class SupportUser extends Component
 {
     public $userId;
-    public $user;
+    public $user_stream;
     public $url;
     public $url_chat;
     public $channel;
@@ -24,11 +24,11 @@ class SupportUser extends Component
         $this->url = 'https://player.twitch.tv/?channel=lucho952000&parent=www.comunidadnc.com';
         $this->url_chat = 'https://www.twitch.tv/embed/lucho952000/chat?parent=www.comunidadnc.com';
         $this->channel = 'lucho952000';
-        $this->user = $this->userService->getById($this->userId);
-        if(isset($this->user)){
-            $this->url = 'https://player.twitch.tv/?channel='.$this->user->channel.'&parent=www.comunidadnc.com';
-            $this->url_chat = 'https://www.twitch.tv/embed/'.$this->user->channel.'/chat?parent=www.comunidadnc.com';
-            $this->channel = $this->user->channel;
+        $this->user_stream = $this->userService->getById($this->userId);
+        if(isset($this->user_stream)){
+            $this->url = 'https://player.twitch.tv/?channel='.$this->user_stream->channel.'&parent=www.comunidadnc.com';
+            $this->url_chat = 'https://www.twitch.tv/embed/'.$this->user_stream->channel.'/chat?parent=www.comunidadnc.com';
+            $this->channel = $this->user_stream->channel;
         }
 
         return view('livewire.support.support-user');
