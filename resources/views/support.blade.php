@@ -69,11 +69,21 @@
                                                         <p id="{{'stream_id'.$key}}"  style="display: none">{{ $stream['stream_id'] }}</p>
                                                         <a id="{{'url'.$key}}" style="" href="{{ $stream['login'] }}">
                                                         </a>
-                                                        <button class="btn btn-primary"><a
-                                                                href="{{ route('support_user',['user_id' => $stream['id']]) }}"
-                                                                target="_blank"
-                                                                style="text-decoration: none;color:white">Ver
-                                                                Stream</a></button>
+
+                                                        @if($user->platform_id == \App\Enums\PlatformType::twich)
+                                                            <button class="btn btn-primary"><a
+                                                                    href="{{ route('support_user',['user_id' => $stream['id']]) }}"
+                                                                    target="_blank"
+                                                                    style="text-decoration: none;color:white">Ver
+                                                                    Stream</a></button>
+                                                        @else
+                                                            <button class="btn btn-primary"><a
+                                                                    href="{{ $stream['login'] }}"
+                                                                    target="_blank"
+                                                                    style="text-decoration: none;color:white">Ver
+                                                                    Stream</a></button>
+                                                        @endif
+
                                                                 {{-- nuevos cambios--}}
                                                                 {{-- @if ($key == 0)
                                                                 <button class="btn btn-primary"><a
