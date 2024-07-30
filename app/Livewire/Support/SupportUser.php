@@ -8,6 +8,7 @@ use Livewire\Component;
 class SupportUser extends Component
 {
     public $userId;
+    public $user_model_id;
     public $user_stream;
     public $url;
     public $url_chat;

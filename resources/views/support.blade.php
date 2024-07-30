@@ -70,7 +70,7 @@
                                                         <a id="{{'url'.$key}}" style="" href="{{ $stream['login'] }}">
                                                         </a>
                                                         <button class="btn btn-primary"><a
-                                                                href="{{ $stream['login'] }}"
+                                                                href="{{ route('support_user',['user_id' => $stream['id']]) }}"
                                                                 target="_blank"
                                                                 style="text-decoration: none;color:white">Ver
                                                                 Stream</a></button>

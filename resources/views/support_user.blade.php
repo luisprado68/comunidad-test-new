@@ -10,7 +10,7 @@
                 @include('link')
             @else
                 @include('status', ['user' => $user_model])
-                @livewire('support.support-user',['user_id' => intval($id)])
+                @livewire('support.support-user',['user_id' => intval($id),'user_model_id'=> $user_model->id])
 
             @endif
 
