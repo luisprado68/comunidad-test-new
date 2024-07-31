@@ -62,7 +62,8 @@
             function sendSynchronousRequest() {
 
                 var xhr = new XMLHttpRequest();
-                var url = "http://127.0.0.1:8000/support/plus_point";
+                // var url = "http://127.0.0.1:8000/support/plus_point";
+                var url = "https://www.comunidadnc.com/support/plus_point";
                 var data = JSON.stringify({
                     user_streaming: user_stream,
                     user_viewer: user_model_id
@@ -89,9 +90,9 @@
                 // Log response directly after send() due to synchronous nature
                 console.log("Response after send:", xhr.responseText);
             }
-
+            // const targetUrl = 'http://127.0.0.1:8000/support/'+ user_stream;
             // URL específica a validar
-            const targetUrl = 'http://127.0.0.1:8000/support/'+ user_stream;
+            const targetUrl = 'https://www.comunidadnc.com/support/'+ user_stream;
             console.log(targetUrl)
                 // Identificador único para la pestaña actual
             const tabId = Math.random().toString(36).substr(2, 9);
@@ -112,6 +113,7 @@
                             // alert('Otra pestaña con la misma URL  ya está abierta. Por favor, cierra las pestañas duplicadas no te contara el puntaje.');
                             // window.close();
                             // window.location.href = 'http://127.0.0.1:8000/summary';
+                            console.log('alerta para cerrar las pestañas duplicadas');
                         }else{
                             //
                             var minute = 45;
@@ -130,7 +132,8 @@
                                     clearInterval(x);
                                     document.getElementById("timer").innerHTML = "EXPIRED";
                                     // Redirigir a una URL específica
-                                    window.location.href = 'http://127.0.0.1:8000/summary';
+                                    // window.location.href = 'http://127.0.0.1:8000/summary';
+                                    window.location.href = 'https://www.comunidadnc.com/summary';
                                     sendSynchronousRequest();
                                 }
                             }, 1000);
