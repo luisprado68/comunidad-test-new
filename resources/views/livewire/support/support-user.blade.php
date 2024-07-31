@@ -1,4 +1,4 @@
-<div >
+<div  style="margin-bottom: 100px">
     <meta name="csrf-token" content="{{ csrf_token() }}">
             <div class="container">
                 <div class="row">
@@ -114,7 +114,7 @@
                             // window.location.href = 'http://127.0.0.1:8000/summary';
                         }else{
                             //
-                            var minute = 0;
+                            var minute = 45;
                             var countDownDate = new Date().getTime() + minute * 60 * 1000;
 
                             var x = setInterval(function() {

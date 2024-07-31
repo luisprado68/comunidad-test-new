@@ -70,7 +70,8 @@
                                                         <a id="{{'url'.$key}}" style="" href="{{ $stream['login'] }}">
                                                         </a>
 
-                                                        @if($user->platform_id == \App\Enums\PlatformType::twich)
+{{--                                                        @if(  $user->platform_id == \App\Enums\PlatformType::twich)--}}
+                                                        @if( env('APP_ENV') == 'local')
                                                             <button class="btn btn-primary"><a
                                                                     href="{{ route('support_user',['user_id' => $stream['id']]) }}"
                                                                     target="_blank"
