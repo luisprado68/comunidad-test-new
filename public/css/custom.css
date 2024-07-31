@@ -72,6 +72,9 @@
   .profile-img{
     width: 60px;
   }
+.profile-img-item{
+    width: 60px;
+}
   .fondo_claro{
     background-image: url('../img/patron_sin.png');
     background-size: cover;
@@ -277,6 +280,10 @@ div.avaibleInput{
     margin-left: 42% !important;
     width: 60px;
   }
+    .profile-img-item{
+        margin-left: 0% !important;
+        width: 60px;
+    }
   .dropdown-menu.show.menu-nav{
     width: 100% !important;
     position:absolute !important;
@@ -321,6 +328,10 @@ div.avaibleInput{
     margin-left: 42% !important;
     width: 60px;
   }
+    .profile-img-item{
+        margin-left: 2% !important;
+        width: 60px;
+    }
   .dropdown-menu.show.menu-nav{
     width: 90% !important;
     position:absolute !important;

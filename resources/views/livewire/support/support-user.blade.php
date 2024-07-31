@@ -4,44 +4,53 @@
                 <div class="row">
                 <div class=" col-lg-8 col-sm-12 mt-4">
                     <div class="row">
-                        <div class=" col-sm-12">
-                            <div class="card text-center ">
-                                <div class="card-body banner-twich">
-                                    <div class="d-flex justify-content-between">
-                                        <img src="{{$user_stream->img_profile}}" alt="tag" class="profile-img rounded-circle">
-                                        <h5 class="card-title text-light">{{$channel}}</h5>
-                                        <h6 class="card-subtitle mb-2 text-light" style="visibility: hidden">Streamer</h6>
-                                    </div>
 
-                                </div>
-                            </div>
-                        </div>
                         <div class="iframe-container border border-5 col-sm-12 chat-size" >
                             <iframe
                                 src="{{$url}}"
                                 allowfullscreen>
                             </iframe>
                         </div>
+                        <div class=" col-sm-12 mt-4">
+                            <div class="card text-center ">
+                                <div class="card-body banner-twich">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-sm-8">
+                                            <img src="{{$user_stream->img_profile}}" alt="tag" class="profile-img-item rounded-circle">
+                                        </div>
+                                        <div class="col-lg-8 col-sm-12">
+                                            <h5 class="card-title text-center text-light">{{$channel}}</h5>
+                                        </div>
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
                 <div class="col-lg-4 col-sm-12 mt-4" >
                     <div class="row">
-                        <div class="col-sm-12">
-                            <div class="card text-center ">
-                                <div class="card-body banner-twich">
-                                    <h5 class="card-title text-light">Cantidad de tiempo</h5>
-{{--                                    <h6 class="card-subtitle mb-2  text-light">00:00</h6>--}}
-                                    <h6 class="card-subtitle mb-2  text-light" id="timer">00:00</h6>
-                                </div>
-                            </div>
-                        </div>
+
                         <div class="iframe-container-chat col-sm-12 chat-size chat-right">
                             <iframe id="twitch-chat-embed"
                                     src="{{$url_chat}}"
                                     height="500"
                                     allowfullscreen>
                             </iframe>
+                        </div>
+                        <div class="col-sm-12 mt-3">
+                            <div class="card text-center ">
+                                <div class="card-body banner-twich">
+                                    <h5 class="card-title text-light">Cantidad de tiempo</h5>
+                                    {{--                                    <h6 class="card-subtitle mb-2  text-light">00:00</h6>--}}
+                                    <h6 class="card-subtitle mb-2  text-light" id="timer">00:00</h6>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
