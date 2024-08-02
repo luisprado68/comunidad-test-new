@@ -431,7 +431,7 @@ final class TwichService
                                     // if ($score->points_week < 60) {
                                     //     $score->points_week = $score->points_week + 1;
                                     // }
-                                    if($score->neo_coins < 1001){
+                                    if($score->neo_coins < 1000){
                                         $score->neo_coins = $score->neo_coins + 1;
                                     }
 

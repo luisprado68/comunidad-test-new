@@ -226,7 +226,7 @@ class SupportController extends Controller
                             }
                             $last = $score->points_day + 1;
 
-                            if($score->neo_coins < 1001){
+                            if($score->neo_coins < 1000){
                                 $score->neo_coins = $score->neo_coins + 1;
                             }
                             $score->points_day = $last;
