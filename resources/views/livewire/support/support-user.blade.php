@@ -131,7 +131,7 @@
                         }else{
                             //
 
-                            var minute = 0;
+                            var minute = 45;
                             var countDownDate = new Date().getTime() + minute * 60 * 1000;
 
                             var x = setInterval(function() {
