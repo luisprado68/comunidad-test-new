@@ -66,19 +66,24 @@
             }
             var user_stream = @json($user_stream->id);
             var user_model_id = @json($user_model_id);
-            console.log(user_stream);
-            console.log(user_model_id);
+            var url_summary =  @json($url_summary);
+            var url_support =  @json($url_support);
+            var url_plus_point = @json($url_plus_point);
+            // console.log(user_model_id);
+            // console.log(user_stream);
+            // console.log(url_plus_point);
             function sendSynchronousRequest() {
 
                 var xhr = new XMLHttpRequest();
                 // var url = "http://127.0.0.1:8000/support/plus_point";
-                var url = "https://www.comunidadnc.com/support/plus_point";
+
+
                 var data = JSON.stringify({
                     user_streaming: user_stream,
                     user_viewer: user_model_id
                 });
 
-                xhr.open("POST", url, false); // false makes the request synchronous
+                xhr.open("POST", url_plus_point, false); // false makes the request synchronous
                 xhr.setRequestHeader("Content-Type", "application/json");
                 xhr.setRequestHeader("X-CSRF-TOKEN", getCsrfToken());
 
@@ -101,7 +106,7 @@
             }
             // const targetUrl = 'http://127.0.0.1:8000/support/'+ user_stream;
             // URL específica a validar
-            const targetUrl = 'https://www.comunidadnc.com/support/'+ user_stream;
+            const targetUrl = url_support+ '/' + user_stream;
             console.log(targetUrl)
                 // Identificador único para la pestaña actual
             const tabId = Math.random().toString(36).substr(2, 9);
@@ -114,8 +119,8 @@
                 function checkDuplicateTabs() {
                     const storedTabId = localStorage.getItem('tabId');
                     const storedTabUrl = localStorage.getItem('tabUrl');
-                    console.log(storedTabUrl)
-                    console.log(targetUrl)
+                    // console.log(storedTabUrl)
+                    // console.log(targetUrl)
                     if (storedTabUrl === targetUrl) {
                         if (storedTabId !== tabId) {
                             // Mostrar una alerta para cerrar las pestañas duplicadas
@@ -125,10 +130,22 @@
                             console.log('alerta para cerrar las pestañas duplicadas');
                         }else{
                             //
-                            var minute = 45;
+
+                            var minute = 0;
                             var countDownDate = new Date().getTime() + minute * 60 * 1000;
 
                             var x = setInterval(function() {
+
+                                const now_time = new Date();
+                                const now_minutes = now_time.getMinutes();
+                                const now_seconds = now_time.getSeconds();
+                                // console.log(now_seconds);
+                                // console.log(now_minutes);
+                                // Verifica si es el minuto y segundo cero
+                                if (now_minutes === 0 && now_seconds === 0) {
+                                    window.location.href = url_summary; // Cambia la URL a la que quieres redirigir
+                                }
+
                                 var now = new Date().getTime();
                                 var distance = countDownDate - now;
 
@@ -142,7 +159,7 @@
                                     document.getElementById("timer").innerHTML = "EXPIRED";
                                     // Redirigir a una URL específica
                                     // window.location.href = 'http://127.0.0.1:8000/summary';
-                                    window.location.href = 'https://www.comunidadnc.com/summary';
+                                    window.location.href = url_summary;
                                     sendSynchronousRequest();
                                 }
                             }, 1000);

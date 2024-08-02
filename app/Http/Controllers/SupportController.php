@@ -225,6 +225,10 @@ class SupportController extends Controller
                                 $created = $this->streamSupportService->create($streamSupport);
                             }
                             $last = $score->points_day + 1;
+
+                            if($score->neo_coins < 1001){
+                                $score->neo_coins = $score->neo_coins + 1;
+                            }
                             $score->points_day = $last;
                             $user_support['id'] = $user_streaming->id;
                             $user_support['name'] = $user_streaming->channel;

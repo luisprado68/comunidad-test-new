@@ -164,6 +164,12 @@
                                 <div class="block px-4 py-2 text-xs text-gray-400">
                                     {{ __('Acciones') }}
                                 </div>
+{{--                                @if(auth()->user()->can('users-delete'))--}}
+
+                                    <x-dropdown-link href="{{ route('admin-users-list') }}">
+                                        {{ __('Usuarios') }}
+                                    </x-dropdown-link>
+{{--                                @endif--}}
                                 @if(auth()->user()->can('users-delete'))
 
                                 <x-dropdown-link href="{{ route('admin-users-deleted') }}">

@@ -13,12 +13,18 @@ class SupportUser extends Component
     public $url;
     public $url_chat;
     public $channel;
+    public $url_plus_point;
+    public $url_summary;
+    public $url_support;
     private $userService;
 
     public function mount($user_id)
     {
         $this->userId = $user_id;
         $this->userService = new UserService();
+        $this->url_plus_point = env('APP_URL') . 'support/plus_point';
+        $this->url_summary = env('APP_URL') . 'summary';
+        $this->url_support = env('APP_URL') . 'support';
     }
     public function render()
     {

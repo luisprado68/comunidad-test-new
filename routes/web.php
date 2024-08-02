@@ -102,6 +102,7 @@ Route::middleware([
     Route::get('admin/users/upload/{id}', [AdminController::class, 'uploadUser'])->name('admin-user-add');
     // Route::get('admin/deleted-users', [AdminController::class, 'usersDeleted'])->name('admin-users-deleted');
     Route::get('admin/deleted-users', function () {return view('actions/users-deleted');})->name('admin-users-deleted');
+    Route::get('admin/users', function () {return view('admin/list');})->name('admin-users-list');
     Route::get('admin/new-users', function () {return view('actions/users-new');})->name('admin-users-new');
 
     Route::get('admin/schedulers', [AdminController::class, 'schedulers'])->name('admin-schedulers');
