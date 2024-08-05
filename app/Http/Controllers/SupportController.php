@@ -83,7 +83,7 @@ class SupportController extends Controller
             $date_string = ' '.trans('user.create.'.strtolower($day)).' ' . $date .'a las '. $hour;
             // dump($date_string);
             }
-            dump($currentStreams);
+//            dump($currentStreams);
             if(count($currentStreams) > 0){
                 //levante la imagen del canal en base de datos y cuando esta en on live muestre la img del directo
 
