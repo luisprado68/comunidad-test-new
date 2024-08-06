@@ -19,8 +19,6 @@ class Nav extends Component
 
     public function render()
     {
-        // Log::debug('text ' . $this->search);
-        // dump($this->show_result);
         if(session('user') && array_key_exists('platform_id',session('user'))){
             if( session('user')['platform_id'] == PlatformType::trovo){
                 $this->background = 'banner-trovo';
@@ -44,12 +42,7 @@ class Nav extends Component
             ->where('channel', 'like', '%'.$this->search.'%')
             ->where('status',1)
             ->where('deleted',0)->take(5)->get();
-
-            // $this->list = User::where('twich_id','!=',$this->user['id'])
-            // ->where('channel', 'like', '%'.$this->search.'%')
-            // ->where('deleted',0)->take(5)->get();
         }
-        // Log::debug("list " . $this->list);
         if(count($this->list) == 0){
             $this->show_result = false;
         }

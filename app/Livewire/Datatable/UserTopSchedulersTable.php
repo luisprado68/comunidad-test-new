@@ -66,7 +66,6 @@ class UserTopSchedulersTable extends DataTableComponent
             ->format(
                 function ($value,$row) {
                     if(isset($row->schedules)){
-                        Log::debug("sccheduler ssss" . json_encode($row->schedules));
                         return '<strong>' . count($row->schedules) . '</strong>';
                     }
 

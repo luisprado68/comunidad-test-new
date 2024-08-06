@@ -64,22 +64,16 @@ class LoginController extends Controller
     public function loginTwich()
     {
         $urlToken = $this->twichService->login();
-        // Log::debug('**************** urlToken ***********************');
-        // Log::debug(json_encode($urlToken));
         return redirect($urlToken);
     }
     public function loginTwichTest($platform)
     {
         $urlToken = $this->twichService->loginTest($platform);
-        // Log::debug('**************** urlToken ***********************');
-        // Log::debug(json_encode($urlToken));
         return redirect($urlToken);
     }
     public function loginTrovo()
     {
         $urlToken = $this->trovoService->login();
-        // Log::debug('**************** urlToken ***********************');
-        // Log::debug(json_encode($urlToken));
         return redirect($urlToken);
     }
     public function getToken(Request $request)
@@ -89,8 +83,6 @@ class LoginController extends Controller
         $total = 0;
         $this->twichService->getToken($request);
         $user = $this->twichService->getUser();
-        Log::debug('get token----------------------');
-        Log::debug(json_encode($user));
         if(array_key_exists('email',$user)){
             $user_model = $this->userService->userExists($user['email'], $user['id'],$user['platform_id']);
         }else{
@@ -113,10 +105,6 @@ class LoginController extends Controller
                 $supportScoreArray['point'] = 0;
                 $supportScoreArray['user'] = json_encode($support_user);
                 $this->supportScoreService->create($supportScoreArray);
-                // Log::debug('crear supportScoreArray');
-                // Log::debug(json_encode($supportScoreArray));
-
-                // $total = count($user_model_created->supportScores->where('point',1));
             }
         }else{
             $total = 0;
@@ -130,13 +118,11 @@ class LoginController extends Controller
             }
 
         }
-
         if (isset($user_model->time_zone) && !empty($user_model->time_zone)) {
             return redirect('summary');
         } else {
             return redirect('profile');
         }
-        // return redirect('/profile');
     }
 
     public function getTokenTest(Request $request)
@@ -152,21 +138,15 @@ class LoginController extends Controller
             $user = $this->trovoService->getUser();
         }
 
-        Log::debug('get token **********************');
-        Log::debug(json_encode($user));
         if(array_key_exists('email',$user)){
-            Log::debug('get mail **********************');
             $user_model = $this->userService->userExists($user['email'], $user['id'],$user['platform_id']);
         }else{
             $user_model = $this->userService->userExists($user['display_name'].'@gmail.com',$user['id'],$user['platform_id']);
         }
 
-
-        // dump($user_model);
-
         if ($user_model == false) {
             // TODO validar y traer el primer equipo que tenga menos de 100 usuarios para asignar
-//            $team = $this->teamService->getFirstTeamAviable();
+
             $user_model_created = $this->userService->create($user);
             if (session()->exists('support_to_user_id')) {
 
@@ -177,10 +157,6 @@ class LoginController extends Controller
                 $supportScoreArray['point'] = 0;
                 $supportScoreArray['user'] = json_encode($support_user);
                 $this->supportScoreService->create($supportScoreArray);
-                // Log::debug('crear supportScoreArray');
-                // Log::debug(json_encode($supportScoreArray));
-
-                // $total = count($user_model_created->supportScores->where('point',1));
             }
         }else{
             $total = 0;
@@ -200,7 +176,6 @@ class LoginController extends Controller
         } else {
             return redirect('profile');
         }
-        // return redirect('/profile');
     }
 
     public function getTokenTrovo(Request $request)
@@ -228,10 +203,6 @@ class LoginController extends Controller
                     $supportScoreArray['point'] = 0;
                     $supportScoreArray['user'] = json_encode($support_user);
                     $this->supportScoreService->create($supportScoreArray);
-                    // Log::debug('crear supportScoreArray');
-                    // Log::debug(json_encode($supportScoreArray));
-
-                    // $total = count($user_model_created->supportScores->where('point',1));
                 }
             }else{
                 $total = 0;
@@ -273,30 +244,10 @@ class LoginController extends Controller
     {
         $user_model = null;
         $user_response = [];
-        Log::debug('login-----');
         $credentials = $request->all();
-        // dd($credentials);
-
-
         $user_model = $this->userService->userLoginTwich($credentials['email'], $credentials['password']);
-        Log::debug('result  -----' . json_encode($user_model));
         if(isset($user_model) && $user_model != false){
-
-
-            Log::debug('login admin------------');
-            Log::debug(json_encode($user_model));
             session(['access_token' => $user_model->token]);
-
-//            if($user_model->platform_id == PlatformType::twich){
-//                $user_twich = $this->twichService->getUser();
-//            }else{
-//                $this->trovoService->getUser();
-//            }
-
-            // dd($user_test);
-//            if (isset($user_twich) && !empty($user_twich)) {
-//                $user_response = $user_twich;
-//            } else {
 
                 $user_response['display_name'] = $user_model->channel;
                 $user_response['email'] = $user_model->email;
@@ -313,11 +264,9 @@ class LoginController extends Controller
                     $user_response['profile_image_url'] = 'https://static-cdn.jtvnw.net/jtv_user_pictures/6471351b-ea90-4cd2-828b-406a7dea08e1-profile_image-300x300.png';
                 }
                 session(['user' => $user_response]);
-//            }
+
         }
 
-        // $user_response['profile_image_url'] = 'https://static-cdn.jtvnw.net/jtv_user_pictures/6471351b-ea90-4cd2-828b-406a7dea08e1-profile_image-300x300.png';
-        // dd($user);
         if ($user_model) {
 
             $total = count($user_model->supportScores->where('point', 1));
@@ -326,7 +275,6 @@ class LoginController extends Controller
                 $user_model->update();
             }
             $this->scoreService->evaluatePoint($user_model);
-            Log::debug('exist-----');
             if (isset($user_model->time_zone) && !empty($user_model->time_zone)) {
                 return redirect('summary');
             } else {

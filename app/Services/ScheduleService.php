@@ -140,11 +140,7 @@ final class ScheduleService
         $end_date = new Carbon($date);
 
         $end_string = $end_date->format('Y-m-d H:01:00');
-        // Log::debug('start_string------------' . json_encode($start_string));
-        // Log::debug('end_string------------' . json_encode($end_string));
         $day = $this->model::whereBetween('start', [$start_string, $end_string])->get();
-
-        Log::debug('day------------' . json_encode($day));
         if (isset($day)) {
             return $day;
         } else {
@@ -198,25 +194,14 @@ final class ScheduleService
 
         if($day == 6){
             $day_start = $en->startOfWeek($day)->addHours($hour_first)->format('Y-m-d H:00:00');
-            // dump('start----');
-            // dump($day_start);
             $day_end = $en->endOfWeek($day)->addHours($hour_first)->format('Y-m-d H:00:00');
-            // dump('end----');
-            // dump($day_end);
         }else{
             $day_start = $en->startOfWeek($day)->addHours($hour_first)->format('Y-m-d H:00:00');
-            // dump('start----');
-            // dump($day_start);
             $day_end = $en->endOfWeek($day)->addHours($hour_first)->format('Y-m-d H:00:00');
-            // dump('end----');
-            // dump($day_end);
+
         }
         $week = $this->model::join('users', 'schedule.user_id', '=', 'users.id')->whereBetween('schedule.start', [$day_start, $day_end])
             ->where('users.current_team_id',$team_id)->orderBy('schedule.start')->get();
-//        dump($week);
-
-        Log::debug(json_encode($week));
-        // $week = $this->model::whereBetween('start', [$day_start, $day_end])->get();
 
         foreach ($week as $key => $day) {
             $date = new Carbon($day->start);
@@ -422,9 +407,7 @@ final class ScheduleService
         $actual = new Carbon($dates_before.' ' .$backHour.':'.$back_minute.':00');
         $actual_next = new Carbon($dates_next.' ' .$hour.':'.$minute.':00');
         $start_string = $actual->format('Y-m-d H:i:s');
-        // Log::debug('start: ' . $start_string);
         $end_string = $actual_next->format('Y-m-d H:i:s');
-        // Log::debug('end: ' . $end_string);
 
         $currentSchedulers = $this->model::whereBetween('start',[$start_string, $end_string])->distinct()->get();
 
@@ -510,21 +493,6 @@ final class ScheduleService
 
     public function parseHoursToCountry($end,$time_zone = null){
         $hourDifference = 0;
-        // dump('parseHoursToCountry-----------------------------------------');
-        // dump($time_zone);
-        // dd($end);
-
-        // $start =  $end;
-        // // dump($start);
-        // $start->tz = $time_zone;
-        // // dump($start);
-        // $start_utc_country =  new Carbon($start->format('Y-m-d H:i'));
-        // // dump($start_utc_country);
-        // $utc =  $end;
-
-        // $diff = $start_utc_country->diffInHours($utc,false);
-        // dd($diff);
-        // Log::debug('time_zone : ------------ ' . json_encode($time_zone));
         if(isset($time_zone)){
 
             $timezone1 = new DateTimeZone($time_zone);
@@ -552,9 +520,6 @@ final class ScheduleService
                 $hourDifference = $hourDifference  * -1;
             }
         }
-
-
-        // Log::debug('hourDifference------------------------***' . json_encode($hourDifference));
         return $hourDifference;
     }
     public function getSchedulerDayByUser($user,$date)

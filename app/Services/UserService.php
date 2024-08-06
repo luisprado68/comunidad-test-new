@@ -100,10 +100,8 @@ final class UserService
     {
         $this->setModel();
         $user = null;
-        Log::debug('$twich_id **********************' . json_encode($twich_id));
-        Log::debug('$platform_id **********************' . json_encode($platform_id));
         if( isset($twich_id) && isset($platform_id)){
-            Log::debug('pasosss **********************');
+
             $user = $this->model
                 ::where('stream_id', $twich_id)->where('platform_id',$platform_id)
                 ->first();
@@ -184,8 +182,6 @@ final class UserService
 
             if (Hash::check($password, $user->password)) {
                 session(['user-log' => $user]);
-                Log::debug('user---');
-                Log::debug(json_encode($user));
                 return  $user;
             }
         } else {
@@ -305,7 +301,6 @@ final class UserService
                 $user->status = 0;
             }
             $user->update();
-            Log::debug('rol a actualizar --' .json_encode($userArray['role']));
             $user->syncRoles([$userArray['role']]);
             // $user->assignRole($userArray['role']);
             return $user;
@@ -379,7 +374,6 @@ final class UserService
         ->where('users.deleted',0)
         ->limit(10);
         $list = $query->get();
-        // Log::debug(json_encode($list));
         return $query;
     }
 
@@ -426,11 +420,7 @@ final class UserService
         $this->setModel();
 
         $query = $this->model::query()->select('*')->where('deleted',true);
-
-//        ->limit(10);
-
         $list = $query->get();
-        // Log::debug(json_encode($list));
         return $query;
     }
 
@@ -440,7 +430,6 @@ final class UserService
 
         $query = $this->model::query()->select('*')->where('current_team_id',null);
         $list = $query->get();
-        // Log::debug(json_encode($list));
         return $query;
     }
 }

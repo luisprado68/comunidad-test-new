@@ -43,11 +43,6 @@ class Home extends Component
 
     public function render()
     {
-        Log::debug('ssssssssss : ' . json_encode($this->search));
-        // if(isset($this->search) && $this->search != ''){
-        //     $this->list = User::where('name', 'like', '%'.$this->search.'%')->get();
-        // }
-
         if (session()->exists('user')) {
             $user = session('user');
 

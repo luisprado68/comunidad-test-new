@@ -84,8 +84,6 @@ final class TrovoService
         if ($response->successful()) {
             // Handle successful response
             $data = $response->json();
-            Log::debug("result getToken trovo-------------------------------------------");
-            Log::debug(json_encode($data));
             session(['access_token' => $data['access_token']]);
             session(['refresh_token' => $data['refresh_token']]);
             // Do something with $data
@@ -117,9 +115,6 @@ final class TrovoService
             $request = new Psr7Request('POST', 'https://open-api.trovo.live/openplatform/refreshtoken', $headers, $body);
             $res = $client->sendAsync($request)->wait();
             $result = json_decode($res->getBody(), true);
-            // Log::debug("getRefreshToken result-------------------------------------------");
-            // Log::debug(json_encode($result));
-            // session(['access_token' => $result['access_token']]);
             $user->token = $result['access_token'];
             $user->refresh_token = $result['refresh_token'];
             $user->update();
@@ -153,8 +148,6 @@ final class TrovoService
                 $res = $client->sendAsync($request)->wait();
                 $result = json_decode($res->getBody(), true);
 
-                Log::debug('user TROVO---------');
-                Log::debug(json_encode($result));
                 $this->user = $result;
                 $this->user['id'] = $result['userId'];
                 $this->user['name'] = $result['nickName'];
@@ -245,8 +238,6 @@ final class TrovoService
                 $res = $client->sendAsync($request)->wait();
                 $result = json_decode($res->getBody(), true);
                 $users = $result['chatters']['all']['viewers'];
-                Log::debug('users chatters trovo ------------------');
-                Log::debug(json_encode($users));
 
                 return $users;
             }
@@ -261,7 +252,6 @@ final class TrovoService
 
     public function getChattersKernel($schedule)
     {
-        Log::debug("*****************getChatters*****************************");
         $data = [];
 
         $users = [];
@@ -270,16 +260,12 @@ final class TrovoService
         $supportStreams = [];
 
         $user_streaming = $schedule->user;
-        Log::debug('*********** user_streaming*************');
-        Log::debug(json_encode($user_streaming));
         if ($user_streaming) {
                 //TODO revisar
            $this->getRefreshToken($user_streaming);
 
 
             $users_chatters = $this->getUserChatters($user_streaming);
-            Log::debug('*********** users_chatters*************');
-            Log::debug(json_encode($users_chatters));
             if (count($users_chatters) > 0) {
                 $users['chaters'] = $users_chatters;
                 $users['status'] = 'success';
@@ -289,31 +275,20 @@ final class TrovoService
 
                     if (!empty($user_chat) && $user_chat->id != $user_streaming->id) {
 
-                        Log::debug('*********** user_chat*************');
-                        Log::debug(json_encode($user_chat));
-
-
                         $supportStreams = $user_chat->streamSupport;
-                        Log::debug('*********** supportStreams*************');
-                        Log::debug(json_encode($supportStreams));
                         $exist_supported = false;
                         if (count($supportStreams) > 0) {
                             foreach ($supportStreams as $key => $supportStream) {
 
                                 $support_created = json_decode($supportStream->supported);
-                                Log::debug('*********** support_exist*************');
-                                Log::debug(json_encode($support_created));
                                 if ($support_created->id == $user_streaming->id) {
                                     $exist_supported = true;
-                                    Log::debug('*********** pasassss*************');
-                                    Log::debug(json_encode($support_created));
                                     $supportStream->supported = json_encode($support_created);
                                     $supportStream->update();
                                 }
                             }
                         }
                         if($exist_supported == false || count($supportStreams) == 0){
-                            Log::debug('*********** crea supportStreams*************');
                             $support['id'] = $user_streaming->id;
                             $support['name'] = $user_streaming->channel;
                             $streamSupport['user_id'] = $user_chat->id;
@@ -327,8 +302,6 @@ final class TrovoService
 
                         if ($minute >= 50 && $minute <= 52 ) {
                             $score = $user_chat->score;
-                            Log::debug('score---------------------');
-                            Log::debug($score);
                             if (isset($score) && !empty($score)) {
 
                                 // $last = new Carbon($score->updated_at);
@@ -340,11 +313,6 @@ final class TrovoService
                                         // $score->points_day = 0;
                                         $score->points_day =  $score->points_day + 1;
                                     }
-                                    //no se suman de una
-                                    // if ($score->points_week < 60) {
-                                    //     $score->points_week = $score->points_week + 1;
-                                    // }
-
                                     $score->neo_coins = $score->neo_coins + 1;
                                     $score->streamer_supported = json_encode($user_support);
                                     $score->save();
@@ -356,8 +324,6 @@ final class TrovoService
                                     ]);
 
                             } else {
-                                Log::debug('new score---------------------');
-
                                 $score_new = [];
                                 $score_new['user_id'] = $user_chat->id;
                                 $score_new['points_day'] = 1;
@@ -369,7 +335,6 @@ final class TrovoService
                                 // $score['count_users'] = count($users);
 
                                 $created = $this->scoreService->create($score_new);
-                                Log::debug($created);
                                 ModelsLog::create([
                                     'action' => 'Se crea suma de puntos',
                                     'user_id' => $created->user_id,
@@ -385,8 +350,6 @@ final class TrovoService
                     }
                 }
 
-                Log::debug("users***********");
-                Log::debug(json_encode($users));
                 $users['status'] = 'ok';
 
                 return $users;

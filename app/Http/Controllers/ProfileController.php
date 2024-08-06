@@ -105,10 +105,6 @@ class ProfileController extends Controller
             'timezone' => 'required',
         ]);
 
-        // dd($validated);
-
-        // 'phone' => 'required|numeric|unique:users,phone',
-        Log::debug('edit-------');
         $user = $this->userService->updateUser($update_user);
         return redirect('summary');
     }

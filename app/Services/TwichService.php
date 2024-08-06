@@ -67,7 +67,6 @@ final class TwichService
         $this->force_verify = 'true';
         $this->test_url = $this->url_twitch . '?response_type=' . $this->code . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
         $this->complete_url = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
-//        Log::debug('url login formated :' . $this->complete_url);
         return $this->complete_url;
     }
 
@@ -83,7 +82,6 @@ final class TwichService
             $this->url = 'https://www.comunidadnc.com/login_token_test';
             $this->client_id = $this->platform->client_id;
             $this->complete_url = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . $this->platform->scope;
-            Log::debug('url login formated :' . $this->complete_url);
             return $this->complete_url;
         }
         return '';
@@ -93,7 +91,6 @@ final class TwichService
     public function getToken(Request $request)
     {
         $all = $request->all();
-        Log::debug('request get token: ' . json_encode($all));
         $code = $request->get('code');
 
         $this->url_test = 'http://localhost';
@@ -115,8 +112,6 @@ final class TwichService
         $request = new Psr7Request('POST', 'https://id.twitch.tv/oauth2/token', $headers);
         $res = $client->sendAsync($request, $options)->wait();
         $result = json_decode($res->getBody(), true);
-        Log::debug("result getToken-------------------------------------------");
-        Log::debug(json_encode($result));
         session(['access_token' => $result['access_token']]);
         session(['refresh_token' => $result['refresh_token']]);
     }
@@ -127,7 +122,6 @@ final class TwichService
         $result = null;
         $all = $request->all();
         $code = $request->get('code');
-        Log::debug('request get token: --------- ' . json_encode($all));
         $this->url = 'https://www.comunidadnc.com/login_token_test';
 
         if($this->platform->id == PlatformType::twich){
@@ -175,9 +169,6 @@ final class TwichService
                 // Do something with $error
             }
         }
-
-        Log::debug("result getToken-------------------------------------------");
-        Log::debug(json_encode($this->result));
         session(['access_token' => $this->result['access_token']]);
         session(['refresh_token' => $this->result['refresh_token']]);
 
@@ -186,9 +177,6 @@ final class TwichService
     public function getRefreshToken($user)
     {
         try {
-
-        Log::debug("getRefreshToken user -------------------------------------------");
-
         if (isset($user->refresh_token)){
             $refresh_token = $user->refresh_token;
             $client = new Client();
@@ -246,10 +234,6 @@ final class TwichService
                 $this->user['platform_id'] = PlatformType::twich;
                 $this->user['username'] = $this->user['display_name'];
                 $this->user['class_nav'] = 'banner-twich';
-
-                Log::debug('user twich---------');
-                Log::debug(json_encode($this->user));
-                // $img = $this->user['profile_image_url'];
                 session(['user' => $this->user]);
                 return $this->user;
             }
@@ -332,9 +316,6 @@ final class TwichService
                 $res = $client->sendAsync($request)->wait();
                 $result = json_decode($res->getBody(), true);
                 $users = $result['data'];
-                Log::debug('users chatters------------------');
-                Log::debug(json_encode($users));
-
                 return $users;
             }
             return $users;
@@ -348,7 +329,6 @@ final class TwichService
 
     public function getChattersKernel($schedule)
     {
-        Log::debug("*****************getChatters*****************************");
         $data = [];
 
         $users = [];
@@ -357,16 +337,12 @@ final class TwichService
         $supportStreams = [];
 
         $user_streaming = $schedule->user;
-        Log::debug('*********** user_streaming*************');
-        Log::debug(json_encode($user_streaming));
         if ($user_streaming) {
 
             $this->getRefreshToken($user_streaming);
 
 
             $users_chatters = $this->getUserChatters($user_streaming);
-            Log::debug('*********** users_chatters*************');
-            Log::debug(json_encode($users_chatters));
             if (count($users_chatters) > 0) {
                 $users['chaters'] = $users_chatters;
                 $users['status'] = 'success';
@@ -376,31 +352,20 @@ final class TwichService
 
                     if (!empty($user_chat) && $user_chat->id != $user_streaming->id) {
 
-                        Log::debug('*********** user_chat*************');
-                        Log::debug(json_encode($user_chat));
-
-
                         $supportStreams = $user_chat->streamSupport;
-                        Log::debug('*********** supportStreams*************');
-                        Log::debug(json_encode($supportStreams));
                         $exist_supported = false;
                         if (count($supportStreams) > 0) {
                             foreach ($supportStreams as $key => $supportStream) {
 
                                 $support_created = json_decode($supportStream->supported);
-                                Log::debug('*********** support_exist*************');
-                                Log::debug(json_encode($support_created));
                                 if ($support_created->id == $user_streaming->id) {
                                     $exist_supported = true;
-                                    Log::debug('*********** pasassss*************');
-                                    Log::debug(json_encode($support_created));
                                     $supportStream->supported = json_encode($support_created);
                                     $supportStream->update();
                                 }
                             }
                         }
                         if($exist_supported == false || count($supportStreams) == 0){
-                            Log::debug('*********** crea supportStreams*************');
                             $support['id'] = $user_streaming->id;
                             $support['name'] = $user_streaming->channel;
                             $streamSupport['user_id'] = $user_chat->id;
@@ -414,8 +379,6 @@ final class TwichService
 
                         if ($minute >= 56 && $minute <= 59 ) {
                             $score = $user_chat->score;
-                            Log::debug('score---------------------');
-                            Log::debug($score);
                             if (isset($score) && !empty($score)) {
 
                                 // $last = new Carbon($score->updated_at);
@@ -427,10 +390,6 @@ final class TwichService
                                         // $score->points_day = 0;
                                         $score->points_day =  $score->points_day + 1;
                                     }
-                                    //no se suman de una
-                                    // if ($score->points_week < 60) {
-                                    //     $score->points_week = $score->points_week + 1;
-                                    // }
                                     if($score->neo_coins < 1000){
                                         $score->neo_coins = $score->neo_coins + 1;
                                     }
@@ -445,8 +404,6 @@ final class TwichService
                                     ]);
 
                             } else {
-                                Log::debug('new score---------------------');
-
                                 $score_new = [];
                                 $score_new['user_id'] = $user_chat->id;
                                 $score_new['points_day'] = 1;
@@ -458,7 +415,6 @@ final class TwichService
                                 // $score['count_users'] = count($users);
 
                                 $created = $this->scoreService->create($score_new);
-                                Log::debug($created);
                                 ModelsLog::create([
                                     'action' => 'Se crea suma de puntos',
                                     'user_id' => $created->user_id,
@@ -473,9 +429,6 @@ final class TwichService
                         Log::debug(json_encode($item['user_login']));
                     }
                 }
-
-                Log::debug("users***********");
-                Log::debug(json_encode($users));
                 $users['status'] = 'ok';
 
                 return $users;

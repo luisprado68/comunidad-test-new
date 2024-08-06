@@ -105,8 +105,6 @@ class AdminController extends Controller
     }
     public function login(Request $request)
     {
-
-        Log::debug('login-----');
         $credentials = $request->all();
         // dd($credentials);
         $user = $this->twichService->getUser();
@@ -114,15 +112,11 @@ class AdminController extends Controller
 
 
         if (!empty($exist['user']) && $exist['user'] != false) {
-            // dd($exist);
-            Log::debug('exist-----');
-            // return redirect('dashboard');
             return view('actions/teams');
         } else {
             return redirect('admin')->with(['message' => $exist['message']]);
         }
 
-        // return view('admin.adminLogin');
     }
     public function list()
     {
@@ -159,11 +153,8 @@ class AdminController extends Controller
         $test = null;
         if (Auth::user()) {
             $scheduler = $this->scheduleService->getById($id);
-            Log::debug(json_encode('scheduler *************** '.$scheduler));
             $user = $scheduler->user;
-            Log::debug(json_encode('user *************** '.$user));
             $scheduler->delete();
-            // dd($users);
 
             if (isset($user->score)) {
                 $date = new Carbon($user->score->updated_at);
@@ -205,14 +196,8 @@ class AdminController extends Controller
         if (Auth::user()) {
             $this->user_model = Auth::user();
             $user = $this->userService->getById($id);
-
             $user->deleted = false;
-            // $user->status = false;
-
             $user->save();
-            Log::debug('user updated' . json_encode($user));
-
-            // return redirect('dashboard');
             return view('actions/teams');
         }
     }
@@ -334,40 +319,20 @@ class AdminController extends Controller
             $user_array['points_week'] = 0;
             $result = $this->scoreService->update($user_array);
 
-            // $schedulers_by_user = $this->scheduleService->getByUserId($user->id);
-
-            // if(isset($schedulers_by_user)){
-            //     if(count($schedulers_by_user) > 0){
-            //         foreach ($schedulers_by_user as $key => $scheduler_by_user) {
-            //             $date = new Carbon($scheduler_by_user->start);
-            //             $day = $date->format('l');
-            //             if($day != 'Sunday'){
-            //                 $this->scheduleService->delete($scheduler_by_user->id);
-            //             }
-            //         }
-            //     }
-            //     Log::debug('result:  ---' . json_encode($result));
-            // }
-
         }
         // return redirect('dashboard');
         return view('actions/teams');
     }
     public function edit($id)
     {
-        Log::debug('id **** ---------------------------------- ' . json_encode($id));
         if (Auth::user() && intval($id) != 0) {
             $this->user_model = Auth::user();
-            Log::debug('user **** ---------------------------------- ' . json_encode($this->user_model));
             $ranges = $this->rangeService->all();
 
             $user = $this->userService->getById($id);
             $teams = $this->teamService->getByPlatform($user->platform_id);
             $userRoles = $user->roles->pluck('name')->toArray();
-//            Log::debug('userRoles -------- ' . json_encode($userRoles));
             $roles = $this->rolesService->getRoles($this->user_model->roles->last()->id);
-            Log::debug('rol user  -------- ' . json_encode($this->user_model->roles->last()->id));
-
             $team = $user->team;
             return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams,'userRoles' => $userRoles]);
         } else {
@@ -377,20 +342,15 @@ class AdminController extends Controller
 
     public function updatePass($id)
     {
-        Log::debug('id **** ---------------------------------- ' . json_encode($id));
         if (Auth::user() && intval($id) != 0) {
             $this->user_model = Auth::user();
 
             $user = $this->userService->getById($id);
 //            dd($user);
             if(isset($user)){
-                Log::debug('userrr to updated **** ---------------------------------- ' . json_encode($user));
                 $user->password = Hash::make('Comu$$@@');
                 $user->save();
-            }else{
-                Log::debug('no existe **** ---------------------------------- ' . json_encode($user));
             }
-
             return redirect()->route('team-show', $user->current_team_id);
         }
 //            return view('admin.edit', ['user' => $user, 'ranges' => $ranges,'roles' => $roles,'user_model' => $this->user_model,'teams' => $teams,'userRoles' => $userRoles]);
@@ -406,7 +366,6 @@ class AdminController extends Controller
         $test = null;
         if (Auth::user()) {
             $user = $this->userService->getById($id);
-            Log::debug('show user : -------------------' . json_encode($user));
             if($user){
 
                 if (isset($user->score)) {
@@ -501,15 +460,10 @@ class AdminController extends Controller
         if (Auth::user()) {
             $this->user_model = Auth::user();
             $user = $this->userService->getById($id);
-            Log::debug('user to delete' . json_encode($user));
             $user->deleted = true;
             $user->status = false;
             $user->user_action = $this->user_model->channel;
             $user->save();
-            Log::debug('user updated' . json_encode($user));
-            // $users = $this->userService->getUsersModel();
-            // return view('admin.list', ['users' => $users]);
-            // return redirect('dashboard');
             if(isset($user->team)){
                 $team = $user->team;
                 return redirect()->route('team-show', ['id' => $team->id]);
@@ -517,14 +471,10 @@ class AdminController extends Controller
                 return view('actions/teams');
             }
         }
-        //  else {
-        //     return redirect('admin');
-        // }
     }
     public function post(Request $request)
     {
         $user = $request->all();
-        Log::debug('user---------------' . json_encode($user));
         $this->user_model = Auth::user();
         $validated = $request->validate([
             'name' => 'required',
@@ -543,13 +493,6 @@ class AdminController extends Controller
         }
 
 
-    }
-    public function logoutAdmin()
-    {
-        dd(Auth::user());
-        Log::debug('user ********************* : ');
-        // session()->forget('user-log');
-        // return redirect('/admin');
     }
     public function getToken(Request $request)
     {

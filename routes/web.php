@@ -123,7 +123,6 @@ Route::middleware([
     Route::get('admin/show/{id}/edit', [AdminController::class, 'editScheduler'])->name('admin-show-scheduler');
     Route::get('admin/delete/{id}', [AdminController::class, 'delete'])->name('admin-delete');
     Route::post('admin/post', [AdminController::class, 'post'])->name('admin-post');
-    Route::get('admin/logout', [AdminController::class, 'logoutAdmin'])->name('logout-admin');
 
     Route::post('admin/update-points', [AdminController::class, 'updatePoints'])->name('admin-update-point');
 

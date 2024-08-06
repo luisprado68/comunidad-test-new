@@ -27,7 +27,6 @@ class SummaryController extends Controller
         // dd(session('user'));
         if(session()->exists('user')){
             $user = session('user');
-            \Illuminate\Support\Facades\Log::debug(json_encode($user));
             if(array_key_exists('platform_id',$user)){
 
                 if(array_key_exists('email',$user)){

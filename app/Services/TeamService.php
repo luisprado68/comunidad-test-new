@@ -145,9 +145,7 @@ final class TeamService
     {
         // dd($userArray['checkbox']);
         try {
-            Log::debug('id  -- ' . json_encode($teamArray['id']));
             $team = Team::find($teamArray['id']);
-            Log::debug('team -- ' . json_encode($team));
             $team->name = $teamArray['name'] ?? null;
             $team->personal_team = 1;
             $team->save();
@@ -214,7 +212,6 @@ final class TeamService
         ->where('users.deleted',0)
         ->limit(10);
         $list = $query->get();
-        // Log::debug(json_encode($list));
         return $query;
     }
 
@@ -265,7 +262,6 @@ final class TeamService
         ->limit(10);
 
         $list = $query->get();
-        // Log::debug(json_encode($list));
         return $query;
     }
 }

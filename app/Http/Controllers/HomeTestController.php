@@ -63,11 +63,6 @@ class HomeTestController extends Controller
             }else{
                 $userModel = $this->userService->userExistsActive($user['email'],$user['id']);
             }
-
-
-            // @dd($active);
-            Log::debug('model------------------------');
-            Log::debug(json_encode($userModel));
             if($userModel->status){
 
                 session(['status' => $userModel->status]);

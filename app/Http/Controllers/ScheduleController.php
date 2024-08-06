@@ -213,7 +213,6 @@ class ScheduleController extends Controller
                 // dump($schedules);
 
                 if (isset($schedules)) {
-                    // Log::debug('schedules' . json_encode($schedules));
                     $www = $this->scheduleService->setSunday();
 
                     foreach ($this->days_with_time as $key_day => $day_with_time) {
@@ -276,15 +275,11 @@ class ScheduleController extends Controller
                     //saca los dias inclusive el actual para agendar los bronces
                     $i = 0;
                     foreach ($this->days_with_time as $key => $value) {
-                         // Log::debug('i----------------------------- ' . json_encode($i));
                         if ($day_int == $i) {
                             $this->days_with_time[$key]['status'] = true;
                             break;
                         }
                         $this->days_with_time[$key]['status'] = false;
-                        // else{
-                        //     $this->days_with_time[$key]['status'] = true;
-                        // }
                         $i++;
                     }
                 }
@@ -312,7 +307,6 @@ class ScheduleController extends Controller
 
             foreach ($schedulers as $scheduler){
                 if(($scheduler->user->team) !== null){
-//                    Log::debug('$scheduler->user->team -------- ' . json_encode($scheduler->user->current_team_id));
                     if($scheduler->user->team->id == $user_model->team->id){
                         $cantidad = $cantidad +1;
                     }
@@ -345,8 +339,6 @@ class ScheduleController extends Controller
         $hourDuplicated = false;
 
         $this->user = session('user');
-        Log::debug('user -----------' . json_encode($this->user));
-
         $user_model = $this->userService->getByIdandTwichId($this->user['id']);
 
         $schedules_by_user = $this->scheduleService->getScheduleorThisWeekByUser($user_model);
@@ -360,15 +352,7 @@ class ScheduleController extends Controller
 
         $this->data = $request->all();
         $this->data['status'] = 'ok';
-
-        Log::debug("DAYS");
-        Log::debug(json_encode($this->data));
-
-
         foreach ($this->data['days'] as $key => $value) {
-
-            // Log::debug('value ' . json_encode(($value)));
-            // Log::debug('cantidad de horarios: ' . json_encode(count(($value['horarios']))));
 
             if ($value['day'] == "1") {
 
@@ -435,14 +419,8 @@ class ScheduleController extends Controller
                     foreach ($value['horarios'] as $key => $time) {
 
                         $scheduleNewItem['user_id'] = $user_model->id;
-                        //$monday->tz = 'America/Argentina/Buenos_Aires';
-                        // $start =  new Carbon($date->setDaysFromStartOfWeek($value['day'])->format('Y-m-d') . $time);
                         $new_start = $this->parseToCountry($date, $value['day'], $time, $user_model->time_zone);
-                        Log::debug('new_start:---------------' . json_encode($new_start));
                         $scheduleNewItem['start'] = $new_start;
-
-
-
                         array_push($scheduleNew, $scheduleNewItem);
                     }
                 }
@@ -450,7 +428,6 @@ class ScheduleController extends Controller
 
             //validar que no hay otro usuario ya agendado al mismo tiempo
             foreach ($scheduleNew as $key => $schedule_user) {
-                // Log::debug('schedule_user:-----' . json_encode($schedule_user));
 
                 $dates_other_users =  $this->scheduleService->validateNewScheduleByUser($schedule_user['start']);
                 $currentStreams = [];
@@ -474,12 +451,8 @@ class ScheduleController extends Controller
             }
             if ($hourDuplicated == false) {
                 $ids = $this->scheduleService->bulkCreate($scheduleNew);
-                // Log::debug('ids');
-                // Log::debug(json_encode($ids));
             }
         }
-        // Log::debug('data');
-        // Log::debug(json_encode($this->data));
         return $this->data;
     }
 

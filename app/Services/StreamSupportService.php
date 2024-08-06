@@ -122,8 +122,6 @@ final class StreamSupportService
             $score->user_id = isset($userArray['user_id']) ? $userArray['user_id'] : null;
             $score->supported = isset($userArray['supported']) ? $userArray['supported'] : null;
             $score->save();
-            Log::debug('SupportScore');
-            Log::debug(json_encode($score));
             return $score;
         } catch (Error $e) {
             Log::debug(json_encode($e->getMessage()));

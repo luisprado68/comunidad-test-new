@@ -69,15 +69,9 @@
             var url_summary =  @json($url_summary);
             var url_support =  @json($url_support);
             var url_plus_point = @json($url_plus_point);
-            // console.log(user_model_id);
-            // console.log(user_stream);
-            // console.log(url_plus_point);
             function sendSynchronousRequest() {
 
                 var xhr = new XMLHttpRequest();
-                // var url = "http://127.0.0.1:8000/support/plus_point";
-
-
                 var data = JSON.stringify({
                     user_streaming: user_stream,
                     user_viewer: user_model_id
@@ -104,7 +98,6 @@
                 // Log response directly after send() due to synchronous nature
                 console.log("Response after send:", xhr.responseText);
             }
-            // const targetUrl = 'http://127.0.0.1:8000/support/'+ user_stream;
             // URL específica a validar
             const targetUrl = url_support+ '/' + user_stream;
             console.log(targetUrl)
@@ -119,8 +112,7 @@
                 function checkDuplicateTabs() {
                     const storedTabId = localStorage.getItem('tabId');
                     const storedTabUrl = localStorage.getItem('tabUrl');
-                    // console.log(storedTabUrl)
-                    // console.log(targetUrl)
+
                     if (storedTabUrl === targetUrl) {
                         if (storedTabId !== tabId) {
                             // Mostrar una alerta para cerrar las pestañas duplicadas
@@ -139,8 +131,6 @@
                                 const now_time = new Date();
                                 const now_minutes = now_time.getMinutes();
                                 const now_seconds = now_time.getSeconds();
-                                // console.log(now_seconds);
-                                // console.log(now_minutes);
                                 // Verifica si es el minuto y segundo cero
                                 if (now_minutes === 0 && now_seconds === 0) {
                                     window.location.href = url_summary; // Cambia la URL a la que quieres redirigir
@@ -148,7 +138,6 @@
 
                                 var now = new Date().getTime();
                                 var distance = countDownDate - now;
-
                                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
@@ -158,7 +147,6 @@
                                     clearInterval(x);
                                     document.getElementById("timer").innerHTML = "EXPIRED";
                                     // Redirigir a una URL específica
-                                    // window.location.href = 'http://127.0.0.1:8000/summary';
                                     window.location.href = url_summary;
                                     sendSynchronousRequest();
                                 }
@@ -185,6 +173,5 @@
 
         });
     </script>
-
     @livewireScripts
 </div>

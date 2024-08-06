@@ -37,7 +37,7 @@ final class SupportScoreService
         $this->model = SupportScore::class;
     }
 
-   
+
 
     public function getById($id)
     {
@@ -49,7 +49,7 @@ final class SupportScoreService
             return null;
         }
     }
-   
+
     public function getByUserId($user_id)
     {
         $this->setModel();
@@ -109,8 +109,6 @@ final class SupportScoreService
             $score->point = isset($userArray['point']) ? $userArray['point'] :null;
             $score->user = isset($userArray['user']) ? $userArray['user'] : null;
             $score->save();
-            Log::debug('SupportScore');
-            Log::debug(json_encode($score));
             return $score;
         } catch (Error $e) {
             Log::debug(json_encode($e->getMessage()));
@@ -137,5 +135,5 @@ final class SupportScoreService
         }
     }
 
-    
+
 }
