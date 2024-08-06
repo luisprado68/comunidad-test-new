@@ -185,10 +185,6 @@ class SupportController extends Controller
                 $user_streaming = $this->userService->getById($data['user_streaming']);
                 $supportStreams = $user_model->streamSupport;
                 $exist_supported = false;
-                Log::debug('*********** supportStreams*************');
-                Log::debug(json_encode($supportStreams));
-
-
 
                 $results = StreamSupport::whereDate('updated_at', $dateToCompare->format('Y-m-d'))
                     ->whereTime('updated_at', '>=', $dateToCompare->format('H:00:00'))
@@ -205,19 +201,14 @@ class SupportController extends Controller
                                 foreach ($supportStreams as $key => $supportStream) {
 
                                     $support_created = json_decode($supportStream->supported);
-                                    Log::debug('*********** support_exist*************');
-                                    Log::debug(json_encode($support_created));
                                     if ($support_created->id == $user_streaming->id) {
                                         $exist_supported = true;
-                                        Log::debug('*********** pasassss*************');
-                                        Log::debug(json_encode($support_created));
                                         $supportStream->supported = json_encode($support_created);
                                         $supportStream->update();
                                     }
                                 }
                             }
                             if($exist_supported == false || count($supportStreams) == 0){
-                                Log::debug('*********** crea supportStreams*************');
                                 $support['id'] = $user_streaming->id;
                                 $support['name'] = $user_streaming->channel;
                                 $streamSupport['user_id'] = $user_model->id;
@@ -234,11 +225,14 @@ class SupportController extends Controller
                             $user_support['name'] = $user_streaming->channel;
                             $score->streamer_supported = json_encode($user_support);
                             $score->save();
+                            Log::debug('***** score updated user------------ ' . json_encode($user_model));
                         }
                     }
                 }
+                else{
+                    Log::debug('***** user has already socore ------------ ' . json_encode($user_model));
+                }
             }
-
         }
         return 'ok';
     }
