@@ -78,13 +78,9 @@ class Kernel extends ConsoleKernel
                 Log::debug('---------------[START]  Trovo Chatters ------------');
 
                 $currentStreams = $this->scheduleService->getCurrentStreamKernel(PlatformType::trovo);
-                Log::debug('**** currentStreams ******** ');
-                Log::debug(json_encode($currentStreams));
                 if (count($currentStreams) > 0) {
                     foreach ($currentStreams as $key => $schedule_streaming) {
-
                         $chatters_schedule =  $this->trovoService->getChattersKernel($schedule_streaming);
-
                     }
                 }
                 Log::debug('---------------[FINISH] END Chatters------------');
