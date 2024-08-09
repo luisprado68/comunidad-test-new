@@ -67,7 +67,7 @@ final class StreamSupportService
     public function getStreamSupportsByUserId($id)
     {
         $this->setModel();
-        $user = $this->model::where('user_id', $id)->get();
+        $user = $this->model::where('user_id', $id)->orderBy('updated_at','desc')->get();
         // $user = $this->model::select('user_id','supported')->where('user_id', $id)->groupBy('supported')->get();
         if ($user) {
             return $user;

@@ -163,7 +163,47 @@ class SupportController extends Controller
             }
             if(isset($user_model) && $user_model->status){
 
-                session(['status' => $user_model->status]);
+                if($user_model->platform_id == PlatformType::twich){
+                    $streamSupports = $user_model->streamSupport;
+                    $user_streaming = $this->userService->getById($user_id);
+                    $dateToComp = Carbon::parse(now());
+                    $exist_supported = false;
+                    $results = StreamSupport::whereDate('updated_at', $dateToComp->format('Y-m-d'))
+                        ->whereTime('updated_at', '>=', $dateToComp->format('H:00:00'))
+                        ->whereTime('updated_at', '<=', $dateToComp->format('H:59:59'))
+                        ->where('user_id',$user_model->id)
+                        ->whereJsonContains('supported->id',$user_streaming->id)
+                        ->get();
+                    if(count($results) == 0){
+                        if(!empty($user_streaming)){
+                            if (count($streamSupports)) {
+                                foreach ($streamSupports as $key => $supportStream) {
+                                    $support_created = json_decode($supportStream->supported);
+                                    if ($support_created->id == $user_streaming->id) {
+                                        $exist_supported = true;
+                                        $supportStream->supported = json_encode($support_created);
+                                        $supportStream->update();
+                                    }
+                                }
+                            }
+                            if(!$exist_supported || count($streamSupports) == 0){
+                                $support['id'] = $user_streaming->id;
+                                $support['name'] = $user_streaming->channel;
+                                $streamSupport['user_id'] = $user_model->id;
+                                $streamSupport['supported'] = json_encode($support);
+                                $created = $this->streamSupportService->create($streamSupport);
+                            }
+                            Log::debug('***** support updated user------------ ' . json_encode($user_model));
+                        }
+                    }
+                    else{
+                        Log::debug('***** user has already support ------------ ' . json_encode($user_model));
+                    }
+                }
+
+                    session(['status' => $user_model->status]);
+
+
             }
             else{
                 session(['status' => 0]);
@@ -193,7 +233,7 @@ class SupportController extends Controller
                     ->whereJsonContains('supported->id',$data['user_streaming'])
                     ->get();
 
-                if(count($results) == 0){
+                if(count($results) <= 1){
                     if($score->points_day < 10){
                         if(!empty($user_streaming)){
 

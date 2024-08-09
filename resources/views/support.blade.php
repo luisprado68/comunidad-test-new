@@ -154,9 +154,21 @@
     </div>
 @endsection
 @push('chatters')
-    {{-- @if (env('APP_ENV') == 'local')
-        <script src="{{ asset('/js/setTime.js') }}"></script>
-    @else
-        <script src="./public/js/setTime.js"></script>
-    @endif --}}
+  <script>
+      // Función para verificar la hora actual y actualizar la página si son 15 minutos exactos
+      function checkAndReload() {
+          // Obtener la hora actual
+          const now = new Date();
+          const minutes = now.getMinutes();
+          const seconds = now.getSeconds();
+
+          // Si la hora actual es exactamente 15 minutos y 0 segundos, recargar la página
+          if (minutes === 15 && seconds === 0) {
+              location.reload();
+          }
+      }
+
+      // Configurar un temporizador para verificar la hora cada segundo
+      setInterval(checkAndReload, 1000);
+  </script>
 @endpush
