@@ -122,7 +122,7 @@
                             console.log('alerta para cerrar las pestañas duplicadas');
                         }else{
                             //
-                            var minute = parseInt(localStorage.getItem('minutes_'+user_stream)) || 1;
+                            var minute = parseInt(localStorage.getItem('minutes_'+user_stream)) || 50;
                             if(minute < 1){
                                 //fix para evitar que baje al recargar la pagina
                                 minute = minute + 1;
