@@ -228,12 +228,12 @@ class SupportController extends Controller
 
                 $results = StreamSupport::whereDate('updated_at', $dateToCompare->format('Y-m-d'))
                     ->whereTime('updated_at', '>=', $dateToCompare->format('H:00:00'))
-                    ->whereTime('updated_at', '<=', $dateToCompare->format('H:59:59'))
+                    ->whereTime('updated_at', '<=', $dateToCompare->format('H:15:59'))
                     ->where('user_id',$user_model->id)
                     ->whereJsonContains('supported->id',$data['user_streaming'])
                     ->get();
 
-                if(count($results) <= 1){
+                if(count($results) == 1){
                     if($score->points_day < 10){
                         if(!empty($user_streaming)){
 

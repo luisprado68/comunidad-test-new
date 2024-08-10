@@ -122,8 +122,13 @@
                             console.log('alerta para cerrar las pestañas duplicadas');
                         }else{
                             //
+                            var minute = parseInt(localStorage.getItem('minutes_'+user_stream)) || 1;
+                            if(minute < 1){
+                                //fix para evitar que baje al recargar la pagina
+                                minute = minute + 1;
+                            }
 
-                            var minute = 50;
+                            // var minute = 50;
                             var countDownDate = new Date().getTime() + minute * 60 * 1000;
 
                             var x = setInterval(function() {
@@ -141,11 +146,15 @@
                                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
+
+                                localStorage.setItem('minutes_'+user_stream, minutes.toString());
                                 document.getElementById("timer").innerHTML = minutes + "m " + seconds + "s ";
 
                                 if (distance < 0) {
                                     clearInterval(x);
+
                                     document.getElementById("timer").innerHTML = "EXPIRED";
+                                    localStorage.removeItem('minutes_'+user_stream);
                                     // Redirigir a una URL específica
                                     window.location.href = url_summary;
                                     sendSynchronousRequest();
