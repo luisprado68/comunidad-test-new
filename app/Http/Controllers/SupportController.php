@@ -147,6 +147,11 @@ class SupportController extends Controller
 
 
     public function support_user($user_id){
+        $dateToComp = Carbon::parse(now());
+        $current_minute = intval($dateToComp->format('i'));
+        if ($current_minute > 15){
+            return redirect()->route('summary')->with('message', 'Has llegado tarde vuelve al siguiente stream.');
+        }
         $id = $user_id;
         if(session()->exists('user')) {
             $this->user = session('user');
@@ -166,7 +171,6 @@ class SupportController extends Controller
                 if($user_model->platform_id == PlatformType::twich){
                     $streamSupports = $user_model->streamSupport;
                     $user_streaming = $this->userService->getById($user_id);
-                    $dateToComp = Carbon::parse(now());
                     $exist_supported = false;
                     $results = StreamSupport::whereDate('updated_at', $dateToComp->format('Y-m-d'))
                         ->whereTime('updated_at', '>=', $dateToComp->format('H:00:00'))
@@ -217,6 +221,8 @@ class SupportController extends Controller
         $this->user = session('user');
         $user_model = $this->userService->getByIdandTwichId($this->user['id']);
         $data = $request->all();
+        $minutes_avaible = 15;
+        $sec_avaible = 59;
 
         if(isset($user_model) && !empty($data)){
             if(isset($user_model->score)){
@@ -228,7 +234,7 @@ class SupportController extends Controller
 
                 $results = StreamSupport::whereDate('updated_at', $dateToCompare->format('Y-m-d'))
                     ->whereTime('updated_at', '>=', $dateToCompare->format('H:00:00'))
-                    ->whereTime('updated_at', '<=', $dateToCompare->format('H:15:59'))
+                    ->whereTime('updated_at', '<=', $dateToCompare->format('H:'.$minutes_avaible.':'.$sec_avaible))
                     ->where('user_id',$user_model->id)
                     ->whereJsonContains('supported->id',$data['user_streaming'])
                     ->get();
@@ -266,6 +272,7 @@ class SupportController extends Controller
                             $score->streamer_supported = json_encode($user_support);
                             $score->save();
                             Log::debug('***** score updated user------------ ' . json_encode($user_model));
+//                            return redirect()->back();
                         }
                     }
                 }

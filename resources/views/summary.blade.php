@@ -10,6 +10,16 @@
                 @if (isset($user_watched))
                     @include('status-user', ['user' => $user])
                 @endif
+                @if(session('message'))
+                        <div class="toast-container position-fixed top-0 end-0 p-3">
+                            <div id="liveToast" class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-body">
+                                    {{session('message')}}
+                                </div>
+                            </div>
+                        </div>
+
+                @endif
                 @include('status', ['user' => $user])
                 <div class="pt-1 mb-4 col-md-12 w-100">
                     <div class="card bg-dark">
@@ -86,7 +96,12 @@
 
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const toastLiveExample = document.getElementById('liveToast');
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+        toastBootstrap.show();
+    </script>
 @endsection
 @push('chatters')
 

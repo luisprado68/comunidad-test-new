@@ -69,6 +69,7 @@
             var url_summary =  @json($url_summary);
             var url_support =  @json($url_support);
             var url_plus_point = @json($url_plus_point);
+            var minute_initial = 45;
             function sendSynchronousRequest() {
 
                 var xhr = new XMLHttpRequest();
@@ -84,6 +85,7 @@
                 xhr.onload = function() {
                     if (xhr.status >= 200 && xhr.status < 300) {
                         console.log("Response:", xhr.responseText);
+                        window.close();
                     } else {
                         console.error("Request failed with status:", xhr.status);
                     }
@@ -122,8 +124,8 @@
                             console.log('alerta para cerrar las pestañas duplicadas');
                         }else{
                             //
-                            var minute = parseInt(localStorage.getItem('minutes_'+user_stream)) || 50;
-                            if(minute < 50){
+                            var minute = parseInt(localStorage.getItem('minutes_'+user_stream)) || minute_initial;
+                            if(minute < minute_initial){
                                 //fix para evitar que baje al recargar la pagina
                                 minute = minute + 1;
                             }
@@ -156,7 +158,7 @@
                                     document.getElementById("timer").innerHTML = "EXPIRED";
                                     localStorage.removeItem('minutes_'+user_stream);
                                     // Redirigir a una URL específica
-                                    window.location.href = url_summary;
+                                    // window.location.href = url_summary;
                                     sendSynchronousRequest();
                                 }
                             }, 1000);
