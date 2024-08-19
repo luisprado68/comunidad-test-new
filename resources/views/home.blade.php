@@ -36,7 +36,6 @@
                                                         <li>
                                                             <h5 class="text-center">Esos puntos te servirán para que tengas apoyo y muchos
                                                                 beneficios.</h5>
-                                                            {{-- {{session('test')}} --}}
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -163,8 +162,7 @@
 
                                             <div class="text-center col-12 text-light card " style="background-color: #6474b8">
                                                 <h4>Sumate a la comunidad en Discord!</h4>
-                                                <a href="https://discord.gg/uncB86TTSg" target="_blank"><i class='pb-2 fab fa-discord animate__animated animate__bounce' style='font-size:30px;color:white'></i></a>
-                                                {{-- <h1 class="animate__animated animate__bounce">An animated element</h1> --}}
+                                                <a href="https://discord.gg/mWaYnDBDp5" target="_blank"><i class='pb-2 bi bi-discord animate__animated animate__bounce' style='font-size:30px;color:white'></i></a>
                                             </div>
                                         </div>
                                     </div>
