@@ -21,6 +21,8 @@
     <link rel="icon" href="{{ asset('/img/logo_co.ico') }}">
     <link href="{{ asset('/css/mobiscroll.javascript.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/custom.css') }}" rel="stylesheet">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5041509444656753"
+            crossorigin="anonymous"></script>
     <!-- Styles -->
     @livewireStyles
 </head>
