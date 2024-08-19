@@ -10,7 +10,7 @@
                 <div class="col-12">
                     <a href="https://chat.whatsapp.com/DpGoC5cOEL3EkXfIue1IPM" target="_blank"><button
                             class="btn bg-success col-12 " style="color:#00a884">
-                            <i class="fa-brands fa-whatsapp fa-2xl" style="color:#fff"></i>
+                            <i class="bi bi-whatsapp" style="color:#fff"></i>
                         </button></a>
                 </div>
 
