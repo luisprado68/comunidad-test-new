@@ -6,7 +6,6 @@
             @if (session()->has('user') && session('status') == 0 || !isset($user->team))
                 @include('link')
             @else
-
                 @if (isset($user_watched))
                     @include('status-user', ['user' => $user])
                 @endif
