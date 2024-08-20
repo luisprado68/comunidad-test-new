@@ -150,7 +150,7 @@ class SupportController extends Controller
         $dateToComp = Carbon::parse(now());
         $current_minute = intval($dateToComp->format('i'));
         if ($current_minute > 15){
-            return redirect()->route('summary')->with('message', 'Has llegado tarde vuelve al siguiente stream.');
+            return redirect()->route('summary')->with('message', 'Has llegado tarde espera al siguiente stream.');
         }
         $id = $user_id;
         if(session()->exists('user')) {

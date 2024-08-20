@@ -12,6 +12,12 @@
                 @if(session('message'))
                         <div class="toast-container position-fixed top-0 end-0 p-3">
                             <div id="liveToast" class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
+                                <div class="toast-header">
+{{--                                    <img src="..." class="rounded me-2" alt="...">--}}
+                                    <strong class="me-auto">Notificación</strong>
+{{--                                    <small>11 mins ago</small>--}}
+                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                                </div>
                                 <div class="toast-body">
                                     {{session('message')}}
                                 </div>
@@ -95,21 +101,11 @@
 
         </div>
     </div>
-{{--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>--}}
-{{--    <script>--}}
-{{--        const toastLiveExample = document.getElementById('liveToast');--}}
-{{--        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);--}}
-{{--        toastBootstrap.show();--}}
-{{--    </script>--}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        const toastLiveExample = document.getElementById('liveToast');
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+        toastBootstrap.show();
+    </script>
 @endsection
-@push('chatters')
 
-    {{-- @if (env('APP_ENV') == 'local')
-        <script src="{{ asset('/js/setTime.js') }}"></script>
-    @else
-        <script src="./public/js/setTime.js"></script>
-    @endif --}}
-
-
-
-@endpush
