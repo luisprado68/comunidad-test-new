@@ -3,6 +3,7 @@
 namespace App\Livewire\Support;
 
 use App\Services\UserService;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class SupportUser extends Component
@@ -39,5 +40,16 @@ class SupportUser extends Component
         }
 
         return view('livewire.support.support-user');
+    }
+    public function validateTime(){
+        $dateToComp = Carbon::parse(now());
+        $current_minute = intval($dateToComp->format('i'));
+
+        if ($current_minute <= 55){
+            return redirect()->route('support_user',['user_id' => $this->userId])->with('message', 'Aun el stream continua termina de verlo.');
+        }else{
+            return redirect()->route('summary');
+        }
+
     }
 }

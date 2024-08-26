@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CloseTabController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\HomeController;

@@ -149,7 +149,7 @@ class SupportController extends Controller
     public function support_user($user_id){
         $dateToComp = Carbon::parse(now());
         $current_minute = intval($dateToComp->format('i'));
-        if ($current_minute > 15){
+        if ($current_minute > 55){
             return redirect()->route('summary')->with('message', 'Has llegado tarde espera al siguiente stream.');
         }
         $id = $user_id;
@@ -197,11 +197,11 @@ class SupportController extends Controller
                                 $streamSupport['supported'] = json_encode($support);
                                 $created = $this->streamSupportService->create($streamSupport);
                             }
-                            Log::debug('***** support updated user------------ ' . json_encode($user_model));
+                            Log::debug('***** support updated user------------ ' .json_encode($user_model->id.' - ' . $user_model->channel));
                         }
                     }
                     else{
-                        Log::debug('***** user has already support ------------ ' . json_encode($user_model));
+                        Log::debug('***** user has already support ------------ ' . json_encode($user_model->id.' - ' . $user_model->channel));
                     }
                 }
 
@@ -221,66 +221,71 @@ class SupportController extends Controller
         $this->user = session('user');
         $user_model = $this->userService->getByIdandTwichId($this->user['id']);
         $data = $request->all();
-        $minutes_avaible = 15;
+        $minutes_avaible = 30;
         $sec_avaible = 59;
+        $dateToComp = Carbon::parse(now());
+        $current_minute = intval($dateToComp->format('i'));
 
-        if(isset($user_model) && !empty($data)){
-            if(isset($user_model->score)){
-                $score = $user_model->score;
-                $dateToCompare = Carbon::parse(now());
-                $user_streaming = $this->userService->getById($data['user_streaming']);
-                $supportStreams = $user_model->streamSupport;
-                $exist_supported = false;
+        if ($current_minute >= 55){
+            if(isset($user_model) && !empty($data)){
+                if(isset($user_model->score)){
+                    $score = $user_model->score;
+                    $dateToCompare = Carbon::parse(now());
+                    $user_streaming = $this->userService->getById($data['user_streaming']);
+                    $supportStreams = $user_model->streamSupport;
+                    $exist_supported = false;
 
-                $results = StreamSupport::whereDate('updated_at', $dateToCompare->format('Y-m-d'))
-                    ->whereTime('updated_at', '>=', $dateToCompare->format('H:00:00'))
-                    ->whereTime('updated_at', '<=', $dateToCompare->format('H:'.$minutes_avaible.':'.$sec_avaible))
-                    ->where('user_id',$user_model->id)
-                    ->whereJsonContains('supported->id',$data['user_streaming'])
-                    ->get();
+                    $results = StreamSupport::whereDate('updated_at', $dateToCompare->format('Y-m-d'))
+                        ->whereTime('updated_at', '>=', $dateToCompare->format('H:00:00'))
+                        ->whereTime('updated_at', '<=', $dateToCompare->format('H:'.$minutes_avaible.':'.$sec_avaible))
+                        ->where('user_id',$user_model->id)
+                        ->whereJsonContains('supported->id',$data['user_streaming'])
+                        ->get();
+                    if(count($results) == 1){
+                        if($score->points_day < 10){
+                            if(!empty($user_streaming)){
 
-                if(count($results) == 1){
-                    if($score->points_day < 10){
-                        if(!empty($user_streaming)){
+                                if (count($supportStreams)) {
+                                    foreach ($supportStreams as $key => $supportStream) {
 
-                            if (count($supportStreams)) {
-                                foreach ($supportStreams as $key => $supportStream) {
-
-                                    $support_created = json_decode($supportStream->supported);
-                                    if ($support_created->id == $user_streaming->id) {
-                                        $exist_supported = true;
-                                        $supportStream->supported = json_encode($support_created);
-                                        $supportStream->update();
+                                        $support_created = json_decode($supportStream->supported);
+                                        if ($support_created->id == $user_streaming->id) {
+                                            $exist_supported = true;
+                                            $supportStream->supported = json_encode($support_created);
+                                            $supportStream->update();
+                                        }
                                     }
                                 }
-                            }
-                            if($exist_supported == false || count($supportStreams) == 0){
-                                $support['id'] = $user_streaming->id;
-                                $support['name'] = $user_streaming->channel;
-                                $streamSupport['user_id'] = $user_model->id;
-                                $streamSupport['supported'] = json_encode($support);
-                                $created = $this->streamSupportService->create($streamSupport);
-                            }
-                            $last = $score->points_day + 1;
+                                if($exist_supported == false || count($supportStreams) == 0){
+                                    $support['id'] = $user_streaming->id;
+                                    $support['name'] = $user_streaming->channel;
+                                    $streamSupport['user_id'] = $user_model->id;
+                                    $streamSupport['supported'] = json_encode($support);
+                                    $created = $this->streamSupportService->create($streamSupport);
+                                }
+                                $last = $score->points_day + 1;
 
-                            if($score->neo_coins < 1000){
-                                $score->neo_coins = $score->neo_coins + 1;
-                            }
-                            $score->points_day = $last;
-                            $user_support['id'] = $user_streaming->id;
-                            $user_support['name'] = $user_streaming->channel;
-                            $score->streamer_supported = json_encode($user_support);
-                            $score->save();
-                            Log::debug('***** score updated user------------ ' . json_encode($user_model));
+                                if($score->neo_coins < 1000){
+                                    $score->neo_coins = $score->neo_coins + 1;
+                                }
+                                $score->points_day = $last;
+                                $user_support['id'] = $user_streaming->id;
+                                $user_support['name'] = $user_streaming->channel;
+                                $score->streamer_supported = json_encode($user_support);
+                                $score->save();
+                                Log::debug('***** score updated user------------ ' .  json_encode($user_model->id.' - ' . $user_model->channel));
 //                            return redirect()->back();
+                            }
                         }
                     }
-                }
-                else{
-                    Log::debug('***** user has already socore ------------ ' . json_encode($user_model));
+                    else{
+                        Log::debug('***** user has already socore ------------ ' . json_encode($user_model->id.' - ' . $user_model->channel));
+                    }
                 }
             }
+            return 'ok';
+        }else{
+            return 'error';
         }
-        return 'ok';
     }
 }
