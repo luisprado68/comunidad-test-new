@@ -65,7 +65,6 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
     //Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('support', [SupportController::class, 'index'])->name('support');
     Route::get('support/{user_id}',[SupportController::class, 'support_user'])->name('support_user');
-    Route::post('support/plus_point',[SupportController::class, 'plusPointToUser'])->name('plus_point');
     Route::get('my_agendas', [MyAgendaController::class, 'index'])->name('my_agendas');
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('profile/edit', [ProfileController::class, 'editUser'])->name('edit-user');
