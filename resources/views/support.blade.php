@@ -163,7 +163,7 @@
           const seconds = now.getSeconds();
 
           // Si la hora actual es exactamente 15 minutos y 0 segundos, recargar la página
-          if (minutes === 15 && seconds === 0) {
+          if (minutes === 15 && (seconds <= 0 && seconds >= 59)) {
               location.reload();
           }
       }
