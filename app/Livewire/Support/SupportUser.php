@@ -15,6 +15,7 @@ class SupportUser extends Component
     public $channel;
     public $url_plus_point;
     public $url_summary;
+    public $minimum_time;
     public $url_support;
     private $userService;
 
@@ -25,6 +26,7 @@ class SupportUser extends Component
         $this->url_plus_point = env('APP_URL') . 'support/plus_point';
         $this->url_summary = env('APP_URL') . 'summary';
         $this->url_support = env('APP_URL') . 'support';
+        $this->minimum_time = env('TIME_MINIMUN_TO_PLUS_POINT');
     }
     public function render()
     {

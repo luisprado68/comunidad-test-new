@@ -149,7 +149,7 @@ class SupportController extends Controller
     public function support_user($user_id){
         $dateToComp = Carbon::parse(now());
         $current_minute = intval($dateToComp->format('i'));
-        if ($current_minute > 45){
+        if ($current_minute > env('TIME_TO_NOT_BE_LATE')){
             return redirect()->route('summary')->with('message', 'Has llegado tarde espera al siguiente stream.');
         }
         $id = $user_id;
@@ -197,11 +197,11 @@ class SupportController extends Controller
                                 $streamSupport['supported'] = json_encode($support);
                                 $created = $this->streamSupportService->create($streamSupport);
                             }
-                            Log::debug('***** support updated user------------ ' . json_encode($user_model));
+                            Log::debug('***** support updated user------------ ' . $user_model->id . ' '. $user_model->channel);
                         }
                     }
                     else{
-                        Log::debug('***** user has already support ------------ ' . json_encode($user_model));
+                        Log::debug('***** user has already support ------------ ' .$user_model->id . ' '. $user_model->channel);
                     }
                 }
 
@@ -221,7 +221,7 @@ class SupportController extends Controller
         $this->user = session('user');
         $user_model = $this->userService->getByIdandTwichId($this->user['id']);
         $data = $request->all();
-        $minutes_avaible = 15;
+        $minutes_avaible = env('TIME_TO_NOT_BE_LATE');
         $sec_avaible = 59;
 
         if(isset($user_model) && !empty($data)){
@@ -271,13 +271,13 @@ class SupportController extends Controller
                             $user_support['name'] = $user_streaming->channel;
                             $score->streamer_supported = json_encode($user_support);
                             $score->save();
-                            Log::debug('***** score updated user------------ ' . json_encode($user_model));
+                            Log::debug('***** score updated user------------ ' . $user_model->id . ' '. $user_model->channel);
 //                            return redirect()->back();
                         }
                     }
                 }
                 else{
-                    Log::debug('***** user has already socore ------------ ' . json_encode($user_model));
+                    Log::debug('***** user has already socore ------------ ' . $user_model->id . ' '. $user_model->channel);
                 }
             }
         }

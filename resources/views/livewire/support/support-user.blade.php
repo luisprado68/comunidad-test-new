@@ -69,7 +69,7 @@
             var url_summary =  @json($url_summary);
             var url_support =  @json($url_support);
             var url_plus_point = @json($url_plus_point);
-            var minute_initial = 45;
+            var minute_initial = @json($minimum_time);
             function sendSynchronousRequest() {
 
                 var xhr = new XMLHttpRequest();
