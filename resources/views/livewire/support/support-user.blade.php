@@ -105,10 +105,10 @@
             console.log(targetUrl)
                 // Identificador único para la pestaña actual
             const tabId = Math.random().toString(36).substr(2, 9);
-            console.log(window.location.href)
+            // antes console.log(window.location.href)
                 // Guardar el estado de la pestaña actual en localStorage
                 localStorage.setItem('tabId', tabId);
-                localStorage.setItem('tabUrl', window.location.href);
+                localStorage.setItem('tabUrl', targetUrl);//window.location.href
 
                 // Función para verificar si hay otra pestaña abierta con la misma URL
                 function checkDuplicateTabs() {
