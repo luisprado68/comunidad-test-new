@@ -62,7 +62,7 @@ final class TwichService
         $this->code_test = 'code';
         $this->url_twitch = 'https://id.twitch.tv/oauth2/authorize';
         $this->url_test = 'http://localhost';
-        $this->url = 'https://www.comunidadnc.com/login_token';
+        $this->url = 'https://neo-community.com/login_token';
         $this->client_id = 'vjl5wxupylcsiaq7kp5bjou29solwc';
         $this->force_verify = 'true';
         $this->test_url = $this->url_twitch . '?response_type=' . $this->code . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . '&scope=channel%3Amanage%3Amoderators+moderator%3Aread%3Achatters+user%3Aread%3Afollows+channel%3Aread%3Apolls+user%3Aread%3Aemail+chat%3Aedit+chat%3Aread&state=c3ab8aa609ea11e793ae92361f002671';
@@ -79,7 +79,7 @@ final class TwichService
             $this->code = Str::random(10);
             $this->code_test = 'code';
             $this->url_twitch = $this->platform->url;
-            $this->url = 'https://www.comunidadnc.com/login_token_test';
+            $this->url = 'https://neo-community.com/login_token_test';
             $this->client_id = $this->platform->client_id;
             $this->complete_url = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id . '&redirect_uri=' . $this->url . $this->platform->scope;
             return $this->complete_url;
@@ -122,7 +122,7 @@ final class TwichService
         $result = null;
         $all = $request->all();
         $code = $request->get('code');
-        $this->url = 'https://www.comunidadnc.com/login_token_test';
+        $this->url = 'https://neo-community.com/login_token_test';
 
         if($this->platform->id == PlatformType::twich){
             $client = new Client();
