@@ -58,7 +58,7 @@ final class TrovoService
         $this->code_test = 'code';
         $this->url_twitch = 'https://open.trovo.live/page/login.html';
         $this->url_test = 'http://localhost';
-        $this->url = 'https://www.comunidadnc.com/trovo/login_token';
+        $this->url = 'https://www.neo-community.com/trovo/login_token';
         $this->client_id = '7c23b5396452b6ade3f848bf8b606e7a';
         $this->force_verify = 'true';
         $this->complete_url = $this->url_twitch . '?response_type=' . $this->code_test . '&client_id=' . $this->client_id  . '&redirect_uri=' . $this->url . '&scope=channel_details_self+channel_update_self+user_details_self';
@@ -70,7 +70,7 @@ final class TrovoService
     {
         $code = $request->get('code');
 
-        $this->url = 'https://www.comunidadnc.com/trovo/login_token';
+        $this->url = 'https://www.neo-community.com/trovo/login_token';
         $response = Http::withHeaders([
             'Accept' => 'application/json',
             'client-id' => '7c23b5396452b6ade3f848bf8b606e7a'
