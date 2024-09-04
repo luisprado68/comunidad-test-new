@@ -195,10 +195,10 @@ final class TwichService
             $request = new Psr7Request('POST', 'https://id.twitch.tv/oauth2/token', $headers);
             $res = $client->sendAsync($request, $options)->wait();
             $result = json_decode($res->getBody(), true);
-
             $user->token = $result['access_token'];
             $user->refresh_token = $result['refresh_token'];
             $user->update();
+
         }else{
 
             ModelsLog::create([
@@ -337,7 +337,7 @@ final class TwichService
         $supportStreams = [];
 
         $user_streaming = $schedule->user;
-        if ($user_streaming) {
+        if (isset($user_streaming)) {
 
             $this->getRefreshToken($user_streaming);
 

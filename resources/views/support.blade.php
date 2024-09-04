@@ -72,8 +72,13 @@
 
 {{--                                                        @if(  $user->platform_id == \App\Enums\PlatformType::twich)--}}
                                                         @if( $user->platform_id == \App\Enums\PlatformType::twich)
+{{--                                                            <button class="btn btn-primary"><a--}}
+{{--                                                                    href="{{ route('support_user',['user_id' => $stream['id']]) }}"--}}
+{{--                                                                    target="_blank"--}}
+{{--                                                                    style="text-decoration: none;color:white">Ver--}}
+{{--                                                                    Stream</a></button>--}}
                                                             <button class="btn btn-primary"><a
-                                                                    href="{{ route('support_user',['user_id' => $stream['id']]) }}"
+                                                                    href="{{ $stream['login'] }}"
                                                                     target="_blank"
                                                                     style="text-decoration: none;color:white">Ver
                                                                     Stream</a></button>
