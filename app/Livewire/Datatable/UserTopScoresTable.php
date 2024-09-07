@@ -23,6 +23,7 @@ class UserTopScoresTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
+        $this->useComputedPropertiesDisabled();
     }
 
     public function columns(): array

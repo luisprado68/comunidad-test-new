@@ -33,6 +33,7 @@ class UserTable extends DataTableComponent
         $this->setFiltersEnabled();
         $this->setPrimaryKey('id');
         $this->setFiltersVisibilityStatus(true);
+        $this->useComputedPropertiesDisabled();
     }
     public function filters(): array
     {
