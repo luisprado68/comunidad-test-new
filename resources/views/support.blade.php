@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('content')
-<meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <div class="container">
         <div class="row">
@@ -11,134 +11,129 @@
                 @include('status', ['user' => $user])
 
                 @if (isset($user->time_zone) && $user->time_zone != '')
-                <div class="pt-1 col-md-12 w-100">
-                    <div class="mb-4 card bg-secondary">
-                        <div class="card-body ">
-                            <div class="row">
-                                <div class="mb-4 col-12">
-                                    <div class="card bg-success">
-                                        <div class="text-center card-body text-start">
-                                            <h3 class="text-light ">Streams en Directo</h3>
+                    <div class="pt-1 col-md-12 w-100">
+                        <div class="mb-4 card bg-secondary">
+                            <div class="card-body ">
+                                <div class="row">
+                                    <div class="mb-4 col-12">
+                                        <div class="card bg-success">
+                                            <div class="text-center card-body text-start">
+                                                <h3 class="text-light ">Streams en Directo</h3>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                @if ($show_streams)
-                                    @foreach ($streams as $key => $stream)
-                                        <div class="col-lg-6 col-md-6 col-sm-12">
-                                            <div class="card banner">
-                                                <div class="text-center card-body">
-                                                    <h3 class="text-center text-light">{{ $stream['name'] }}</h3>
-                                                    @if (env('APP_ENV') == 'local')
-                                                        <img src="{{ $stream['img'] }} " alt="tag"
-                                                            class="m-1 text-center w-50 " style="height: 200px">
-                                                    @else
-                                                        <img src=" {{ $stream['img'] }}" alt="tag"
-                                                            class="m-1 text-center w-50 " style="height: 200px">
-                                                    @endif
-
-                                                    <div class="col-lg-12 col-md-4 col-sm-12 text-center">
-                                                        <div class="text-center col-lg-12 col-sm-12">
-                                                            @if(isset($stream['instagram']) && $stream['instagram'] != '')
-                                                                <a href="{{$stream['instagram']}}" target="_blank"><i class="bi bi-instagram color-instagram"></i></a>
-                                                            @else
-
-                                                                <i class="bi bi-instagram color-instagram"></i>
-
-                                                            @endif
-                                                        </div>
-                                                        <div class="text-center col-lg-12 col-sm-12">
-                                                            @if(isset($stream['facebook']) && $stream['facebook'] != '')
-                                                                <a href="{{$stream['facebook']}}" target="_blank"><i class="bi bi-tiktok color-facebook"></i></a>
-                                                            @else
-                                                                <i class="bi bi-tiktok color-facebook"></i>
-                                                            @endif
-                                                        </div>
-                                                        <div class="text-center col-lg-12 col-sm-12">
-                                                            @if(isset($stream['youtube']) && $stream['youtube'] != '')
-                                                                <a href="{{$stream['youtube']}}" target="_blank"><i class="bi bi-youtube color-youtube"></i></a>
-                                                            @else
-                                                                <i class="bi bi-youtube color-youtube"></i>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col">
-                                                        {{-- nuevos cambios --}}
-                                                        <p id="contador" style="display: none"></p>
-                                                        <p id="contadorDos" style="display: none"></p>
-                                                        <p id="{{'stream_id'.$key}}"  style="display: none">{{ $stream['stream_id'] }}</p>
-                                                        <a id="{{'url'.$key}}" style="" href="{{ $stream['login'] }}">
-                                                        </a>
-
-{{--                                                        @if(  $user->platform_id == \App\Enums\PlatformType::twich)--}}
-                                                        @if( $user->platform_id == \App\Enums\PlatformType::twich)
-{{--                                                            <button class="btn btn-primary"><a--}}
-{{--                                                                    href="{{ route('support_user',['user_id' => $stream['id']]) }}"--}}
-{{--                                                                    target="_blank"--}}
-{{--                                                                    style="text-decoration: none;color:white">Ver--}}
-{{--                                                                    Stream</a></button>--}}
-                                                            <button class="btn btn-primary"><a
-                                                                    href="{{ $stream['login'] }}"
-                                                                    target="_blank"
-                                                                    style="text-decoration: none;color:white">Ver
-                                                                    Stream</a></button>
+                                    @if ($show_streams)
+                                        @foreach ($streams as $key => $stream)
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                <div class="card banner">
+                                                    <div class="text-center card-body">
+                                                        <h3 class="text-center text-light">{{ $stream['name'] }}</h3>
+                                                        @if (env('APP_ENV') == 'local')
+                                                            <img src="{{ $stream['img'] }} " alt="tag"
+                                                                 class="m-1 text-center w-50 " style="height: 200px">
                                                         @else
-                                                            <button class="btn btn-primary"><a
-                                                                    href="{{ $stream['login'] }}"
-                                                                    target="_blank"
-                                                                    style="text-decoration: none;color:white">Ver
-                                                                    Stream</a></button>
-
+                                                            <img src=" {{ $stream['img'] }}" alt="tag"
+                                                                 class="m-1 text-center w-50 " style="height: 200px">
                                                         @endif
 
-                                                                {{-- nuevos cambios--}}
-                                                                {{-- @if ($key == 0)
-                                                                <button class="btn btn-primary"><a
-                                                                    href="#" onclick="abrirVentana(); return false;"
-                                                                    style="text-decoration: none;color:white">Ver
-                                                                    Stream</a></button>
+                                                        <div class="col-lg-12 col-md-4 col-sm-12 text-center">
+                                                            <div class="text-center col-lg-12 col-sm-12">
+                                                                @if(isset($stream['instagram']) && $stream['instagram'] != '')
+                                                                    <a href="{{$stream['instagram']}}" target="_blank"><i class="bi bi-instagram color-instagram"></i></a>
                                                                 @else
+
+                                                                    <i class="bi bi-instagram color-instagram"></i>
+
+                                                                @endif
+                                                            </div>
+                                                            <div class="text-center col-lg-12 col-sm-12">
+                                                                @if(isset($stream['facebook']) && $stream['facebook'] != '')
+                                                                    <a href="{{$stream['facebook']}}" target="_blank"><i class="bi bi-tiktok color-facebook"></i></a>
+                                                                @else
+                                                                    <i class="bi bi-tiktok color-facebook"></i>
+                                                                @endif
+                                                            </div>
+                                                            <div class="text-center col-lg-12 col-sm-12">
+                                                                @if(isset($stream['youtube']) && $stream['youtube'] != '')
+                                                                    <a href="{{$stream['youtube']}}" target="_blank"><i class="bi bi-youtube color-youtube"></i></a>
+                                                                @else
+                                                                    <i class="bi bi-youtube color-youtube"></i>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col">
+                                                            {{-- nuevos cambios --}}
+                                                            <p id="contador" style="display: none"></p>
+                                                            <p id="contadorDos" style="display: none"></p>
+                                                            <p id="{{'stream_id'.$key}}"  style="display: none">{{ $stream['stream_id'] }}</p>
+                                                            <a id="{{'url'.$key}}" style="" href="{{ $stream['login'] }}">
+                                                            </a>
+
+                                                            {{--                                                        @if(  $user->platform_id == \App\Enums\PlatformType::twich)--}}
+                                                            @if( $user->platform_id == \App\Enums\PlatformType::twich)
                                                                 <button class="btn btn-primary"><a
-                                                                    href="#" onclick="abrirVentanaSegunda(); return false;"
-                                                                    style="text-decoration: none;color:white">Ver
-                                                                    Stream</a></button>
-                                                                @endif --}}
+                                                                        href="{{ route('support_user',['user_id' => $stream['id']]) }}"
+                                                                        target="_blank"
+                                                                        style="text-decoration: none;color:white">Ver
+                                                                        Stream</a></button>
+                                                            @else
+                                                                <button class="btn btn-primary"><a
+                                                                        href="{{ $stream['login'] }}"
+                                                                        target="_blank"
+                                                                        style="text-decoration: none;color:white">Ver
+                                                                        Stream</a></button>
 
+                                                            @endif
+
+                                                            {{-- nuevos cambios--}}
+                                                            {{-- @if ($key == 0)
+                                                            <button class="btn btn-primary"><a
+                                                                href="#" onclick="abrirVentana(); return false;"
+                                                                style="text-decoration: none;color:white">Ver
+                                                                Stream</a></button>
+                                                            @else
+                                                            <button class="btn btn-primary"><a
+                                                                href="#" onclick="abrirVentanaSegunda(); return false;"
+                                                                style="text-decoration: none;color:white">Ver
+                                                                Stream</a></button>
+                                                            @endif --}}
+
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                @else
-                                    <div class="card-body ">
-                                        <div class="row">
-                                            <div class="col-12">
-                                                <div class="card ">
-                                                    <div class="card-body text-start text-dark">
-                                                        <p>Por ahora no hay streams vuelve en hora puntual, para ver los
-                                                            streams asignados de la hora.
+                                        @endforeach
+                                    @else
+                                        <div class="card-body ">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="card ">
+                                                        <div class="card-body text-start text-dark">
+                                                            <p>Por ahora no hay streams vuelve en hora puntual, para ver los
+                                                                streams asignados de la hora.
 
-                                                        </p>
-                                                        <p><b>Siguiente stream:</b>{{ $date_string }}</p>
+                                                            </p>
+                                                            <p><b>Siguiente stream:</b>{{ $date_string }}</p>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
+                                            </div>
                                         </div>
+                                    @endif
+
+
+                                    <div class="text-center col-6">
+
                                     </div>
-                                @endif
-
-
-                                <div class="text-center col-6">
-
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
 
-                    @else
+                @else
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-10 offset-lg-1">
@@ -159,21 +154,21 @@
     </div>
 @endsection
 @push('chatters')
-  <script>
-      // Función para verificar la hora actual y actualizar la página si son 15 minutos exactos
-      function checkAndReload() {
-          // Obtener la hora actual
-          const now = new Date();
-          const minutes = now.getMinutes();
-          const seconds = now.getSeconds();
+    <script>
+        // Función para verificar la hora actual y actualizar la página si son 15 minutos exactos
+        function checkAndReload() {
+            // Obtener la hora actual
+            const now = new Date();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
 
-          // Si la hora actual es exactamente 15 minutos y 0 segundos, recargar la página
-          if (minutes === 15 && seconds === 0) {
-              location.reload();
-          }
-      }
+            // Si la hora actual es exactamente 15 minutos y 0 segundos, recargar la página
+            if (minutes === 15 && seconds === 0) {
+                location.reload();
+            }
+        }
 
-      // Configurar un temporizador para verificar la hora cada segundo
-      setInterval(checkAndReload, 1000);
-  </script>
+        // Configurar un temporizador para verificar la hora cada segundo
+        setInterval(checkAndReload, 1000);
+    </script>
 @endpush
