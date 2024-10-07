@@ -33,13 +33,13 @@ class SupportUser extends Component
     }
     public function render()
     {
-        $this->url = 'https://player.twitch.tv/?channel=lucho952000&parent=www.neo-community.com';
-        $this->url_chat = 'https://www.twitch.tv/embed/lucho952000/chat?parent=www.neo-community.com';
+        $this->url = 'https://player.twitch.tv/?channel=lucho952000&parent=neo-community.com';
+        $this->url_chat = 'https://www.twitch.tv/embed/lucho952000/chat?parent=neo-community.com';
         $this->channel = 'lucho952000';
         $this->user_stream = $this->userService->getById($this->userId);
         if(isset($this->user_stream)){
-            $this->url = 'https://player.twitch.tv/?channel='.$this->user_stream->channel.'&parent=www.neo-community.com';
-            $this->url_chat = 'https://www.twitch.tv/embed/'.$this->user_stream->channel.'/chat?parent=www.neo-community.com';
+            $this->url = 'https://player.twitch.tv/?channel='.$this->user_stream->channel.'&parent=neo-community.com';
+            $this->url_chat = 'https://www.twitch.tv/embed/'.$this->user_stream->channel.'/chat?parent=neo-community.com';
             $this->channel = $this->user_stream->channel;
         }
 
