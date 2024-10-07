@@ -73,7 +73,7 @@
     width: 60px;
   }
 .profile-img-item{
-    width: 60px;
+    width: 80px;
 }
   .fondo_claro{
     background-image: url('../img/patron_sin.png');
@@ -511,4 +511,10 @@ iframe-container-chat iframe {
 }
 .chat-right{
    margin-left: 50px;
+}
+.hide_div{
+    visibility: hidden;
+}
+.show_div{
+    visibility: visible;
 }

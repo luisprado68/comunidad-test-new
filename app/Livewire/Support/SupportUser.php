@@ -3,6 +3,7 @@
 namespace App\Livewire\Support;
 
 use App\Services\UserService;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class SupportUser extends Component
@@ -17,6 +18,7 @@ class SupportUser extends Component
     public $url_summary;
     public $minimum_time;
     public $url_support;
+    public $minites_before;
     private $userService;
 
     public function mount($user_id)
@@ -27,6 +29,7 @@ class SupportUser extends Component
         $this->url_summary = env('APP_URL') . 'summary';
         $this->url_support = env('APP_URL') . 'support';
         $this->minimum_time = env('TIME_MINIMUN_TO_PLUS_POINT');
+        $this->minites_before = Carbon::now()->minute;
     }
     public function render()
     {
