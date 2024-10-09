@@ -4,7 +4,10 @@
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Usuarios') }}
         </h2>
+        <livewire:user-search />
+        @include('layouts.temporary-buttons')
     </x-slot>
+
     {{-- {{ Auth::user()->name }} --}}
     {{-- @dump( Auth::user()) --}}
     {{-- <div class="py-12">

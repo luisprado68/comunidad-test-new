@@ -518,3 +518,8 @@ iframe-container-chat iframe {
 .show_div{
     visibility: visible;
 }
+a .link-custom:hover{
+
+    background-color:transparent !important; ;
+
+}

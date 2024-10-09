@@ -1,14 +1,14 @@
 <div>
     @if(auth()->user()->can('users-edit'))
-    <button type="submit" class="btn btn-primary"><a class="dropdown-item"
+    <button type="submit" class="btn btn-primary "><a class="dropdown-item"
         href="{{ route('admin-edit', $user->id) }}"><i class="bi bi-pencil-square"></i></a></button>
     @endif
-    
-    
+
+
         <button type="submit" class="btn btn-success"><a class="dropdown-item"
         href="{{ route('admin-show', $user->id) }}"><i class="bi bi-eye-fill"></i></a></button>
-    
-    
+
+
     @if (!$user->deleted)
         @if(auth()->user()->can('users-delete'))
         <button type="button" class="btn btn-danger" data-bs-toggle="modal"

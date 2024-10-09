@@ -4,6 +4,8 @@
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Usuarios sin Equipo') }}
         </h2>
+        <livewire:user-search />
+        @include('layouts.temporary-buttons')
     </x-slot>
     <div class="container">
         <div class="row">

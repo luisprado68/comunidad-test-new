@@ -4,6 +4,7 @@
         <h2 class="text-xl font-semibold leading-tight text-gray-800">
             {{ __('Usuarios Eliminados') }}
         </h2>
+
     </x-slot>
     <div class="container">
         <div class="row">
