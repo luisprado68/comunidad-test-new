@@ -38,7 +38,6 @@ class Kernel extends ConsoleKernel
             $this->userService = new UserService();
             $now =  Carbon::now();
             $minute = $now->format('i');
-
             if ($minute == 15  || $minute == 57) {
 
                 ModelsLog::create([
