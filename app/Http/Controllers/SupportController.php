@@ -149,9 +149,11 @@ class SupportController extends Controller
     public function support_user($user_id){
         $dateToComp = Carbon::parse(now());
         $current_minute = intval($dateToComp->format('i'));
-        if ($current_minute > env('TIME_TO_NOT_BE_LATE')){
-            return redirect()->route('summary')->with('message', 'Has llegado tarde espera al siguiente stream.');
-        }
+
+//        if ($current_minute > env('TIME_TO_NOT_BE_LATE')) {
+//            return redirect()->route('summary')->with('message', 'Has llegado tarde espera al siguiente stream.');
+//        }
+
         $id = $user_id;
         if(session()->exists('user')) {
             $this->user = session('user');

@@ -12,12 +12,6 @@
                 @if(session('message'))
                         <div class="toast-container position-fixed top-0 end-0 p-3">
                             <div id="liveToast" class="toast text-bg-danger" role="alert" aria-live="assertive" aria-atomic="true">
-                                <div class="toast-header">
-{{--                                    <img src="..." class="rounded me-2" alt="...">--}}
-                                    <strong class="me-auto">Notificación</strong>
-{{--                                    <small>11 mins ago</small>--}}
-                                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-                                </div>
                                 <div class="toast-body">
                                     {{session('message')}}
                                 </div>
