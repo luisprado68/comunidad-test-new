@@ -3,6 +3,7 @@
 namespace App\Livewire\Support;
 
 use App\Services\UserService;
+use Carbon\Carbon;
 use Livewire\Component;
 
 class SupportUser extends Component
@@ -17,6 +18,7 @@ class SupportUser extends Component
     public $url_summary;
     public $minimum_time;
     public $url_support;
+    public $minites_before;
     private $userService;
 
     public function mount($user_id)
@@ -27,16 +29,17 @@ class SupportUser extends Component
         $this->url_summary = env('APP_URL') . 'summary';
         $this->url_support = env('APP_URL') . 'support';
         $this->minimum_time = env('TIME_MINIMUN_TO_PLUS_POINT');
+        $this->minites_before = Carbon::now()->minute;
     }
     public function render()
     {
-        $this->url = 'https://player.twitch.tv/?channel=lucho952000&parent=www.neo-community.com';
-        $this->url_chat = 'https://www.twitch.tv/embed/lucho952000/chat?parent=www.neo-community.com';
+        $this->url = 'https://player.twitch.tv/?channel=lucho952000&parent=neo-community.com';
+        $this->url_chat = 'https://www.twitch.tv/embed/lucho952000/chat?parent=neo-community.com';
         $this->channel = 'lucho952000';
         $this->user_stream = $this->userService->getById($this->userId);
         if(isset($this->user_stream)){
-            $this->url = 'https://player.twitch.tv/?channel='.$this->user_stream->channel.'&parent=www.neo-community.com';
-            $this->url_chat = 'https://www.twitch.tv/embed/'.$this->user_stream->channel.'/chat?parent=www.neo-community.com';
+            $this->url = 'https://player.twitch.tv/?channel='.$this->user_stream->channel.'&parent=neo-community.com';
+            $this->url_chat = 'https://www.twitch.tv/embed/'.$this->user_stream->channel.'/chat?parent=neo-community.com';
             $this->channel = $this->user_stream->channel;
         }
 

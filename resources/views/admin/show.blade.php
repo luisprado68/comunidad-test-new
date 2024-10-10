@@ -183,7 +183,7 @@
                                         @if (isset($user->score->neo_coins))
                                         <div class="mt-3 mb-3 col-3">
                                             {{-- <label class="block mb-2 text-sm font-medium text-white" for="name">Punteje Semanal</label> --}}
-                                            <input type="number" class="form-control" aria-label="Default" name="neo_coins"  min="0" max="500"
+                                            <input type="number" class="form-control" aria-label="Default" name="neo_coins"  min="0" max="1000"
                                                 aria-describedby="inputGroup-sizing-default" value="{{ $user->score->neo_coins }}">
                                         </div>
                                         @else
