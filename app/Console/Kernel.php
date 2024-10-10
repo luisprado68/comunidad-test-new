@@ -36,7 +36,6 @@ class Kernel extends ConsoleKernel
             $this->scheduleService = new ScheduleService();
             $this->scoreService = new ScoreService();
             $this->userService = new UserService();
-
             $now =  Carbon::now();
             $minute = $now->format('i');
 
