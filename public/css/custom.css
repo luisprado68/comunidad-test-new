@@ -136,6 +136,18 @@
     background-color: #3ebb10;
     color:white;
   }
+  button.youtube-button{
+      background-color: #e64e27;
+      color:white;
+  }
+    button.youtube-button{
+    background-color: #e64e27;
+    color:white;
+    }
+button.youtube-button:hover{
+    background-color: #df2f00;
+    color:white;
+}
 
   button.trovo-button{
     background-color: #76d86c;
@@ -155,6 +167,9 @@
   .banner_kick{
     background-color: #3ebb10;
   }
+.banner_youtube{
+    background-color: #e64e27;
+}
   .banner_trovo{
     background-color: #76d86c;
   }

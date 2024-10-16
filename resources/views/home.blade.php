@@ -40,7 +40,7 @@
                                                     </ul>
                                                 </div>
                                                 @if (!session()->has('user'))
-                                                    <div class="col-lg-4 col-md-4">
+                                                    <div class="col-lg-6 col-md-6  col-s-12">
                                                         <div class="text-center card-body">
                                                             @if (env('APP_ENV') == 'local')
                                                                 <a class="dropdown-item"
@@ -60,7 +60,7 @@
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4">
+                                                    <div class="col-lg-6 col-md-6  col-s-12">
                                                         <div class="text-center card-body">
                                                             @if (env('APP_ENV') == 'local')
                                                                 <a class="dropdown-item" href="{{ route('login-test') }}"><button type="button" class="btn btn-lg trovo-button"
@@ -80,15 +80,7 @@
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <div class="text-center card-body">
-                                                            <a class="dropdown-item" href="https://kick.com/" target="_blank"><button type="button" class="btn btn-lg kick-button"
-                                                                style="">
-                                                                <i class="fa-brands fa-kickstarter"></i> Únete con
-                                                                KICK</button></a>
 
-                                                        </div>
-                                                    </div>
                                                 @endif
 
 
@@ -96,7 +88,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-s-12">
+                                <div class="col-lg-6 col-md-6  col-s-12 col-s-12">
                                     <div class="pt-5 col-md-12 s-12 w-100">
                                         <div class="card banner">
                                             <h6 class="text-center">Streamers en directo.</h6>
@@ -116,7 +108,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-s-12">
+                                <div class="col-lg-6 col-md-6   col-s-12">
                                     <div class="pt-5 col-md-12 w-100">
                                         <div class="card banner_trovo">
                                             <h6 class="text-center">Streamers en directo.</h6>
@@ -136,9 +128,58 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-s-12">
+
+                                <div class="col-lg-12 col-md-12  col-s-12 col-s-12">
+                                    <div class="pt-5 col-md-12 s-12 w-100">
+                                        <div class="card ">
+
+
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6  col-s-12">
+                                                    <div class="text-center card-body">
+                                                        <a class="dropdown-item" href="https://kick.com/" target="_blank"><button type="button" class="btn btn-lg kick-button"
+                                                                                                                                  style="">
+                                                                <i class="fa-brands fa-kickstarter"></i> Únete con
+                                                                KICK</button></a>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6  col-s-12">
+                                                    <div class="text-center card-body">
+                                                        <a class="dropdown-item" href="https://youtube.com/" target="_blank"><button type="button" class="btn btn-lg youtube-button"
+                                                                                                                                  style="">
+                                                                <i class="bi bi-youtube"></i> Únete con
+                                                                Youtube</button></a>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6   col-s-12">
                                     <div class="pt-5 col-md-12 s-12 w-100">
                                         <div class="card banner_kick">
+                                            <h6 class="text-center">Streamers en directo.</h6>
+
+                                            <div class="row">
+                                                <div class="p-3 col-md-12">
+                                                    <div class="card under" style="height: 150px">
+                                                        <div class="w-50"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="p-3 col-md-12">
+                                                    <div class="card under" style="height: 150px">
+                                                        <div class="w-50"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6   col-s-12">
+                                    <div class="pt-5 col-md-12 s-12 w-100">
+                                        <div class="card banner_youtube">
                                             <h6 class="text-center">Streamers en directo.</h6>
 
                                             <div class="row">
@@ -181,7 +222,7 @@
 {{--                                                        @dump($twoElements1)--}}
                                                         @if (count($twoElements1))
                                                             @foreach ($twoElements1 as $twoElements)
-                                                            <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
+                                                            <div class="mb-4 text-center col-lg-6 col-md-6   col-sm-6">
                                                                     <div class=" text-light">
                                                                         <p style="display: inline"><b>{{'#' .$top++}}</b></p>
                                                                         <a class="text-light link_streamer" style="text-decoration: none" href="{{ route('summary-user',['id' => $twoElements['user_id'] ]) }}"><p>{{$twoElements['channel']}}</p>
@@ -195,7 +236,7 @@
 
                                                         @if (count($twoElements2))
                                                             @foreach ($twoElements2 as $twoElements)
-                                                            <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
+                                                            <div class="mb-4 text-center col-lg-6 col-md-6   col-sm-6">
 
                                                                 <div class=" text-light">
                                                                     <p style="display: inline"><b>{{'#' .$top++}}</b></p>
@@ -210,7 +251,7 @@
 
                                                         @if (count($twoElements3))
                                                             @foreach ($twoElements3 as $twoElements)
-                                                            <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
+                                                            <div class="mb-4 text-center col-lg-6 col-md-6   col-sm-6">
 
                                                                 <div class=" text-light">
                                                                     <p style="display: inline"><b>{{'#' .$top++}}</b></p>
@@ -225,7 +266,7 @@
 
                                                             @if (count($twoElements4))
                                                                 @foreach ($twoElements4 as $twoElements)
-                                                                <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
+                                                                <div class="mb-4 text-center col-lg-6 col-md-6   col-sm-6">
 
                                                                     <div class=" text-light">
                                                                         <p style="display: inline"><b>{{'#' .$top++}}</b></p>
