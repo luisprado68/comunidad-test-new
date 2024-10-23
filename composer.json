@@ -11,9 +11,11 @@
         "laravel/framework": "^10.10",
         "laravel/jetstream": "^4.3",
         "laravel/sanctum": "^3.3",
+        "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.0",
         "rappasoft/laravel-livewire-tables": "^3.2",
+        "spatie/laravel-permission": "^6.9",
         "twbs/bootstrap": "5.3.3"
     },
     "require-dev": {

@@ -20,7 +20,7 @@ use App\Livewire\Home;
 use App\Livewire\Support\SupportUser;
 use Illuminate\Support\Facades\Route;
 use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
-
+use Laravel\Socialite\Facades\Socialite;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,12 +37,23 @@ use Laravel\Fortify\Http\Controllers\AuthenticatedSessionController;
     //     return view('welcome');
     // });
 
+
+    Route::get('google-auth/redirect', function () {
+        return Socialite::driver('google')->redirect();
+    })->name('login_google');
+
+    Route::get('google-auth/callback',  [LoginController::class, 'getGoogleUser'])->name('getTokenTest');
+//        $user = Socialite::driver('google')->user();
+//
+//        // $user->token
+//    });
     Route::get('login_twich', [LoginController::class, 'loginTwich'])->name('login_twich');
     Route::get('login_twich_test/{platform}', [LoginController::class, 'loginTwichTest'])->name('login_twich_test');
     Route::get('login_trovo', [LoginController::class, 'loginTrovo'])->name('login_trovo');
     Route::get('login_token', [LoginController::class, 'getToken'])->name('getToken');
     Route::get('login_token_test', [LoginController::class, 'getTokenTest'])->name('getTokenTest');
     Route::get('/trovo/login_token', [LoginController::class, 'getTokenTrovo'])->name('getToken');
+
 
     Route::get('logout_twich', [LoginController::class, 'logoutTwich'])->name('logout_twich');
 

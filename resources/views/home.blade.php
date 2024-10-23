@@ -146,10 +146,18 @@
                                                 </div>
                                                 <div class="col-lg-6 col-md-6  col-s-12">
                                                     <div class="text-center card-body">
-                                                        <a class="dropdown-item" href="https://youtube.com/" target="_blank"><button type="button" class="btn btn-lg youtube-button"
-                                                                                                                                  style="">
-                                                                <i class="bi bi-youtube"></i> Únete con
-                                                                Youtube</button></a>
+                                                        @if (env('APP_ENV') == 'local')
+                                                            <a class="dropdown-item" href="{{ route('login_google') }}" target="_blank"><button type="button" class="btn btn-lg youtube-button"
+                                                                                                                                         style="">
+                                                                    <i class="bi bi-youtube"></i> Únete con
+                                                                    Youtube</button></a>
+                                                        @else
+                                                            <a class="dropdown-item" href="{{ route('login_google') }}" target="_blank"><button type="button" class="btn btn-lg youtube-button"
+                                                                                                                                         style="">
+                                                                    <i class="bi bi-youtube"></i> Únete con
+                                                                    Youtube</button></a>
+                                                        @endif
+
 
                                                     </div>
                                                 </div>
