@@ -43,10 +43,6 @@ use Laravel\Socialite\Facades\Socialite;
     })->name('login_google');
 
     Route::get('google-auth/callback',  [LoginController::class, 'getGoogleUser'])->name('getTokenTest');
-//        $user = Socialite::driver('google')->user();
-//
-//        // $user->token
-//    });
     Route::get('login_twich', [LoginController::class, 'loginTwich'])->name('login_twich');
     Route::get('login_twich_test/{platform}', [LoginController::class, 'loginTwichTest'])->name('login_twich_test');
     Route::get('login_trovo', [LoginController::class, 'loginTrovo'])->name('login_trovo');

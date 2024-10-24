@@ -52,7 +52,7 @@ class ProfileController extends Controller
             // if(count($currentStreams) > 0){
             //     $times = $this->scheduleService->getTimes($currentStreams,$user_model);
             // }
-            // // @dd($active);
+//              @dd($user_model);
             if($user_model->status){
 
                 session(['status' => $user_model->status]);

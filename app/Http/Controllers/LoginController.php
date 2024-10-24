@@ -185,14 +185,22 @@ class LoginController extends Controller
 //        dd($user);
         $user = [
             'id' => $user->getId(),
-            'nickname' => $user->getNickname(),
+            'username' => $user->getName(),
             'name' => $user->getName(),
             'email' => $user->getEmail(),
             'avatar' => $user->getAvatar(),
             'token' => $user->token,
             'refreshToken' => $user->refreshToken, // May be null
             'expiresIn' => $user->expiresIn,
+            'platform_id' => 3,
+            'display_name' => $user->getName(),
+            'profile_image_url' => $user->getAvatar(),
+            'class_nav' => 'banner-youtube',
         ];
+        //para estar logueeado
+        session(['user' => $user]);
+        //seteamos el token
+        session(['access_token' => $user['token']]) ;
 
         if(array_key_exists('email',$user)){
             $user_model = $this->userService->userExists($user['email'], $user['id'],$user['platform_id']);
