@@ -13,4 +13,5 @@ final class PlatformType extends Enum
 {
     const twich = 1;
     const trovo = 2;
+    const google = 3;
 }

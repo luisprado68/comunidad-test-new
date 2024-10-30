@@ -24,7 +24,7 @@ class UserDeletedTable extends DataTableComponent
     public function configure(): void
     {
         $this->setPrimaryKey('id');
-//        $this->useComputedPropertiesDisabled();
+        $this->useComputedPropertiesDisabled();
     }
 
     public function columns(): array
