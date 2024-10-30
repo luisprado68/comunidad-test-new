@@ -33,8 +33,8 @@ return [
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
-//        'redirect' => 'https://neo-community.com/google-auth/callback',
-        'redirect' => 'http://127.0.0.1:8000/google-auth/callback',
+        'redirect' => env('APP_URL').'google-auth/callback',
+//        'redirect' => 'http://127.0.0.1:8000/google-auth/callback',
     ],
 
 ];
