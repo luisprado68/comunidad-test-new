@@ -14,7 +14,9 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card banner-border">
-                        <button type="button" class="btn btn-primary">Gana neocoins gratis <i class="bi bi-coin"></i></button>
+                        <button type="button" class="btn btn-primary"><i class="bi bi-coin"></i>
+                            <a href="{{route('getCoins')}}" style="text-decoration: none;color:#ffffff">Gana neocoins gratis</a>
+                            </button>
                     </div>
                     <div class="card banner-border mt-2">
                         <div class="card-body bg-light rounded">

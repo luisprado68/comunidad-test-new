@@ -22,8 +22,10 @@ class Nav extends Component
         if(session('user') && array_key_exists('platform_id',session('user'))){
             if( session('user')['platform_id'] == PlatformType::trovo){
                 $this->background = 'banner-trovo';
-            }else{
+            }elseif( session('user')['platform_id'] == PlatformType::twich){
                 $this->background = 'banner-twich';
+            }else{
+                $this->background = 'banner-youtube';
             }
 
         }else{

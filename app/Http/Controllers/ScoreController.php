@@ -23,7 +23,7 @@ class ScoreController extends Controller
         $this->userService = $userService;
         $this->scheduleService = $scheduleService;
     }
-  
+
 
     public function getPointSupport($user_name){
         $user = $this->userService->getByChannel($user_name);
@@ -33,6 +33,41 @@ class ScoreController extends Controller
         // dump($user);
     }
 
-    
-  
+    public function getCoins(){
+        $ref = [];
+        // dd(session('user'));
+        if(session()->exists('user')){
+            $user = session('user');
+            if(array_key_exists('platform_id',$user)){
+
+                if(array_key_exists('email',$user)){
+                    $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['platform_id']);
+                }else{
+                    $userModel = $this->userService->userExistsActive($user['display_name'].'@gmail.com',$user['id'],$user['platform_id']);
+                }
+            }else{
+                $userModel = $this->userService->userExistsActive($user['email'],$user['id']);
+            }
+
+            foreach ($userModel->supportScores as $key => $supportScore) {
+                $stream = json_decode($supportScore->user);
+                array_push($ref,$stream->channel);
+            }
+
+            if($userModel->status){
+
+                session(['status' =>$userModel->status]);
+            }
+            else{
+                session(['status' => 0]);
+            }
+
+            return view('getCoins',["user"=>$userModel,'ref' => $ref]);
+        }else{
+            return redirect('/');
+        }
+    }
+
+
+
 }

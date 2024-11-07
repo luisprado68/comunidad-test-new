@@ -42,13 +42,13 @@ use Laravel\Socialite\Facades\Socialite;
         return Socialite::driver('google')->redirect();
     })->name('login_google');
 
-    Route::get('google-auth/callback',  [LoginController::class, 'getGoogleUser'])->name('getTokenTest');
+    Route::get('google-auth/callback',  [LoginController::class, 'getGoogleUser'])->name('getGoogleUser');
     Route::get('login_twich', [LoginController::class, 'loginTwich'])->name('login_twich');
     Route::get('login_twich_test/{platform}', [LoginController::class, 'loginTwichTest'])->name('login_twich_test');
     Route::get('login_trovo', [LoginController::class, 'loginTrovo'])->name('login_trovo');
     Route::get('login_token', [LoginController::class, 'getToken'])->name('getToken');
     Route::get('login_token_test', [LoginController::class, 'getTokenTest'])->name('getTokenTest');
-    Route::get('/trovo/login_token', [LoginController::class, 'getTokenTrovo'])->name('getToken');
+    Route::get('/trovo/login_token', [LoginController::class, 'getTokenTrovo'])->name('getTokenTrovo');
 
 
     Route::get('logout_twich', [LoginController::class, 'logoutTwich'])->name('logout_twich');
@@ -67,6 +67,8 @@ use Laravel\Socialite\Facades\Socialite;
     Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('/home_test', [HomeTestController::class, 'index'])->name('home_test');
     // Route::get('/home', [InitialController::class, 'index'])->name('home');
+
+    Route::get('get_coins', [ScoreController::class, 'getCoins'])->name('getCoins');
 
     //Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('support', [SupportController::class, 'index'])->name('support');

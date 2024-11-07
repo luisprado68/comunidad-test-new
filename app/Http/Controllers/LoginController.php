@@ -319,8 +319,10 @@ class LoginController extends Controller
                 $user_response['platform_id'] = $user_model->platform_id;
                 if($user_model->platform_id == PlatformType::twich){
                     $user_response['class_nav'] = 'banner-twich';
-                }else{
+                }elseif($user_model->platform_id == PlatformType::trovo){
                     $user_response['class_nav'] = 'banner-trovo';
+                }else{
+                    $user_response['class_nav'] = 'banner-youtube';
                 }
                 if (isset($user_model->img_profile) && !empty($user_model->img_profile)) {
                     $user_response['profile_image_url'] = $user_model->img_profile;
