@@ -78,6 +78,9 @@
                                             <li><a class="dropdown-item item-list" href="{{ route('schedule') }}">Agendar</a></li>
                                             <li><a class="dropdown-item item-list" href="{{ route('my_agendas') }}">Mis Agendas</a></li>
                                         @endif
+                                        @if(@session('user')['platform_id'] == \App\Enums\PlatformType::google)
+                                            <li><a class="dropdown-item item-list" href="{{ route('offer-index') }}">Mis Ofertas</a></li>
+                                        @endif
 
                                         <li><a class="dropdown-item item-list" href="{{ route('history') }}">Historial</a></li>
                                         <li><a class="dropdown-item item-list" href="{{ route('donation') }}">Donaciones</a></li>
