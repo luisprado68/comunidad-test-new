@@ -313,7 +313,7 @@ final class TrovoService
                                         // $score->points_day = 0;
                                         $score->points_day =  $score->points_day + 1;
                                     }
-                                    $score->neo_coins = $score->neo_coins + 1;
+                                    $score->neo_coins = $score->neo_coins + 100;
                                     $score->streamer_supported = json_encode($user_support);
                                     $score->save();
                                     ModelsLog::create([

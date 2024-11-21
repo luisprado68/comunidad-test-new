@@ -12,7 +12,6 @@
                                                             class="logo rounded-circle"></a>
                     @endif
                 </div>
-
                 <div class="col-lg-2 col-md-4 col-sm-12"></div>
                 <div class="col-lg-8 col col-md-12 col-sm-12">
                     <div class="d-flex justify-content-end icon-img">
@@ -33,9 +32,12 @@
                                     @if (session()->has('user'))
                                         <li><a class="dropdown-item item-list" href="{{ route('profile') }}">Perfil</a></li>
                                         <li><a class="dropdown-item item-list" href="{{ route('summary') }}">Resumen</a></li>
-                                        <li><a class="dropdown-item item-list" href="{{ route('support') }}">Apoyar</a></li>
-                                        <li><a class="dropdown-item item-list" href="{{ route('schedule') }}">Agendar</a></li>
-                                        <li><a class="dropdown-item item-list" href="{{ route('my_agendas') }}">Mis Agendas</a></li>
+                                    @if(@session('user')['platform_id'] != \App\Enums\PlatformType::google)
+                                            <li><a class="dropdown-item item-list" href="{{ route('support') }}">Apoyar</a></li>
+                                            <li><a class="dropdown-item item-list" href="{{ route('schedule') }}">Agendar</a></li>
+                                            <li><a class="dropdown-item item-list" href="{{ route('my_agendas') }}">Mis Agendas</a></li>
+                                    @endif
+
                                         <li><a class="dropdown-item item-list" href="{{ route('history') }}">Historial</a></li>
                                         <li><a class="dropdown-item item-list" href="{{ route('donation') }}">Donaciones</a></li>
                                         <li><a class="dropdown-item item-list" href="{{ route('logout_twich') }}">Cerrar Sesión</a></li>

@@ -119,6 +119,8 @@ final class TwichService
     public function getTokenTest(Request $request)
     {
         $this->platform = $this->platformService->getById(session('platform_id'));
+        Log::debug('$this->platform -- ' . json_encode($this->platform));
+        Log::debug('platform_id -- ' . json_encode(session('platform_id')));
         $result = null;
         $all = $request->all();
         $code = $request->get('code');
@@ -391,7 +393,7 @@ final class TwichService
                                         $score->points_day =  $score->points_day + 1;
                                     }
                                     if($score->neo_coins < 1000){
-                                        $score->neo_coins = $score->neo_coins + 1;
+                                        $score->neo_coins = $score->neo_coins + 100;
                                     }
 
                                     $score->streamer_supported = json_encode($user_support);

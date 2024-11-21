@@ -49,7 +49,7 @@
             @if (Illuminate\Support\Facades\Route::current()->uri == 'summary' || Illuminate\Support\Facades\Route::current()->uri == 'summary/{id}'  )
                 @livewire('layouts.nav',['class_nav' => session('user')['class_nav'],'user' => session('user')])
             @else
-                @include('layouts.nav',['class_nav' => session('user')['class_nav']])
+                @include('layouts.nav',['class_nav' => session('user')['class_nav'],'user' => session('user')])
             @endif
         @else
             @include('layouts.nav',['class_nav' => 'banner-dark'])

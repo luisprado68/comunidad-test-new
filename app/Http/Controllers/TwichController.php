@@ -119,7 +119,7 @@ class TwichController extends Controller
                                             $score->points_week = $score->points_week + 1;
                                         }
 
-                                        $score->neo_coins = $score->neo_coins + 1;
+                                        $score->neo_coins = $score->neo_coins + 100;
                                         $score->streamer_supported = json_encode($user_support);
                                         $score->update();
 

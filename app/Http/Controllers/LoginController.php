@@ -128,6 +128,7 @@ class LoginController extends Controller
 
     public function getTokenTest(Request $request)
     {
+        Log::debug('$request **** ' . json_encode($request->all()));
         $support_user = [];
         $supportScoreArray = [];
         $total = 0;

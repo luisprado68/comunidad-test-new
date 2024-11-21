@@ -73,9 +73,12 @@
                                     @if (session()->has('user'))
                                         <li><a class="dropdown-item item-list" href="{{ route('profile') }}">Perfil</a></li>
                                         <li><a class="dropdown-item item-list" href="{{ route('summary') }}">Resumen</a></li>
-                                        <li><a class="dropdown-item item-list" href="{{ route('support') }}">Apoyar</a></li>
-                                        <li><a class="dropdown-item item-list" href="{{ route('schedule') }}">Agendar</a></li>
-                                        <li><a class="dropdown-item item-list" href="{{ route('my_agendas') }}">Mis Agendas</a></li>
+                                        @if(@session('user')['platform_id'] != \App\Enums\PlatformType::google)
+                                            <li><a class="dropdown-item item-list" href="{{ route('support') }}">Apoyar</a></li>
+                                            <li><a class="dropdown-item item-list" href="{{ route('schedule') }}">Agendar</a></li>
+                                            <li><a class="dropdown-item item-list" href="{{ route('my_agendas') }}">Mis Agendas</a></li>
+                                        @endif
+
                                         <li><a class="dropdown-item item-list" href="{{ route('history') }}">Historial</a></li>
                                         <li><a class="dropdown-item item-list" href="{{ route('donation') }}">Donaciones</a></li>
                                         <li><a class="dropdown-item item-list" href="{{ route('logout_twich') }}">Cerrar Sesión</a></li>

@@ -159,8 +159,11 @@ final class ScoreService
 
                                     $range_id = $range_current + 1;
                                 }
-                                $user->range_id = $range_id;
-                                $user->save();
+                                if($range_id == RangeType::diamante && $user->range_id != RangeType::esmeralda){
+                                    $user->range_id = $range_id;
+                                    $user->save();
+                                }
+
                         }
                         elseif ($user->range_id >= RangeType::bronce && $user->range_id <= RangeType::platino && $user->hasRole('streamer')) {
                             //comento que bajen de rango

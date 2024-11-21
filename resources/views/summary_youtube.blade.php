@@ -26,7 +26,8 @@
                 </div>
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card banner-border">
-                    <button type="button" class="btn btn-primary">Crear una oferta</button>
+                    <button type="button" class="btn btn-primary"><a href="{{route('offer-create',['user_id' => $user->id])}}" style="text-decoration: none;color:#ffffff">Crear una oferta</a>
+                        </button>
                     </div>
                     <div class="card banner-border mt-2">
                         <div class="card-body bg-light rounded">

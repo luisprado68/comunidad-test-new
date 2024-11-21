@@ -8,6 +8,7 @@ use App\Http\Controllers\HomeTestController;
 use App\Http\Controllers\InitialController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MyAgendaController;
+use App\Http\Controllers\OfferController;
 use App\Http\Controllers\PrivacyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ScheduleController;
@@ -69,6 +70,8 @@ use Laravel\Socialite\Facades\Socialite;
     // Route::get('/home', [InitialController::class, 'index'])->name('home');
 
     Route::get('get_coins', [ScoreController::class, 'getCoins'])->name('getCoins');
+    Route::get('offer/create/{user_id}', [OfferController::class, 'create'])->name('offer-create');
+    Route::get('offer/index', [OfferController::class, 'index'])->name('offer-index');
 
     //Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('support', [SupportController::class, 'index'])->name('support');
