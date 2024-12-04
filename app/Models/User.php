@@ -122,4 +122,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Platform::class);
     }
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
 }

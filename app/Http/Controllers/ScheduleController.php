@@ -339,7 +339,7 @@ class ScheduleController extends Controller
         $hourDuplicated = false;
 
         $this->user = session('user');
-        $user_model = $this->userService->getByIdandTwichId($this->user['id']);
+        $user_model = $this->userService->getByIdandTwichId($this->user['id'],$this->user['platform_id']);
 
         $schedules_by_user = $this->scheduleService->getScheduleorThisWeekByUser($user_model);
         if (!isset($schedules_by_user)) {

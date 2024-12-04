@@ -70,10 +70,10 @@ final class UserService
         }
     }
 
-    public function getByIdandTwichId($twich_id)
+    public function getByIdandTwichId($twich_id,$platform_id)
     {
         $this->setModel();
-        $user = $this->model::where('stream_id', $twich_id)->first();
+        $user = $this->model::where('stream_id', $twich_id)->where('platform_id',$platform_id)->first();
         if ($user) {
             return $user;
         } else {

@@ -221,7 +221,7 @@ class SupportController extends Controller
     public function plusPointToUser(Request $request)
     {
         $this->user = session('user');
-        $user_model = $this->userService->getByIdandTwichId($this->user['id']);
+        $user_model = $this->userService->getByIdandTwichId($this->user['id'],$this->user['platform_id']);
         $data = $request->all();
         $minutes_avaible = env('TIME_TO_NOT_BE_LATE');
         $sec_avaible = 59;

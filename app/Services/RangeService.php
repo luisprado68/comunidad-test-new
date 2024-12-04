@@ -69,17 +69,6 @@ final class RangeService
         }
     }
 
-    public function getByIdandTwichId($twich_id)
-    {
-        $this->setModel();
-        $user = $this->model::where('stream_id', $twich_id)->first();
-        if ($user) {
-            return $user;
-        } else {
-            return null;
-        }
-    }
-
     /**
      * @param $accountId
      * @return mixed

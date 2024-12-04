@@ -48,8 +48,8 @@ class UserController extends Controller
         if($exist == false){
             $this->userService->create($user);
         }
-        
-        
+
+
         return redirect('/profile');
     }
     public function logout()
@@ -62,12 +62,12 @@ class UserController extends Controller
     public function update(){
         if(session()->has('user')){
             $session_user = session('user');
-            $user = $this->userService->getByIdandTwichId($session_user,$session_user->twich_id);
-            
+            $user = $this->userService->getByIdandTwichId($session_user['id'],$session_user['platform_id']);
+
         }
-        
+
     }
 
-    
-    
+
+
 }

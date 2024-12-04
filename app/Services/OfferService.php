@@ -36,17 +36,18 @@ final class OfferService
      */
     protected function setModel(): void
     {
-        $this->model = User::class;
+        $this->model = Offer::class;
     }
+
 
     public function all(){
         $this->setModel();
 
-        $users = $this->model::all();
-        if(count($users) > 0){
-            return $users;
+        $offers = $this->model::all();
+        if(count($offers) > 0){
+            return $offers;
         }else {
-            return null;
+            return collect();
         }
     }
     public function getById($id)
@@ -60,184 +61,12 @@ final class OfferService
         }
     }
 
-    public function getByChannel($channel)
-    {
-        $this->setModel();
-        $user = $this->model::where('channel', $channel)->first();
-        if ($user) {
-            return $user;
-        } else {
-            return null;
-        }
-    }
-
-    public function getByIdandTwichId($twich_id)
-    {
-        $this->setModel();
-        $user = $this->model::where('stream_id', $twich_id)->first();
-        if ($user) {
-            return $user;
-        } else {
-            return null;
-        }
-    }
-    public function getByUsername($username,$platform_id)
-    {
-        $this->setModel();
-        $user = $this->model::where('username', $username)->where('platform_id',$platform_id)->first();
-        if ($user) {
-            return $user;
-        } else {
-            return null;
-        }
-    }
-
-    /**
-     * @param $accountId
-     * @return mixed
-     */
-
-    public function userExists($email, $twich_id = null,$platform_id = null)
-    {
-        $this->setModel();
-        $user = null;
-        if( isset($twich_id) && isset($platform_id)){
-
-            $user = $this->model
-                ::where('stream_id', $twich_id)->where('platform_id',$platform_id)
-                ->first();
-        }
-
-//        if (empty($user) && isset($twich_id)) {
-//            $user = $this->model
-//                ::where('stream_id', $twich_id)
-//                ->first();
-//        }
-//
-//        if(empty($user) && isset($email)){
-//            $user = $this->model::where('email', $email)->first();
-//        }
-
-        if ($user) {
-            $user->token = session('access_token') ?? '';
-            $user->refresh_token = session('refresh_token') ?? '';
-            $user->update();
-            return $user;
-        } else {
-            return false;
-        }
-    }
-
-    public function userExistsTrovo($email, $trovo_id = null)
-    {
-        $user = null;
-        $this->setModel();
-        if (isset($email)) {
-            $user = $this->model::where('email', $email)->first();
-        }
-        if(empty($user) && isset($trovo_id)){
-            $user = $this->model
-                ::where('trovo_id', $trovo_id)
-                ->first();
-        }
-        if (isset($user)) {
-            $user->token = session('access_token') ?? '';
-            $user->refresh_token = session('refresh_token') ?? '';
-            $user->update();
-            return $user;
-        } else {
-            return false;
-        }
-    }
-
-    public function userExistsActive($email, $stream_id = null,$streamType = 1)
-    {
-        $this->setModel();
-        if (isset($stream_id) && isset($streamType)) {
-            $user = $this->model::where('stream_id', $stream_id)->where('platform_id', $streamType)->first();
-        }
-        if (empty($user) && isset($stream_id)) {
-                $user = $this->model::where('stream_id', $stream_id)->first();
-        }
-        if(empty($user)){
-            $user = $this->model::where('email', $email)->first();
-        }
-        if ($user) {
-            return $user;
-        } else {
-            return false;
-        }
-    }
-
-    public function userLogin($email, $password)
-    {
-        $result['user'] = false;
-        $result['message'] = '';
-
-        $this->setModel();
-        if (isset($email) && isset($password)) {
-
-            $user = $this->model
-            ::where('email', $email)
-            ->first();
-
-            if (Hash::check($password, $user->password)) {
-                session(['user-log' => $user]);
-                return  $user;
-            }
-        } else {
-            return false;
-        }
 
 
-    }
-
-    public function userLoginTwich($email, $password)
-    {
-        $user = false;
-        $this->setModel();
-        if (isset($email) && isset($password)) {
-
-            $user = $this->model
-                ::where('email', $email)
-                ->where('channel', $password)
-                ->first();
-
-            session(['user' => $user]);
-            if (isset($user)) {
-                return $user;
-            }
 
 
-        }
-        return $user;
-    }
 
-    public function getUsers()
-    {
-        $this->setModel();
 
-        $users = $this->model::all()->toArray();
-
-        if (count($users) > 0) {
-            return $users;
-        } else {
-            return false;
-        }
-    }
-
-    public function getUsersModel()
-    {
-        $this->setModel();
-
-        $users = $this->model::where('deleted',false)->get();
-
-        if (count($users) > 0) {
-            return $users;
-        } else {
-            return false;
-        }
-    }
 
     /**
      * @param $userArray
@@ -313,19 +142,15 @@ final class OfferService
         }
     }
 
-    public function TableQuery($filter = null,$team = null)
+    public function TableQuery($filter = null)
     {
+        $user = session('user');
+        $userService = new UserService();
+        $userFound = $userService->getByIdandTwichId($user['id'],$user['platform_id']);
         $this->setModel();
-        $query = $this->model::query()->select('*')
+        return $this->model::query()->select('*')
             // ->with('account')
-            ->where('deleted', 0);
-
-            if(isset($team)){
-                $query->where('current_team_id',$team->id);
-            }
-
-
-        return $query;
+            ->where('user_id', $userFound->id);
     }
 
 
@@ -343,7 +168,7 @@ final class OfferService
         }
     }
 
-    public function getUsersTopQuery()
+    public function getQuery()
     {
         $this->setModel();
 

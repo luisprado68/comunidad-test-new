@@ -8,18 +8,18 @@
                 </div>
 
                     <div class="row justify-content-center">
-                        <div class="col-8">
-                            <label for="name">viewers</label>
+                        <div class="col-8 mb-4">
+                            <label for="name" class="text-light">Cuantos seguidores?</label>
                             <input type="number" id="name" wire:model="offer.viewers" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                             @error('offer.viewers') <span class="text-danger position-absolute">{{ $message }}</span> @enderror
                         </div>
-                        <div class="col-8">
-                            <label for="name">offer_coins</label>
+                        <div class="col-8 mb-4">
+                            <label for="name" class="text-light">Cuantas coins ofreces?</label>
                             <input type="number" id="name" wire:model="offer.offer_coins" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                             @error('offer.offer_coins') <span class="text-danger position-absolute">{{ $message }}</span> @enderror
                         </div>
-                        <div class="col-8">
-                            <label for="name">price</label>
+                        <div class="col-8 mb-4" >
+                            <label for="name" class="text-light">Costo total</label>
                             <input type="number" id="name" wire:model="offer.price" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                             @error('offer.price') <span class="text-danger position-absolute">{{ $message }}</span> @enderror
                         </div>

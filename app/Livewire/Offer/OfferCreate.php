@@ -34,6 +34,18 @@ class OfferCreate extends Component
             'offer.viewers' => 'required|string|max:255',
             'offer.offer_coins' => 'required|string|max:255',
             'offer.price' => 'required|string|max:255',
+        ],[
+            'offer.viewers.required' => 'El campo de seguidores es obligatorio.',
+            'offer.viewers.string' => 'El campo de seguidores debe ser una cadena de texto.',
+            'offer.viewers.max' => 'El campo de seguidores no debe exceder los 255 caracteres.',
+
+            'offer.offer_coins.required' => 'El campo de neocoins de la oferta es obligatorio.',
+            'offer.offer_coins.string' => 'El campo de neocoins de la oferta debe ser una cadena de texto.',
+            'offer.offer_coins.max' => 'El campo de neocoins de la oferta no debe exceder los 255 caracteres.',
+
+            'offer.price.required' => 'El campo de precio es obligatorio.',
+            'offer.price.string' => 'El campo de precio debe ser una cadena de texto.',
+            'offer.price.max' => 'El campo de precio no debe exceder los 255 caracteres.',
         ]);
 
         $offer = [];

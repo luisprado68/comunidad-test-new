@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\PlatformType;
 use App\Models\Log as ModelsLog;
 use App\Services\ScheduleService;
 use App\Services\ScoreService;
@@ -52,7 +53,8 @@ class TwichController extends Controller
             if(isset($datos['minutos']) && isset($datos['stream_id'])){
                 $minutos = intval($datos['minutos']);
                 $twich_id = $datos['stream_id'];
-                $user_streaming = $this->userService->getByIdandTwichId($twich_id);
+                $platform_id = PlatformType::twich;
+                $user_streaming = $this->userService->getByIdandTwichId($twich_id,$platform_id);
 
                 if (!empty($user_model) && $user_model->id != $user_streaming->id) {
 
