@@ -8,7 +8,7 @@
                     </div>
                     <div class="card banner-border mt-2">
                         <div class="card-body bg-light rounded">
-                            <h5 class="text-center text-dark">aaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
+                            <h5 class="text-center text-dark">Impulsa el crecimiento de tu canal creando ofertas atractivas que capten la atención de tu audiencia.Estas estrategias haran crecer tu canal </h5>
                         </div>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                     </div>
                     <div class="card banner-border mt-2">
                         <div class="card-body bg-light rounded">
-                            <h5 class="text-center text-dark">aaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
+                            <h5 class="text-center text-dark">Gana NeoCoins mirando los videos de los miembros  y usalos para crear ofertas y subir tus videos para hacer crecer tu canal</h5>
                         </div>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     </div>
                     <div class="card banner-border mt-2">
                         <div class="card-body bg-light rounded">
-                            <h5 class="text-center text-dark">aaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
+                            <h5 class="text-center text-dark">Sube tus videos, define la cantidad de NeoCoins que quieres ofrecer por cada visualización, y observa cómo aumenta el interés de tu audiencia</h5>
                         </div>
                     </div>
                 </div>

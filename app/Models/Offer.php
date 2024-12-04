@@ -21,7 +21,8 @@ class Offer extends Model
         'user_id',
         'viewers',
         'offer_coins',
-        'price'
+        'price',
+        'link'
     ];
     public function user()
     {

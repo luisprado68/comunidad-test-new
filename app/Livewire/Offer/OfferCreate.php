@@ -61,4 +61,8 @@ class OfferCreate extends Component
         }
 
     }
+    public function return(){
+        return redirect()->route('summary');
+    }
+
 }

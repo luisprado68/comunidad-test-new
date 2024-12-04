@@ -34,6 +34,8 @@ class OfferTable extends DataTableComponent
         return [
             Column::make("Id", "id")
                 ->sortable(),
+            Column::make("Url", "link")
+                ->sortable(),
             Column::make("Seguidores", "viewers")
                 ->sortable(),
                 Column::make('Neocoins','offer_coins')
