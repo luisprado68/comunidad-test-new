@@ -10,8 +10,8 @@
                     <div class="row justify-content-center">
                         <div class="col-8 mb-4 mt-4">
                             <label for="name" class="text-light">Link de video</label>
-                            <input type="text" id="name" wire:model="offer.url" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-                            @error('offer.url') <span class="text-danger position-absolute">{{ $message }}</span> @enderror
+                            <input type="text" id="name" wire:model="offer.link" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                            @error('offer.link') <span class="text-danger position-absolute">{{ $message }}</span> @enderror
                         </div>
                         <div class="col-8 mb-4">
                             <label for="name" class="text-light">Cuantos vistas deseas?</label>

@@ -77,6 +77,7 @@ final class OfferService
         try {
             $offer = new Offer();
             $offer->user_id = $offerArray['user_id'];
+            $offer->link = $offerArray['link'];
             $offer->viewers = $offerArray['viewers'];
             $offer->offer_coins = $offerArray['offer_coins'];
             $offer->price = $offerArray['price'];

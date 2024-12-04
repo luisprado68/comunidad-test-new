@@ -32,9 +32,14 @@ class OfferCreate extends Component
 
         $this->validate([
             'offer.viewers' => 'required|string|max:255',
+            'offer.link' => 'required|string|max:255',
             'offer.offer_coins' => 'required|string|max:255',
             'offer.price' => 'required|string|max:255',
         ],[
+            'offer.link.required' => 'El campo de url es obligatorio.',
+            'offer.link.string' => 'El campo de url debe ser una cadena de texto.',
+            'offer.link.max' => 'El campo de url no debe exceder los 255 caracteres.',
+
             'offer.viewers.required' => 'El campo de seguidores es obligatorio.',
             'offer.viewers.string' => 'El campo de seguidores debe ser una cadena de texto.',
             'offer.viewers.max' => 'El campo de seguidores no debe exceder los 255 caracteres.',
@@ -50,6 +55,7 @@ class OfferCreate extends Component
 
         $offer = [];
         $this->offerService = new OfferService();
+        $offer['link'] = $this->offer['link'];
         $offer['viewers'] = $this->offer['viewers'];
         $offer['offer_coins'] = $this->offer['offer_coins'];
         $offer['price'] = $this->offer['price'];
