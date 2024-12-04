@@ -1,10 +1,10 @@
 <nav class="p-0 m-0 navbar navbar-expand-lg banner-dark">
     @if (session()->has('user'))
-    <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
+    <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_navidad.png')}}" alt="tag"
         class="logo rounded-circle"></a>
-    
+
     @else
-        <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
+        <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_navidad.png')}}" alt="tag"
             class="logo rounded-circle"></a>
     @endif
         {{-- @if (env('APP_ENV') == 'local')
@@ -14,7 +14,7 @@
         <img src="{{'./public/img/banner.png'}}" alt="tag"
         class="mr-4 banner-fondo">
         @endif --}}
-    
+
     {{-- @dd(session('user')['profile_image_url']) --}}
     {{-- <nav class="p-0 m-0 navbar navbar-expand-lg navbar-dark bg-dark"> --}}
     {{-- <div class="container-fluid"> --}}
@@ -106,12 +106,12 @@
             if (minute >= 0 && minute <= 55) {
                 console.log('entro');
                 clearInterval(id);
-               
-               
+
+
                 $.ajax({
                     url: 'chatters',
                     type: "GET",
-                   
+
                     success: function(response) {
                         console.log(response);
 
@@ -134,8 +134,8 @@
                     }
                 });
 
-                
-              
+
+
             }
 
         }, 60000);
@@ -143,8 +143,8 @@
 
 
 
-        
 
-       
+
+
     </script>
 @endpush --}}

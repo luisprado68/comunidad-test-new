@@ -4,11 +4,11 @@
             <div class="row">
                 <div class="col-lg-2 col-md-auto col-sm-12">
                     @if (session()->has('user'))
-                        <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
+                        <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_navidad.png')}}" alt="tag"
                                                             class="logo rounded-circle"></a>
 
                     @else
-                        <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
+                        <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_navidad.png')}}" alt="tag"
                                                             class="logo rounded-circle"></a>
                     @endif
                 </div>
