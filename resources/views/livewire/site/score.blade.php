@@ -53,7 +53,7 @@
                         @endforelse
 
                         <!-- Enlaces de paginación -->
-                        <div class="mt-3">
+                        <div class="mt-3 mb-4">
                             {{ $users->links() }}
                         </div>
                 @endif

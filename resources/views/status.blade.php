@@ -22,7 +22,7 @@
                             <input class="text-center form-control form-control-lg bg-warning" type="text"
                             placeholder="{{ 0 . '/10'}}" disabled>
                             @endif
-                            
+
                         </div>
                         <div class="col">
                             <label class="text-light" for="">Puntaje Semanal</label>
@@ -33,8 +33,8 @@
                                 <input class="text-center form-control form-control-lg bg-warning" type="text"
                                 placeholder="{{ 0 . '/60'}}" disabled>
                             @endif
-                           
-                           
+
+
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@
                         <div class="input-group-prepend bg-dark">
                             <span class="input-group-text bg-primary text-light" id="basic-addon1">NeoCoins</span>
                         </div>
-                        <input type="text" class="form-control" placeholder="{{isset($user->score->neo_coins) ? $user->score->neo_coins . '/500':'0/500'}}" aria-label="0"
+                        <input type="text" class="form-control" placeholder="{{isset($user->score->neo_coins) ? $user->score->neo_coins . '/1000000':'0/1000000'}}" aria-label="0"
                             aria-describedby="basic-addon1">
                     </div>
                     <div class="mb-3 input-group">
