@@ -350,7 +350,7 @@ final class TwichService
                 $users['status'] = 'success';
                 $users['message'] = 'success';
                 foreach ($users_chatters as $key => $item) {
-                    $user_chat  = $this->userService->getByIdandTwichId($item['user_id']);
+                    $user_chat  = $this->userService->getByIdandTwichId($item['user_id'],PlatformType::twich);
 
                     if (!empty($user_chat) && $user_chat->id != $user_streaming->id) {
 
