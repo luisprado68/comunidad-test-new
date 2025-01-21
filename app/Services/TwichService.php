@@ -119,10 +119,6 @@ final class TwichService
     public function getTokenTest(Request $request)
     {
         $this->platform = $this->platformService->getById(session('platform_id'));
-        Log::debug('$this->platform -- ' . json_encode($this->platform));
-        Log::debug('platform_id -- ' . json_encode(session('platform_id')));
-        $result = null;
-        $all = $request->all();
         $code = $request->get('code');
         $this->url = 'https://neo-community.com/login_token_test';
 
@@ -171,9 +167,12 @@ final class TwichService
                 // Do something with $error
             }
         }
-        session(['access_token' => $this->result['access_token']]);
-        session(['refresh_token' => $this->result['refresh_token']]);
-
+        if(isset($this->result) && count($this->result)) {
+            session(['access_token' => $this->result['access_token']]);
+            session(['refresh_token' => $this->result['refresh_token']]);
+            return true;
+        }
+        return false;
     }
 
     public function getRefreshToken($user)

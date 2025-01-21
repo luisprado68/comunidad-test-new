@@ -1,4 +1,21 @@
+
 <div  style="margin-bottom: 100px">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">IMPORTANTE</h1>
+                    <button type="button" class="text-light btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-danger">
+                        Por favor, evita cerrar la ventana de visualización del directo, ya que esta se cerrará automáticamente al finalizar.
+                        En caso de que no se cierre automáticamente o se cierre antes de tiempo, es fundamental que tomes una captura del historial de la transmisión y la compartas en el grupo de soporte de tu comunidad. Un administrador estará disponible para asistirte.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
     <meta name="csrf-token" content="{{ csrf_token() }}">
             <div class="container">
                 <div class="row">
@@ -67,7 +84,10 @@
                 </div>
             </div>
     <script>
+
         document.addEventListener('DOMContentLoaded', (event) => {
+            var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            myModal.show();
             var minites_before = @json($minites_before);
             let user_stream = @json($user_stream->id);
 

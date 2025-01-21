@@ -131,53 +131,59 @@ class LoginController extends Controller
         Log::debug('$request **** ' . json_encode($request->all()));
         $support_user = [];
         $supportScoreArray = [];
-        $total = 0;
-        $this->twichService->getTokenTest($request);
-        $this->platform = $this->platformService->getById(session('platform_id'));
-        if($this->platform->id == PlatformType::twich){
-            $user = $this->twichService->getUser();
-        }else{
-            $user = $this->trovoService->getUser();
-        }
 
-        if(array_key_exists('email',$user)){
-            $user_model = $this->userService->userExists($user['email'], $user['id'],$user['platform_id']);
-        }else{
-            $user_model = $this->userService->userExists($user['display_name'].'@gmail.com',$user['id'],$user['platform_id']);
-        }
-
-        if ($user_model == false) {
-            // TODO validar y traer el primer equipo que tenga menos de 100 usuarios para asignar
-
-            $user_model_created = $this->userService->create($user);
-            if (session()->exists('support_to_user_id')) {
-
-                $support_user['user_id'] = $user_model_created->id;
-                $support_user['channel'] = $user_model_created->channel;
-
-                $supportScoreArray['user_id'] =  session('support_to_user_id');
-                $supportScoreArray['point'] = 0;
-                $supportScoreArray['user'] = json_encode($support_user);
-                $this->supportScoreService->create($supportScoreArray);
-            }
-        }else{
-            $total = 0;
-            if(count($user_model->supportScores)> 0){
-                $total = count($user_model->supportScores->where('point', 1));
+        $result = $this->twichService->getTokenTest($request);
+        if($result){
+            $this->platform = $this->platformService->getById(session('platform_id'));
+            if($this->platform->id == PlatformType::twich){
+                $user = $this->twichService->getUser();
+            }else{
+                $user = $this->trovoService->getUser();
             }
 
-            if ($total != 0) {
-                $user_model->points_support = $total;
-                $user_model->save();
+            if(array_key_exists('email',$user)){
+                $user_model = $this->userService->userExists($user['email'], $user['id'],$user['platform_id']);
+            }else{
+                $user_model = $this->userService->userExists($user['display_name'].'@gmail.com',$user['id'],$user['platform_id']);
             }
 
+            if ($user_model == false) {
+                // TODO validar y traer el primer equipo que tenga menos de 100 usuarios para asignar
+
+                $user_model_created = $this->userService->create($user);
+                if (session()->exists('support_to_user_id')) {
+
+                    $support_user['user_id'] = $user_model_created->id;
+                    $support_user['channel'] = $user_model_created->channel;
+
+                    $supportScoreArray['user_id'] =  session('support_to_user_id');
+                    $supportScoreArray['point'] = 0;
+                    $supportScoreArray['user'] = json_encode($support_user);
+                    $this->supportScoreService->create($supportScoreArray);
+                }
+            }else{
+                $total = 0;
+                if(count($user_model->supportScores)> 0){
+                    $total = count($user_model->supportScores->where('point', 1));
+                }
+
+                if ($total != 0) {
+                    $user_model->points_support = $total;
+                    $user_model->save();
+                }
+
+            }
+
+            if (isset($user_model->time_zone) && !empty($user_model->time_zone)) {
+                return redirect('summary');
+            } else {
+                return redirect('profile');
+            }
+        }else{
+            session(['showError' => true]);
+            return redirect('home');
         }
 
-        if (isset($user_model->time_zone) && !empty($user_model->time_zone)) {
-            return redirect('summary');
-        } else {
-            return redirect('profile');
-        }
     }
 
     public function getGoogleUser(){

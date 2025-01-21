@@ -28,6 +28,7 @@ class Home extends Component
 
     public $profile_image_url;
     public $response;
+    public $showError;
     private $twichService;
     private $userService;
     private $scheduleService;
@@ -40,45 +41,57 @@ class Home extends Component
         $this->scheduleService = $scheduleService;
     }
 
-
+    public function mount()
+    {
+        $this->showError = session('showError');
+    }
     public function render()
     {
-        if (session()->exists('user')) {
+        if(session()->exists('user')){
             $user = session('user');
-
-            $userModel = $this->userService->userExistsActive($user['display_name'] . '@gmail.com', $user['id']);
-
-
-            if ($userModel->status) {
+            if(array_key_exists('platform_id',$user)){
+                if(array_key_exists('email',$user)){
+                    $userModel = $this->userService->userExistsActive($user['email'],$user['id'],$user['platform_id']);
+                }else{
+                    $userModel = $this->userService->userExistsActive($user['display_name'].'@gmail.com',$user['id'],$user['platform_id']);
+                }
+            }else{
+                $userModel = $this->userService->userExistsActive($user['email'],$user['id']);
+            }
+            if($userModel->status){
 
                 session(['status' => $userModel->status]);
-            } else {
+            }
+            else{
                 session(['status' => 0]);
             }
 
+        }
+        $this->users = $this->userService->getUsersTop();
+        if($this->users){
+            $users = $this->users->toArray();
 
-            $this->users = $this->userService->getUsersTop();
-            if ($this->users) {
-                $this->users = $this->users->toArray();
+            $this->twoElements1 = array_slice($users, 0, 3);
 
-                $this->twoElements1 = array_slice($this->users, 0, 3);
-                // Get two elements starting from index 3
-                $this->twoElements2 = array_slice($this->users, 3, 3);
-                // Get two elements starting from index 3
-                $this->twoElements3 = array_slice($this->users, 6, 3);
-                // Get two elements starting from index 3
-                $this->twoElements4 = array_slice($this->users, 9, 1);
-            }
-
-            $this->top = 1;
-            $this->top_two = 4;
-            $this->top_three = 7;
-            $this->top_four = 10;
-
-
-            return view('livewire.home');
+            // Get two elements starting from index 3
+            $this->twoElements2 = array_slice($users, 3,3);
+            // Get two elements starting from index 3
+            $this->twoElements3 = array_slice($users, 6, 3);
+            // Get two elements starting from index 3
+            $this->twoElements4 = array_slice($users, 9,1);
         }
 
+        $this->top = 1;
+        $this->top_two = 4;
+        $this->top_three = 7;
+        $this->top_four = 10;
 
+
+        return view('livewire.home');
+
+    }
+    public function hideError(){
+        $this->showError = false;
+        session()->forget('showError');
     }
 }

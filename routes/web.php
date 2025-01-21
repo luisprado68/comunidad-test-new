@@ -65,15 +65,15 @@ use Laravel\Socialite\Facades\Socialite;
 
     Route::get('summary', [SummaryController::class, 'index'])->name('summary');
     Route::get('summary/{id}', [SummaryController::class, 'summaryByUserId'])->name('summary-user');
-    Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('test/', Home::class)->name('test');
     Route::get('/home_test', [HomeTestController::class, 'index'])->name('home_test');
-    // Route::get('/home', [InitialController::class, 'index'])->name('home');
+//     Route::get('/', [InitialController::class, 'index'])->name('home');
 
     Route::get('get_coins', [ScoreController::class, 'getCoins'])->name('getCoins');
     Route::get('offer/create/{user_id}', [OfferController::class, 'create'])->name('offer-create');
     Route::get('offer/index', [OfferController::class, 'index'])->name('offer-index');
 
-    //Route::get('/', [HomeController::class, 'index'])->name('home');
+    Route::get('/', [HomeController::class, 'index'])->name('home');
     Route::get('support', [SupportController::class, 'index'])->name('support');
     Route::get('support/{user_id}',[SupportController::class, 'support_user'])->name('support_user');
     Route::post('support/plus_point',[SupportController::class, 'plusPointToUser'])->name('plus_point');

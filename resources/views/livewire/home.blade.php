@@ -3,31 +3,29 @@
     <div class="container">
         <div class="row">
 
-            <div class="pt-5 col-md-12 w-100">
-                @if (session()->has('user') && session('status') == 0)
-
-                    {{-- @include('link') --}}
-                @else
-
-
-                    <div class="row">
-                        <div class="col-3">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" wire:model="search">
-                            <div class="list-group">
-                                @if (count($list))
-                                    @foreach($list as $user_found)
-                                        <div class="bg-light"></div>
-                                        <a href="#" class="list-group-item list-group-item-action">{{ $user_found->channel }}</a>
-                                    @endforeach
-                                @endif
+            @if(session('showError'))
+                <!-- Modal -->
+                <div class="modal  @if($showError ) d-block @else d-none @endif" itabindex="-1" role="dialog" style="background: rgba(0, 0, 0, 0.5);">
+                    <div class="modal-dialog">
+                        <div class="modal-content bg-dark">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">ATENCIÓN</h1>
+                                <button type="button" class="text-light btn-close" data-bs-dismiss="modal" aria-label="Close" wire:click="hideError"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p class="text-danger">
+                                    En estos momentos estamos experimentando problemas con la página debido al mantenimiento de la plataforma de Twitch. Por favor, inténtalo de nuevo más tarde o contacta con un administrador.
+                                </p>
                             </div>
                         </div>
-                        <div class="col-2">
-                            <button class="my-2 btn btn-outline-success my-sm-0" type="submit" wire:click='setSearch' ><i class="bi bi-search"></i></button>
-                        </div>
                     </div>
+                </div>
+            @endif
+            <div class="pt-5 col-md-12 w-100 section-home">
+                @if (session()->has('user') && session('status') == 0)
 
-
+                    @include('link')
+                @else
                     <div class="pb-3 text-center col">
                         <h4 class="text-center text-light">BIENVENIDO A LA COMUNIDAD MAS GRANDE DE STREAMERS</h4>
                         <h4 class="text-center text-light">DONDE PODRÁS CONOCER CREADORES DE CONTENIDO</h4>
@@ -38,7 +36,7 @@
                             <div class="row">
 
                                 <div class="col-12">
-                                    <div class="col-md-12 w-100">
+                                    <div class="col-md-12 ">
                                         <div class="card ">
                                             {{-- <div class="card-header">{{ __('Dashboard') }}</div> --}}
 
@@ -55,22 +53,21 @@
                                                         <li>
                                                             <h5 class="text-center">Esos puntos te servirán para que tengas apoyo y muchos
                                                                 beneficios.</h5>
-                                                            {{-- {{session('test')}} --}}
                                                         </li>
                                                     </ul>
                                                 </div>
                                                 @if (!session()->has('user'))
-                                                    <div class="col-lg-4 col-md-4">
+                                                    <div class="col-lg-6 col-md-6  col-s-12">
                                                         <div class="text-center card-body">
                                                             @if (env('APP_ENV') == 'local')
                                                                 <a class="dropdown-item"
-                                                                    href="{{ route('login-test') }}"><button type="button"
-                                                                        class="btn btn-lg twich-button" style=""><i
+                                                                   href="{{ route('login-test') }}"><button type="button"
+                                                                                                            class="btn btn-lg twich-button" style=""><i
                                                                             class="fa-brands fa-twitch"></i> Únete
                                                                         con
                                                                         TWITCH</button></a>
                                                             @else
-                                                                <a class="dropdown-item" href="{{ route('login_twich') }}"><button
+                                                                <a class="dropdown-item" href="{{ route('login_twich_test',['platform'=>\App\Enums\PlatformType::twich]) }}"><button
                                                                         type="button" class="btn btn-lg twich-button"
                                                                         style=""><i class="fa-brands fa-twitch"></i>
                                                                         Únete
@@ -80,26 +77,27 @@
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4">
+                                                    <div class="col-lg-6 col-md-6  col-s-12">
                                                         <div class="text-center card-body">
-                                                            <a class="dropdown-item" href="https://trovo.live/" target="_blank"><button type="button" class="btn btn-lg trovo-button"
-                                                                style="">
-                                                                <img src="{{ asset('/img/trovo.png') }}" alt="" width="25px">
-                                                                 Únete con
-                                                                TROVO</button></a>
+                                                            @if (env('APP_ENV') == 'local')
+                                                                <a class="dropdown-item" href="{{ route('login-test') }}"><button type="button" class="btn btn-lg trovo-button"
+                                                                                                                                  style="">
+                                                                        <img src="{{ asset('/img/trovo.png') }}" alt="" width="25px">
+                                                                        Únete con
+                                                                        TROVO</button></a>
+                                                            @else
+                                                                <a class="dropdown-item" href="{{ route('login_twich_test',['platform'=>\App\Enums\PlatformType::trovo]) }}"><button
+                                                                        type="button" class="btn btn-lg trovo-button"
+                                                                        style=""> <img src="{{ asset('/img/trovo.png') }}" alt="" width="25px">
+                                                                        Únete
+                                                                        con
+                                                                        TROVO</button></a>
+                                                            @endif
 
 
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4">
-                                                        <div class="text-center card-body">
-                                                            <a class="dropdown-item" href="https://kick.com/" target="_blank"><button type="button" class="btn btn-lg kick-button"
-                                                                style="">
-                                                                <i class="fa-brands fa-kickstarter"></i> Únete con
-                                                                KICK</button></a>
 
-                                                        </div>
-                                                    </div>
                                                 @endif
 
 
@@ -107,7 +105,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-s-12">
+                                <div class="col-lg-6 col-md-6  col-s-12 col-s-12">
                                     <div class="pt-5 col-md-12 s-12 w-100">
                                         <div class="card banner">
                                             <h6 class="text-center">Streamers en directo.</h6>
@@ -127,9 +125,66 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-s-12">
+                                <div class="col-lg-6 col-md-6   col-s-12">
                                     <div class="pt-5 col-md-12 w-100">
                                         <div class="card banner_trovo">
+                                            <h6 class="text-center">Streamers en directo.</h6>
+
+                                            <div class="row">
+                                                <div class="p-3 col-md-12">
+                                                    <div class="card trovo-uno" style="height: 150px; background-color: #76d86c">
+                                                        {{-- <div class="w-50"></div> --}}
+                                                    </div>
+                                                </div>
+                                                <div class="p-3 col-md-12">
+                                                    <div class="card trovo-dos" style="height: 150px; background-color: #76d86c">
+                                                        {{-- <div class="w-50"></div> --}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12  col-s-12 col-s-12">
+                                    <div class="pt-5 col-md-12 s-12 w-100">
+                                        <div class="card ">
+
+
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6  col-s-12">
+                                                    <div class="text-center card-body">
+                                                        <a class="dropdown-item" href="https://kick.com/" target="_blank"><button type="button" class="btn btn-lg kick-button"
+                                                                                                                                  style="">
+                                                                <i class="fa-brands fa-kickstarter"></i> Únete con
+                                                                KICK</button></a>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6  col-s-12">
+                                                    <div class="text-center card-body">
+                                                        @if (env('APP_ENV') == 'local')
+                                                            <a class="dropdown-item" href="{{ route('login_google') }}" target="_blank"><button type="button" class="btn btn-lg youtube-button"
+                                                                                                                                                style="">
+                                                                    <i class="bi bi-youtube"></i> Únete con
+                                                                    Youtube</button></a>
+                                                        @else
+                                                            <a class="dropdown-item" href="{{ route('login_google') }}" target="_blank"><button type="button" class="btn btn-lg youtube-button"
+                                                                                                                                                style="">
+                                                                    <i class="bi bi-youtube"></i> Únete con
+                                                                    Youtube</button></a>
+                                                        @endif
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6   col-s-12">
+                                    <div class="pt-5 col-md-12 s-12 w-100">
+                                        <div class="card banner_kick">
                                             <h6 class="text-center">Streamers en directo.</h6>
 
                                             <div class="row">
@@ -147,9 +202,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-4 col-s-12">
+                                <div class="col-lg-6 col-md-6   col-s-12">
                                     <div class="pt-5 col-md-12 s-12 w-100">
-                                        <div class="card banner_kick">
+                                        <div class="card banner_youtube">
                                             <h6 class="text-center">Streamers en directo.</h6>
 
                                             <div class="row">
@@ -173,8 +228,7 @@
 
                                             <div class="text-center col-12 text-light card " style="background-color: #6474b8">
                                                 <h4>Sumate a la comunidad en Discord!</h4>
-                                                <a href="https://discord.gg/uncB86TTSg" target="_blank"><i class='pb-2 fab fa-discord animate__animated animate__bounce' style='font-size:30px;color:white'></i></a>
-                                                {{-- <h1 class="animate__animated animate__bounce">An animated element</h1> --}}
+                                                <a href="https://discord.gg/mWaYnDBDp5" target="_blank"><i class='pb-2 bi bi-discord animate__animated animate__bounce' style='font-size:30px;color:white'></i></a>
                                             </div>
                                         </div>
                                     </div>
@@ -182,7 +236,7 @@
                                 </div>
                                 <div class="pt-3 col-12">
 
-                                    <div class="col-md-12 w-100">
+                                    <div class="col-md-12">
                                         <div class="card" style="background-color: #031633">
                                             {{-- <div class="card-header">{{ __('Dashboard') }}</div> --}}
 
@@ -190,15 +244,15 @@
                                                 <div class="col-12">
                                                     <h1 class="pb-3 text-center text-light">Top de la semana</h1>
                                                     <div class="row">
+                                                        {{--                                                        @dump($twoElements1)--}}
                                                         @if (count($twoElements1))
                                                             @foreach ($twoElements1 as $twoElements)
-                                                            <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
-
+                                                                <div class="mb-4 text-center col-lg-6 col-md-6   col-sm-6">
                                                                     <div class=" text-light">
                                                                         <p style="display: inline"><b>{{'#' .$top++}}</b></p>
-                                                                        <p>{{$twoElements['channel']}}</p>
-                                                                        <img src="{{$twoElements['img_profile']}}" alt="tag"
-                                                                        class="rounded-circle" width="100px">
+                                                                        <a class="text-light link_streamer" style="text-decoration: none" href="{{ route('summary-user',['id' => $twoElements['user_id'] ]) }}"><p>{{$twoElements['channel']}}</p>
+                                                                            <img src="{{$twoElements['img_profile']}}" alt="tag"
+                                                                                 class="rounded-circle" width="100px"></a>
                                                                     </div>
                                                                 </div>
 
@@ -207,13 +261,13 @@
 
                                                         @if (count($twoElements2))
                                                             @foreach ($twoElements2 as $twoElements)
-                                                            <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
+                                                                <div class="mb-4 text-center col-lg-6 col-md-6   col-sm-6">
 
                                                                     <div class=" text-light">
                                                                         <p style="display: inline"><b>{{'#' .$top++}}</b></p>
-                                                                        <p>{{$twoElements['channel']}}</p>
-                                                                        <img src="{{$twoElements['img_profile']}}" alt="tag"
-                                                                        class="rounded-circle" width="100px">
+                                                                        <a class="text-light link_streamer" style="text-decoration: none" href="{{ route('summary-user',['id' => $twoElements['user_id'] ]) }}"><p>{{$twoElements['channel']}}</p>
+                                                                            <img src="{{$twoElements['img_profile']}}" alt="tag"
+                                                                                 class="rounded-circle" width="100px"></a>
                                                                     </div>
                                                                 </div>
 
@@ -222,32 +276,32 @@
 
                                                         @if (count($twoElements3))
                                                             @foreach ($twoElements3 as $twoElements)
-                                                            <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
+                                                                <div class="mb-4 text-center col-lg-6 col-md-6   col-sm-6">
 
                                                                     <div class=" text-light">
-                                                                        <p style="display: inline">{{'#' .$top++}}</p>
-                                                                        <p>{{$twoElements['channel']}}</p>
-                                                                        <img src="{{$twoElements['img_profile']}}" alt="tag"
-                                                                        class="rounded-circle" width="100px">
+                                                                        <p style="display: inline"><b>{{'#' .$top++}}</b></p>
+                                                                        <a class="text-light link_streamer" style="text-decoration: none" href="{{ route('summary-user',['id' => $twoElements['user_id'] ]) }}"><p>{{$twoElements['channel']}}</p>
+                                                                            <img src="{{$twoElements['img_profile']}}" alt="tag"
+                                                                                 class="rounded-circle" width="100px"></a>
                                                                     </div>
                                                                 </div>
 
                                                             @endforeach
                                                         @endif
 
-                                                            @if (count($twoElements4))
-                                                                @foreach ($twoElements4 as $twoElements)
-                                                                <div class="mb-4 text-center col-lg-4 col-md-4 col-sm-6">
+                                                        @if (count($twoElements4))
+                                                            @foreach ($twoElements4 as $twoElements)
+                                                                <div class="mb-4 text-center col-lg-6 col-md-6   col-sm-6">
 
-                                                                        <div class=" text-light">
-                                                                            <p style="display: inline">{{'#' .$top++}}</p>
-                                                                            <p>{{$twoElements['channel']}}</p>
+                                                                    <div class=" text-light">
+                                                                        <p style="display: inline"><b>{{'#' .$top++}}</b></p>
+                                                                        <a class="text-light link_streamer" style="text-decoration: none" href="{{ route('summary-user',['id' => $twoElements['user_id'] ]) }}"><p>{{$twoElements['channel']}}</p>
                                                                             <img src="{{$twoElements['img_profile']}}" alt="tag"
-                                                                            class="rounded-circle" width="100px">
-                                                                        </div>
+                                                                                 class="rounded-circle" width="100px"></a>
                                                                     </div>
+                                                                </div>
 
-                                                                @endforeach
+                                                            @endforeach
                                                         @endif
 
                                                     </div>
