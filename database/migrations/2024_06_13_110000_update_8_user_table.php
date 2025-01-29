@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             if (Schema::hasColumn('users', 'trovo_id')) {
                 $table->dropColumn('trovo_id');
-                $table->unsignedBigInteger('platform_id')->index()->nullable();
-                $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
             }
-
+            $table->unsignedBigInteger('platform_id')->index()->nullable();
+            $table->foreign('platform_id')->references('id')->on('platforms')->onDelete('cascade');
         });
     }
 
