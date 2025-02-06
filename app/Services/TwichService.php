@@ -378,7 +378,7 @@ final class TwichService
                         $current = Carbon::now();
                         $minute = $current->format('i');
 
-                        if ($minute >= 56 && $minute <= 59 ) {
+                        if ($minute >= 55 && $minute <= 59 ) {
                             $score = $user_chat->score;
                             if (isset($score) && !empty($score)) {
 
