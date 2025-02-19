@@ -4,6 +4,28 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <div class="container">
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5 text-light" id="exampleModalLabel">IMPORTANTE</h1>
+                        <button type="button" class="text-light btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-danger">Para garantizar una mejor experiencia en el directo, sigue estas indicaciones:</p>
+                        <p class="text-danger"> ✅ Mantén abierta la ventana de Twitch mientras ves la transmisión.</p>
+                        <p class="text-danger">✅ Interactúa con el streamer de forma genuina. Evita comentarios automáticos o sin contexto (ejemplo: solo "GG" o emotes).
+                        </p>
+                        <p class="text-danger">✅ Si tienes un problema, captura el historial del chat y compártelo en el grupo de soporte de tu comunidad. Un administrador te asistirá.</p>
+                        <p class="text-danger">✅ El chat debe estar habilitado para todos o en modo "solo seguidores" de manera inmediata.</p>
+                        <p class="text-danger">❌ Prohibido activar el modo "solo suscriptores" o "solo verificados".</p>
+                        <p class="text-danger">⚡ Mantente activo en el chat y participa!</p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             @if (session()->has('user') && session('status') == 0 || !isset($user->team))
                 @include('link')
@@ -160,6 +182,12 @@
 @endsection
 @push('chatters')
     <script>
+
+
+            document.addEventListener('DOMContentLoaded', (event) => {
+                var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                myModal.show();
+            })
         // Función para verificar la hora actual y actualizar la página si son 15 minutos exactos
         function checkAndReload() {
             // Obtener la hora actual
