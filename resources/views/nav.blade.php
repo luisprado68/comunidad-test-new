@@ -1,10 +1,10 @@
 <nav class="p-0 m-0 navbar navbar-expand-lg banner-dark">
     @if (session()->has('user'))
-    <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_navidad.png')}}" alt="tag"
+    <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
         class="logo rounded-circle"></a>
 
     @else
-        <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_navidad.png')}}" alt="tag"
+        <a  href="{{ route('home') }}"><img src="{{asset('/img/logo_co.png')}}" alt="tag"
             class="logo rounded-circle"></a>
     @endif
         {{-- @if (env('APP_ENV') == 'local')
